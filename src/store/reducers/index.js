@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import data from "./data";
+import task from "./task";
 
 export default combineReducers({
-  data,
+  task,
 });
