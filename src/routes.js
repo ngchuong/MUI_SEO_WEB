@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 /** 
   All of the routes for the Soft UI Dashboard React are added here,
   You can add a new route, customize the routes and delete the routes here.
@@ -38,7 +23,7 @@ Coded by www.creative-tim.com
 // Material Dashboard 2 React layouts
 import Icon from "@mui/material/Icon";
 import Dashboard from "./layouts/dashboard";
-import Tables from "./layouts/tables";
+// import Tables from "./layouts/tables";
 import Billing from "./layouts/billing";
 // import RTL from "layouts/rtl";
 // import Notifications from "layouts/notifications";
@@ -46,7 +31,8 @@ import Profile from "./layouts/profile";
 import SignIn from "./layouts/authentication/sign-in";
 import SignUp from "./layouts/authentication/sign-up";
 
-// @mui icons
+import DoTask from "./layouts/task";
+import Guideline from "./layouts/guideline";
 
 const routes = [
   {
@@ -59,15 +45,31 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Tables",
-    key: "tables",
-    icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/tables",
-    component: <Tables />,
+    name: "Làm nhiệm vụ kiếm tiền",
+    key: "task",
+    icon: <Icon fontSize="small">task</Icon>,
+    route: "/task",
+    component: <DoTask />,
   },
   {
     type: "collapse",
-    name: "Billing",
+    name: "Hướng dẫn làm nhiệm vụ",
+    key: "guideline",
+    icon: <Icon fontSize="small">table_view</Icon>,
+    route: "/guide",
+    component: <Guideline />,
+  },
+  // {
+  //   type: "collapse",
+  //   name: "Tables",
+  //   key: "tables",
+  //   icon: <Icon fontSize="small">table_view</Icon>,
+  //   route: "/tables",
+  //   component: <Tables />,
+  // },
+  {
+    type: "collapse",
+    name: "Rút tiền",
     key: "billing",
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/billing",
@@ -91,7 +93,7 @@ const routes = [
   // },
   {
     type: "collapse",
-    name: "Profile",
+    name: "Tài khoản",
     key: "profile",
     icon: <Icon fontSize="small">person</Icon>,
     route: "/profile",
