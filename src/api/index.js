@@ -10,9 +10,11 @@ export function requestPostKey(key) {
 }
 
 // authentication
-export function requestSignIn(email, pwd) {
-  return axios.post("google.com", { email, pwd }).then((res) => res.data);
+export function requestSignIn(email, password) {
+  return axios.post("http://localhost:3000/verify", { email, password }).then((res) => res);
 }
-export function requestSignUp(name, email, pwd) {
-  return axios.post("google.com", { name, email, pwd }).then((res) => res.data);
+export function requestSignUp(name, telephone, address, email, password) {
+  return axios
+    .post("http://localhost:3000/api/users", { name, telephone, address, email, password })
+    .then((res) => res);
 }

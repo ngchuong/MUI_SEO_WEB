@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 // react-router-dom components
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -18,8 +18,17 @@ import MDButton from "../../../components/MDButton";
 import { reqSignIn } from "../../../actions/authentication";
 
 function Basic() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [inputVal, setInputVal] = useState({ email: "", pwd: "" });
   const [rememberMe, setRememberMe] = useState(false);
+  const isSignIn = useSelector((state) => state.user.isSignIn);
+  useEffect(() => {
+    if (isSignIn) {
+      navigate("/task");
+    }
+  }, [isSignIn]);
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
   const onChangeInput = (key) => (e) => {
@@ -27,8 +36,7 @@ function Basic() {
   };
 
   const doSignIn = () => {
-    console.log(inputVal);
-    reqSignIn(inputVal);
+    dispatch(reqSignIn(inputVal));
   };
 
   return (

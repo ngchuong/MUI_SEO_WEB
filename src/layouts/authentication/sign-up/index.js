@@ -2,6 +2,8 @@ import React, { useState } from "react";
 // react-router-dom components
 import { Link } from "react-router-dom";
 
+import { useDispatch } from "react-redux";
+
 // @mui material components
 import Card from "@mui/material/Card";
 import Checkbox from "@mui/material/Checkbox";
@@ -17,14 +19,21 @@ import MDButton from "../../../components/MDButton";
 import { reqSignUp } from "../../../actions/authentication";
 
 function Cover() {
-  const [inputVal, setInputVal] = useState({ name: "", email: "", pwd: "" });
+  const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  const [inputVal, setInputVal] = useState({
+    name: "",
+    phone: "",
+    address: "",
+    email: "",
+    pwd: "",
+  });
   const onChangeInput = (key) => (e) => {
     setInputVal({ ...inputVal, [key]: e.target.value });
   };
 
   const doSignUp = () => {
-    console.log(inputVal);
-    reqSignUp(inputVal);
+    dispatch(reqSignUp(inputVal));
   };
   return (
     <CoverLayout image={bgImage}>
@@ -64,6 +73,26 @@ function Cover() {
                 fullWidth
                 value={inputVal.email}
                 onChange={onChangeInput("email")}
+              />
+            </MDBox>
+            <MDBox mb={2}>
+              <MDInput
+                type="number"
+                label="Số điện thoại"
+                variant="standard"
+                fullWidth
+                value={inputVal.phone}
+                onChange={onChangeInput("phone")}
+              />
+            </MDBox>
+            <MDBox mb={2}>
+              <MDInput
+                type="text"
+                label="Địa chỉ"
+                variant="standard"
+                fullWidth
+                value={inputVal.address}
+                onChange={onChangeInput("address")}
               />
             </MDBox>
             <MDBox mb={2}>
