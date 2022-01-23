@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
 import MDBox from "components/MDBox";
+import MDTypography from "components/MDTypography";
 
 import { reqGetTask, reqPostTask } from "../../../actions/request";
 
@@ -32,7 +33,55 @@ function TrafficWeb() {
 
   return (
     <div>
-      <div>Huong dan lam nhiem vu</div>
+      <div>
+        <MDTypography variant="h5">Hướng dẫn làm nhiệm vụ</MDTypography>
+        <div>
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+          been the industrys standard dummy text ever since the 1500s, when an unknown printer took
+          a galley of type and scrambled it to make a type specimen book. It has survived not only
+          five centuries, but also the leap into electronic typesetting, remaining essentially
+          unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+          Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+          PageMaker including versions of Lorem Ipsum.
+        </div>
+        <div>
+          <div>
+            <MDBox
+              component="img"
+              src="https://thumbs.dreamstime.com/b/environment-earth-day-hands-trees-growing-seedlings-bokeh-green-background-female-hand-holding-tree-nature-field-gra-130247647.jpg"
+              alt="#"
+              borderRadius="lg"
+              shadow="md"
+              width="100%"
+              height="100%"
+              position="relative"
+              zIndex={1}
+            />
+            <MDBox
+              component="img"
+              src="https://thumbs.dreamstime.com/b/environment-earth-day-hands-trees-growing-seedlings-bokeh-green-background-female-hand-holding-tree-nature-field-gra-130247647.jpg"
+              alt="#"
+              borderRadius="lg"
+              shadow="md"
+              width="100%"
+              height="100%"
+              position="relative"
+              zIndex={1}
+            />
+            <MDBox
+              component="img"
+              src="https://thumbs.dreamstime.com/b/environment-earth-day-hands-trees-growing-seedlings-bokeh-green-background-female-hand-holding-tree-nature-field-gra-130247647.jpg"
+              alt="#"
+              borderRadius="lg"
+              shadow="md"
+              width="100%"
+              height="100%"
+              position="relative"
+              zIndex={1}
+            />
+          </div>
+        </div>
+      </div>
       <div>
         {doing ? (
           <div>
