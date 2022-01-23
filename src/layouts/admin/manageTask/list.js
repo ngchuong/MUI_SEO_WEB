@@ -10,27 +10,31 @@ import DataTable from "examples/Tables/DataTable";
 
 const columns = [
   {
-    Header: "Tên",
+    Header: "Tên nhiệm vụ",
     accessor: "name",
-    width: "30%",
+    width: "20%",
     align: "left",
   },
   {
-    Header: "Email",
-    accessor: "email",
-    width: "40%",
+    Header: "Mô tả nhiệm vụ",
+    width: "50%",
+    accessor: "description",
     align: "left",
   },
   {
-    Header: "Tiền kiếm được",
-    accessor: "money",
+    Header: "Hình ảnh",
     width: "30%",
+    accessor: "image",
     align: "left",
   },
 ];
 const rows = [];
 for (let i = 0; i < 10; i += 1) {
-  rows.push({ name: `user_${i}`, email: `user_${i}@gmail.com`, money: `100.000đ` });
+  rows.push({
+    name: `search_website_${i}`,
+    description: `vào google, nhập từ khóa tìm kiếm_${i}`,
+    image: `100.000đ`,
+  });
 }
 
 export default function UserList() {
@@ -49,7 +53,7 @@ export default function UserList() {
             coloredShadow="info"
           >
             <MDTypography variant="h6" color="white">
-              Danh sách user
+              Danh sách nhiệm vụ
             </MDTypography>
           </MDBox>
           <MDBox pt={3}>

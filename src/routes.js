@@ -23,7 +23,7 @@
 // Material Dashboard 2 React layouts
 import Icon from "@mui/material/Icon";
 import Dashboard from "./layouts/dashboard";
-import Tables from "./layouts/tables";
+// import Tables from "./layouts/tables";
 import Billing from "./layouts/billing";
 // import RTL from "layouts/rtl";
 // import Notifications from "layouts/notifications";
@@ -146,14 +146,14 @@ const routeAdmin = [
     route: "/manage-task",
     component: <ManageTask />,
   },
-  {
-    type: "collapse",
-    name: "table",
-    key: "manage-table",
-    icon: <Icon fontSize="small">task</Icon>,
-    route: "/manage-table",
-    component: <Tables />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "table",
+  //   key: "manage-table",
+  //   icon: <Icon fontSize="small">task</Icon>,
+  //   route: "/manage-table",
+  //   component: <Tables />,
+  // },
 ];
 
 const routes = role === "admin" ? routeAdmin : routeUser;
