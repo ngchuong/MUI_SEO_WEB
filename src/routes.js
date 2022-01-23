@@ -23,19 +23,22 @@
 // Material Dashboard 2 React layouts
 import Icon from "@mui/material/Icon";
 import Dashboard from "./layouts/dashboard";
-// import Tables from "./layouts/tables";
+import Tables from "./layouts/tables";
 import Billing from "./layouts/billing";
 // import RTL from "layouts/rtl";
 // import Notifications from "layouts/notifications";
 import Profile from "./layouts/profile";
 import SignIn from "./layouts/authentication/sign-in";
 import SignUp from "./layouts/authentication/sign-up";
-
-import Home from "./layouts/home";
 import DoTask from "./layouts/task";
 import Guideline from "./layouts/guideline";
+import Home from "./layouts/home";
 
-const routes = [
+import ManageTask from "./layouts/admin/manageTask";
+import ManageUser from "./layouts/admin/manageUser";
+
+const role = "admin";
+const routeUser = [
   {
     type: "collapse",
     name: "Dashboard",
@@ -117,5 +120,42 @@ const routes = [
     component: <SignUp />,
   },
 ];
+
+const routeAdmin = [
+  {
+    type: "collapse",
+    name: "Home",
+    key: "home",
+    icon: <Icon fontSize="small">home</Icon>,
+    route: "/home",
+    component: <Home />,
+  },
+  {
+    type: "collapse",
+    name: "Quản lý user",
+    key: "manage-user",
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/manage-user",
+    component: <ManageUser />,
+  },
+  {
+    type: "collapse",
+    name: "Quản lý nhiệm vụ",
+    key: "manage-task",
+    icon: <Icon fontSize="small">task</Icon>,
+    route: "/manage-task",
+    component: <ManageTask />,
+  },
+  {
+    type: "collapse",
+    name: "table",
+    key: "manage-table",
+    icon: <Icon fontSize="small">task</Icon>,
+    route: "/manage-table",
+    component: <Tables />,
+  },
+];
+
+const routes = role === "admin" ? routeAdmin : routeUser;
 
 export default routes;
