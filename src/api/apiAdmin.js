@@ -8,6 +8,15 @@ export function requestAllTask() {
   return axios.get("http://localhost:3000/api/tasks").then((res) => res);
 }
 
-export function requestCreateTask(info) {
-  return axios.post("google.com", { ...info }).then((res) => res.data);
+export function requestCreateTask({ name, description, reward, relatedData, priority, image }) {
+  return axios
+    .post("http://localhost:3000/api/tasks", {
+      name,
+      description,
+      reward,
+      related_data: relatedData,
+      priority,
+      image,
+    })
+    .then((res) => res);
 }

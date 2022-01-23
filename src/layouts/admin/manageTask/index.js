@@ -10,7 +10,7 @@ import FormDialog from "components/Dialog";
 
 import ListTask from "./list";
 
-import { reqAllTask } from "../../../actions/admin";
+import { reqAllTask, reqCreateTask } from "../../../actions/admin";
 
 function ManageTask() {
   const dispatch = useDispatch();
@@ -23,9 +23,12 @@ function ManageTask() {
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const createTask = (data) => {
+    dispatch(reqCreateTask(data));
   };
 
   return (
@@ -49,7 +52,7 @@ function ManageTask() {
           </MDBox>
         </MDBox>
       </MDBox>
-      {open && <FormDialog handleClose={handleClose} open={open} />}
+      {open && <FormDialog handleClose={handleClose} open={open} onSubmit={createTask} />}
     </DashboardLayout>
   );
 }

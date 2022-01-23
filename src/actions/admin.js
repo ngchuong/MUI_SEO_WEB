@@ -10,7 +10,7 @@ export const reqAllUser = () => async (dispatch) => {
   } catch (err) {
     console.log(err);
   }
-  if (response && response.status.startsWith("20")) {
+  if (response && response.status === 200) {
     dispatch(updateAllUser(response.data));
   }
 };
@@ -23,20 +23,19 @@ export const reqAllTask = () => async (dispatch) => {
   } catch (err) {
     console.log(err);
   }
-  if (response && response.status.startsWith("20")) {
+  if (response && response.status === 200) {
     dispatch(updateAllTask(response.data));
   }
 };
 
-export const reqCreateTask = () => async (dispatch) => {
+export const reqCreateTask = (data) => async (dispatch) => {
   let response;
   try {
-    response = await requestCreateTask();
+    response = await requestCreateTask(data);
   } catch (err) {
     console.log(err);
   }
-  console.log(response);
-  if (response) {
-    dispatch(updateAllUser(response));
+  if (response && response.status === 200) {
+    dispatch(updateAllTask([response.data]));
   }
 };
