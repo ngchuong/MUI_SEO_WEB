@@ -31,6 +31,7 @@ import Profile from "./layouts/profile";
 import SignIn from "./layouts/authentication/sign-in";
 import SignUp from "./layouts/authentication/sign-up";
 
+import Home from "./layouts/home";
 import DoTask from "./layouts/task";
 import Guideline from "./layouts/guideline";
 
@@ -42,6 +43,14 @@ const routes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
     component: <Dashboard />,
+  },
+  {
+    type: "collapse",
+    name: "Home",
+    key: "home",
+    icon: <Icon fontSize="small">home</Icon>,
+    route: "/home",
+    component: <Home />,
   },
   {
     type: "collapse",

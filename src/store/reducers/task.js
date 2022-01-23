@@ -7,11 +7,11 @@ const Task = createSlice({
   name: "Task",
   initialState,
   reducers: {
-    updateCurrenttask(state, { payload }) {
+    updateCurrentTask(state, { payload }) {
       return { ...state, currentTask: payload };
     },
   },
 });
 
-export const { updateCurrenttask } = Task.actions;
+export const { updateCurrentTask } = Task.actions;
 export default Task.reducer;

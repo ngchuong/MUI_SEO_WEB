@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import Switch from "@mui/material/Switch";
 
-// Material Dashboard 2 React components
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 import MDBox from "../../../components/MDBox";
@@ -15,7 +14,8 @@ import MDTypography from "../../../components/MDTypography";
 import MDInput from "../../../components/MDInput";
 import MDButton from "../../../components/MDButton";
 
-// Authentication layout components
+// Authentication action
+import { reqSignIn } from "../../../actions/authentication";
 
 function Basic() {
   const [inputVal, setInputVal] = useState({ email: "", pwd: "" });
@@ -28,6 +28,7 @@ function Basic() {
 
   const doSignIn = () => {
     console.log(inputVal);
+    reqSignIn(inputVal);
   };
 
   return (
@@ -45,7 +46,7 @@ function Basic() {
           textAlign="center"
         >
           <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-            Sign in
+            Đăng nhập
           </MDTypography>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
@@ -62,7 +63,7 @@ function Basic() {
             <MDBox mb={2}>
               <MDInput
                 type="password"
-                label="Password"
+                label="Mật khẩu"
                 fullWidth
                 value={inputVal.pwd}
                 onChange={onChangeInput("pwd")}
@@ -82,12 +83,12 @@ function Basic() {
             </MDBox>
             <MDBox mt={4} mb={1}>
               <MDButton variant="gradient" color="info" fullWidth onClick={doSignIn}>
-                sign in
+                Đăng nhập
               </MDButton>
             </MDBox>
             <MDBox mt={3} mb={1} textAlign="center">
               <MDTypography variant="button" color="text">
-                Don&apos;t have an account?{" "}
+                Bạn chưa có tài khoản{" "}
                 <MDTypography
                   component={Link}
                   to="/authentication/sign-up"
@@ -96,7 +97,7 @@ function Basic() {
                   fontWeight="medium"
                   textGradient
                 >
-                  Sign up
+                  Đăng ký
                 </MDTypography>
               </MDTypography>
             </MDBox>

@@ -1,6 +1,6 @@
 import { requestGetTask, requestPostKey } from "../api";
 
-import { updateCurrenttask } from "../store/reducers/task";
+import { updateCurrentTask } from "../store/reducers/task";
 
 export const reqGetTask = () => async (dispatch) => {
   let response;
@@ -12,7 +12,7 @@ export const reqGetTask = () => async (dispatch) => {
   console.log(response);
 
   if (response) {
-    dispatch(updateCurrenttask(response));
+    dispatch(updateCurrentTask(response));
   }
 };
 

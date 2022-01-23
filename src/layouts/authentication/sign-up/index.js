@@ -14,6 +14,8 @@ import MDTypography from "../../../components/MDTypography";
 import MDInput from "../../../components/MDInput";
 import MDButton from "../../../components/MDButton";
 
+import { reqSignUp } from "../../../actions/authentication";
+
 function Cover() {
   const [inputVal, setInputVal] = useState({ name: "", email: "", pwd: "" });
   const onChangeInput = (key) => (e) => {
@@ -22,6 +24,7 @@ function Cover() {
 
   const doSignUp = () => {
     console.log(inputVal);
+    reqSignUp(inputVal);
   };
   return (
     <CoverLayout image={bgImage}>
@@ -38,7 +41,7 @@ function Cover() {
           textAlign="center"
         >
           <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-            Sign Up
+            Đăng ký
           </MDTypography>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
@@ -46,7 +49,7 @@ function Cover() {
             <MDBox mb={2}>
               <MDInput
                 type="text"
-                label="Name"
+                label="Họ tên"
                 variant="standard"
                 fullWidth
                 value={inputVal.name}
@@ -66,7 +69,7 @@ function Cover() {
             <MDBox mb={2}>
               <MDInput
                 type="password"
-                label="Password"
+                label="Mật khẩu"
                 variant="standard"
                 fullWidth
                 value={inputVal.pwd}
@@ -96,12 +99,12 @@ function Cover() {
             </MDBox>
             <MDBox mt={4} mb={1}>
               <MDButton variant="gradient" color="info" fullWidth onClick={doSignUp}>
-                sign in
+                Đăng ký
               </MDButton>
             </MDBox>
             <MDBox mt={3} mb={1} textAlign="center">
               <MDTypography variant="button" color="text">
-                Already have an account?{" "}
+                Bạn đã có tài khoản{" "}
                 <MDTypography
                   component={Link}
                   to="/authentication/sign-in"
@@ -110,7 +113,7 @@ function Cover() {
                   fontWeight="medium"
                   textGradient
                 >
-                  Sign Up
+                  Đăng nhập
                 </MDTypography>
               </MDTypography>
             </MDBox>
