@@ -1,6 +1,6 @@
-import { requestAllUser, requestAllTask, requestCreateTask } from "../api";
+import { requestAllUser, requestAllTask, requestCreateTask } from "../api/apiAdmin";
 
-import { updateAllUser } from "../store/reducers/user";
+import { updateAllUser, updateAllTask } from "../store/reducers/admin";
 
 // user
 export const reqAllUser = () => async (dispatch) => {
@@ -10,9 +10,8 @@ export const reqAllUser = () => async (dispatch) => {
   } catch (err) {
     console.log(err);
   }
-  console.log(response);
-  if (response) {
-    dispatch(updateAllUser(response));
+  if (response && response.status.startsWith("20")) {
+    dispatch(updateAllUser(response.data));
   }
 };
 
@@ -24,9 +23,8 @@ export const reqAllTask = () => async (dispatch) => {
   } catch (err) {
     console.log(err);
   }
-  console.log(response);
-  if (response) {
-    dispatch(updateAllUser(response));
+  if (response && response.status.startsWith("20")) {
+    dispatch(updateAllTask(response.data));
   }
 };
 

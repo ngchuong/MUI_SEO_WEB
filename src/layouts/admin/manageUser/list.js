@@ -10,30 +10,46 @@ import DataTable from "examples/Tables/DataTable";
 
 const columns = [
   {
+    Header: "STT",
+    accessor: "stt",
+    width: "5%",
+    align: "left",
+  },
+  {
     Header: "Tên",
     accessor: "name",
-    width: "30%",
+    width: "20%",
     align: "left",
   },
   {
     Header: "Email",
     accessor: "email",
-    width: "40%",
+    width: "20%",
+    align: "left",
+  },
+  {
+    Header: "Số điện thoại",
+    accessor: "telephone",
+    width: "20%",
+    align: "left",
+  },
+  {
+    Header: "Địa chỉ",
+    accessor: "address",
+    width: "20%",
     align: "left",
   },
   {
     Header: "Tiền kiếm được",
-    accessor: "money",
-    width: "30%",
+    accessor: "balance",
+    width: "15%",
     align: "left",
   },
 ];
-const rows = [];
-for (let i = 0; i < 10; i += 1) {
-  rows.push({ name: `user_${i}`, email: `user_${i}@gmail.com`, money: `100.000đ` });
-}
 
-export default function UserList() {
+export default function UserList({ data }) {
+  const rows = data.map((el, index) => ({ ...el, stt: index + 1 }));
+
   return (
     <MDBox pt={3} pb={3}>
       <Grid item xs={12}>

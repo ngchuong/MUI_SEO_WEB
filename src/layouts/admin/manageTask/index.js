@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import MDBox from "components/MDBox";
@@ -8,8 +10,15 @@ import FormDialog from "components/Dialog";
 
 import ListTask from "./list";
 
+import { reqAllTask } from "../../../actions/admin";
+
 function ManageTask() {
+  const dispatch = useDispatch();
+  const allTask = useSelector((state) => state.admin.allTask);
   const [open, setOpen] = useState(false);
+  useEffect(() => {
+    dispatch(reqAllTask());
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,7 +45,7 @@ function ManageTask() {
             </MDButton>
           </MDBox>
           <MDBox p={2} style={{ width: "100%" }}>
-            <ListTask />
+            <ListTask data={allTask} />
           </MDBox>
         </MDBox>
       </MDBox>

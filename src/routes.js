@@ -156,6 +156,6 @@ const routeAdmin = [
   // },
 ];
 
-const routes = role === "admin1" ? routeAdmin : routeUser;
+const routes = role === "admin" ? routeAdmin : routeUser;
 
 export default routes;

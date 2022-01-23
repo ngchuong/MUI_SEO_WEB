@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
@@ -8,8 +9,16 @@ import MDTypography from "components/MDTypography";
 
 import ListUser from "./list";
 
+import { reqAllUser } from "../../../actions/admin";
+
 function ManageUser() {
-  useEffect(() => {}, []);
+  const dispatch = useDispatch();
+  const allUser = useSelector((state) => state.admin.allUser);
+
+  useEffect(() => {
+    dispatch(reqAllUser());
+  }, []);
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -27,7 +36,7 @@ function ManageUser() {
             </MDButton> */}
           </MDBox>
           <MDBox p={2} style={{ width: "100%" }}>
-            <ListUser />
+            <ListUser data={allUser} />
           </MDBox>
         </MDBox>
       </MDBox>

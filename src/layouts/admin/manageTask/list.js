@@ -10,34 +10,39 @@ import DataTable from "examples/Tables/DataTable";
 
 const columns = [
   {
+    Header: "STT",
+    accessor: "stt",
+    width: "5%",
+    align: "left",
+  },
+  {
     Header: "Tên nhiệm vụ",
     accessor: "name",
-    width: "20%",
+    width: "15%",
     align: "left",
   },
   {
     Header: "Mô tả nhiệm vụ",
-    width: "50%",
+    width: "40%",
     accessor: "description",
     align: "left",
   },
   {
-    Header: "Hình ảnh",
-    width: "30%",
-    accessor: "image",
+    Header: "Dữ liệu liên quan",
+    width: "10%",
+    accessor: "related_data",
+    align: "left",
+  },
+  {
+    Header: "Tiền thưởng",
+    width: "20%",
+    accessor: "reward",
     align: "left",
   },
 ];
-const rows = [];
-for (let i = 0; i < 10; i += 1) {
-  rows.push({
-    name: `search_website_${i}`,
-    description: `vào google, nhập từ khóa tìm kiếm_${i}`,
-    image: `100.000đ`,
-  });
-}
 
-export default function UserList() {
+export default function TaskList({ data }) {
+  const rows = data.map((el, index) => ({ ...el, stt: index + 1 }));
   return (
     <MDBox pt={3} pb={3}>
       <Grid item xs={12}>
