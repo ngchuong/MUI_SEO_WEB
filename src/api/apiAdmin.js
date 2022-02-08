@@ -20,3 +20,12 @@ export function requestCreateTask({ name, description, reward, relatedData, prio
     })
     .then((res) => res);
 }
+
+// TODO: make api update, delete task
+export function requestEditTask() {
+  return axios.patch("api", {}).then((res) => res);
+}
+
+export function requestDeleteTask() {
+  return axios.delete("api", {}).then((res) => res);
+}

@@ -39,7 +39,7 @@ function ManageTask() {
           Quản lý nhiệm vụ
         </MDTypography>
         <MDBox>
-          <MDBox pt={2} px={2} display="flex" justifyContent="space-between" alignItems="center">
+          <MDBox py={1} display="flex" justifyContent="space-between" alignItems="center">
             <MDTypography variant="h6" fontWeight="medium">
               Danh sách nhiệm vụ
             </MDTypography>
@@ -47,7 +47,7 @@ function ManageTask() {
               Tạo thêm nhiệm vụ
             </MDButton>
           </MDBox>
-          <MDBox p={2} style={{ width: "100%" }}>
+          <MDBox style={{ width: "100%" }}>
             <ListTask data={allTask} />
           </MDBox>
         </MDBox>
