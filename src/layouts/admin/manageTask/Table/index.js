@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -28,9 +28,11 @@ export default function TableMUI({ columns, rows }) {
     setPage(0);
   };
 
+  // handle open dialog
+  // const [openDialog, setOpenDialog] = useState(false);
   // TODO: handle delete, edit
-  const ClickEdit = () => {};
-  const ClickDelete = () => {};
+  const OpenEdit = () => {};
+  const OpenDelete = () => {};
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -67,12 +69,12 @@ export default function TableMUI({ columns, rows }) {
                   );
                 })}
                 <StyledTableCell key="edit" align="center">
-                  <IconButton size="small" aria-label="close" color="inherit" onClick={ClickEdit}>
+                  <IconButton size="small" aria-label="close" color="inherit" onClick={OpenEdit}>
                     <Icon fontSize="small">edit</Icon>
                   </IconButton>
                 </StyledTableCell>
                 <StyledTableCell key="delete" align="center">
-                  <IconButton size="small" aria-label="close" color="inherit" onClick={ClickDelete}>
+                  <IconButton size="small" aria-label="close" color="inherit" onClick={OpenDelete}>
                     <Icon fontSize="small">delete</Icon>
                   </IconButton>
                 </StyledTableCell>

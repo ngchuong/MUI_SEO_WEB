@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -8,12 +8,16 @@ import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 import FormDialog from "components/Dialog";
 
+import { useModal } from "components/Modal";
+import { ConfirmDialog } from "components/Modal/dialog";
 import ListTask from "./list";
 
 import { reqAllTask, reqCreateTask } from "../../../actions/admin";
 
 function ManageTask() {
   const dispatch = useDispatch();
+  const { setModal, unSetModal } = useModal();
+
   const allTask = useSelector((state) => state.admin.allTask);
   const [open, setOpen] = useState(false);
   useEffect(() => {
@@ -21,7 +25,30 @@ function ManageTask() {
   }, []);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    // setOpen(true);
+    // setModal(
+    //   <SimpleDialog
+    //     content={
+    //       <div>
+    //         <button type="button" onClick={unSetModal}>
+    //           button
+    //         </button>
+    //         <div>111111111111111</div>
+    //       </div>
+    //     }
+    //   />
+    // );
+    setModal(
+      <ConfirmDialog
+        content={
+          <div>
+            <div>xoa khong?</div>
+          </div>
+        }
+        onCancel={unSetModal}
+        onSubmit={unSetModal}
+      />
+    );
   };
   const handleClose = () => {
     setOpen(false);

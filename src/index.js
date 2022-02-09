@@ -22,14 +22,17 @@ import App from "App";
 import { MaterialUIControllerProvider } from "context";
 import { Provider } from "react-redux";
 import store from "./store";
+import { ModalProvider } from "./components/Modal";
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <MaterialUIControllerProvider>
-        <App />
-      </MaterialUIControllerProvider>
-    </BrowserRouter>
+    <ModalProvider>
+      <BrowserRouter>
+        <MaterialUIControllerProvider>
+          <App />
+        </MaterialUIControllerProvider>
+      </BrowserRouter>
+    </ModalProvider>
   </Provider>,
   document.getElementById("root")
 );
