@@ -18,14 +18,14 @@ export function requestCreateTask({ name, description, reward, relatedData, prio
       priority,
       image,
     })
-    .then((res) => res);
+    .then((res) => res.data);
 }
 
 // TODO: make api update, delete task
 export function requestEditTask() {
-  return axios.patch("api", {}).then((res) => res);
+  return axios.patch("api", {}).then((res) => res.data);
 }
 
-export function requestDeleteTask() {
-  return axios.delete("api", {}).then((res) => res);
+export function requestDeleteTask(id) {
+  return axios.delete(`http://localhost:3000/api/task-user/${id}`).then((res) => res.data);
 }

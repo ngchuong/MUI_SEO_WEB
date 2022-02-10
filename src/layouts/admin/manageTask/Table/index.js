@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -12,8 +13,11 @@ import Icon from "@mui/material/Icon";
 
 import { StyledTableCell, StyledTableRow, useStyles } from "./subComponent";
 
+import { reqDeleteTask } from "../../../../actions/admin";
+
 export default function TableMUI({ columns, rows }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   // pagination
   const [page, setPage] = React.useState(0);
@@ -32,7 +36,9 @@ export default function TableMUI({ columns, rows }) {
   // const [openDialog, setOpenDialog] = useState(false);
   // TODO: handle delete, edit
   const OpenEdit = () => {};
-  const OpenDelete = () => {};
+  const OpenDelete = (id) => {
+    dispatch(reqDeleteTask(id));
+  };
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -74,7 +80,12 @@ export default function TableMUI({ columns, rows }) {
                   </IconButton>
                 </StyledTableCell>
                 <StyledTableCell key="delete" align="center">
-                  <IconButton size="small" aria-label="close" color="inherit" onClick={OpenDelete}>
+                  <IconButton
+                    size="small"
+                    aria-label="close"
+                    color="inherit"
+                    onClick={() => OpenDelete(row.id)}
+                  >
                     <Icon fontSize="small">delete</Icon>
                   </IconButton>
                 </StyledTableCell>

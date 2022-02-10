@@ -57,7 +57,7 @@ export default function FormDialog({ handleClose, open, onSubmit }) {
     reward: "",
     max_turn: "",
     priority: "",
-    relatedData: {},
+    related_data: {},
   };
   const [inputVal, setInputVal] = useState(defaultInput);
   const [inputImg, setInputImg] = useState([]);
@@ -83,7 +83,7 @@ export default function FormDialog({ handleClose, open, onSubmit }) {
     const data = {
       ...inputVal,
       type_task: typeForm,
-      relatedData: {
+      related_data: {
         image: inputImg,
       },
     };

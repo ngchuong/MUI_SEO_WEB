@@ -7,6 +7,7 @@ import {
 } from "../api/apiAdmin";
 
 import { updateAllUser, updateAllTask } from "../store/reducers/admin";
+// TODO: update dialog;
 
 // user
 export const reqAllUser = () => async (dispatch) => {
@@ -59,10 +60,10 @@ export const reqEditTask = (data) => async (dispatch) => {
   }
 };
 
-export const reqDeleteTask = (data) => async (dispatch) => {
+export const reqDeleteTask = (id) => async (dispatch) => {
   let response;
   try {
-    response = await requestDeleteTask(data);
+    response = await requestDeleteTask(id);
   } catch (err) {
     console.log(err);
   }

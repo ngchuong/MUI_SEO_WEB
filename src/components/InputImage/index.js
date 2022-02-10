@@ -6,7 +6,6 @@ export const InputImg = ({ multiple = false, onDone }) => {
   const handleChange = (e) => {
     // get the files
     const files = e.target.files;
-    console.log(files.length);
     // Process each file
     const allFiles = [];
     for (let i = 0; i < files.length; i += 1) {
