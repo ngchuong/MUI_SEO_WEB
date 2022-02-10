@@ -1,100 +1,124 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-// import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
 
-import MDBox from "components/MDBox";
-// import MDTypography from "components/MDTypography";
-import MDInput from "components/MDInput";
-import { InputImg } from "../InputImage";
+import { FormTrafficWeb } from "./Form/FormTrafficWeb";
+import { FormSubYtb } from "./Form/FormSubYtb";
+import { FormLikePage } from "./Form/FormLikeFB";
+import { FormJoinGroup } from "./Form/FormJoinGroup";
+
+const SwitchForm = ({ type, onChangeInput, onChangeImg, inputVal }) => {
+  let display;
+  switch (type) {
+    case "traffic":
+      display = (
+        <FormTrafficWeb
+          onChangeInput={onChangeInput}
+          onChangeImg={onChangeImg}
+          inputVal={inputVal}
+        />
+      );
+      break;
+    case "subyoutube":
+      display = <FormSubYtb />;
+      break;
+    case "likepagefb":
+      display = <FormLikePage />;
+      break;
+    case "joingroupfb":
+      display = <FormJoinGroup />;
+      break;
+    default:
+      display = (
+        <FormTrafficWeb
+          onChangeInput={onChangeInput}
+          onChangeImg={onChangeImg}
+          inputVal={inputVal}
+        />
+      );
+      break;
+  }
+
+  return display;
+};
 
 export default function FormDialog({ handleClose, open, onSubmit }) {
-  const [inputVal, setInputVal] = useState({
+  const [typeForm, setTypeForm] = useState("traffic");
+  const defaultInput = {
     name: "",
     description: "",
     reward: "",
-    relatedData: "",
+    max_turn: "",
     priority: "",
-    image: {},
-  });
+    relatedData: {},
+  };
+  const [inputVal, setInputVal] = useState(defaultInput);
   const [inputImg, setInputImg] = useState([]);
+
+  // change type form
+  const onSwitchTypeForm = (e) => {
+    setTypeForm(e.target.value);
+  };
+
+  // change input
   const onChangeImg = (e) => {
     setInputImg(e);
+
+    // when change type task reset state
+    setInputVal(defaultInput);
   };
   const onChangeInput = (key) => (e) => {
     setInputVal({ ...inputVal, [key]: e.target.value });
   };
+
+  // do create task
   const createTask = () => {
-    onSubmit(inputVal);
+    const data = {
+      ...inputVal,
+      type_task: typeForm,
+      relatedData: {
+        image: inputImg,
+      },
+    };
+    onSubmit(data);
     handleClose();
   };
-
-  console.log(inputImg);
 
   return (
     <div>
       <Dialog open={open} onClose={handleClose} fullScreen>
         <DialogTitle>Tạo nhiệm vụ</DialogTitle>
         <DialogContent style={{ display: "flex", flexDirection: "column" }}>
-          {/* <DialogContentText>
-            To subscribe to this website, please enter your email address here. We will send updates
-            occasionally.
-          </DialogContentText> */}
-          <MDBox mb={2}>
-            <MDInput
-              type="text"
-              label="Tên nhiệm vụ"
-              fullWidth
-              value={inputVal.name}
-              onChange={onChangeInput("name")}
-            />
-          </MDBox>
-          <MDBox mb={2}>
-            <TextField
-              id="filled-multiline-static"
-              label="Mô tả"
-              multiline
-              fullWidth
-              rows={4}
-              value={inputVal.description}
-              onChange={onChangeInput("description")}
-            />
-          </MDBox>
-          <MDBox mb={2}>
-            <MDInput
-              type="text"
-              label="Tiền thưởng"
-              fullWidth
-              value={inputVal.reward}
-              onChange={onChangeInput("reward")}
-            />
-          </MDBox>
-          <MDBox mb={2}>
-            <MDInput
-              type="text"
-              label="Dữ liệu liên quan"
-              fullWidth
-              value={inputVal.relatedData}
-              onChange={onChangeInput("relatedData")}
-            />
-          </MDBox>
-          <MDBox mb={2}>
-            <MDInput
-              type="text"
-              label="Độ ưu tiên"
-              fullWidth
-              value={inputVal.priority}
-              onChange={onChangeInput("priority")}
-            />
-          </MDBox>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Loại nhiệm vụ</InputLabel>
+            <Select
+              style={{ padding: "10px 0" }}
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={typeForm}
+              label="Loại nhiệm vụ"
+              onChange={onSwitchTypeForm}
+            >
+              <MenuItem value="traffic">Traffic Web</MenuItem>
+              <MenuItem value="subyoutube">Sub Youtube</MenuItem>
+              <MenuItem value="likepagefb">Like Page Facebook</MenuItem>
+              <MenuItem value="joingroupfb">Join Group Facebook</MenuItem>
+            </Select>
+          </FormControl>
 
-          <MDBox mb={2}>
-            <InputImg multiple={true} onDone={onChangeImg} />
-          </MDBox>
+          <SwitchForm
+            type={typeForm}
+            onChangeInput={onChangeInput}
+            onChangeImg={onChangeImg}
+            inputVal={inputVal}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Quay về</Button>
