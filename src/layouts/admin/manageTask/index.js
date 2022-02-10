@@ -8,15 +8,15 @@ import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 import FormDialog from "components/Dialog";
 
-import { useModal } from "components/Modal";
-import { ConfirmDialog } from "components/Modal/dialog";
+// import { useModal } from "components/Modal";
+// import { ConfirmDialog } from "components/Modal/dialog";
 import ListTask from "./list";
 
 import { reqAllTask, reqCreateTask } from "../../../actions/admin";
 
 function ManageTask() {
   const dispatch = useDispatch();
-  const { setModal, unSetModal } = useModal();
+  // const { setModal, unSetModal } = useModal();
 
   const allTask = useSelector((state) => state.admin.allTask);
   const [open, setOpen] = useState(false);
@@ -25,7 +25,7 @@ function ManageTask() {
   }, []);
 
   const handleClickOpen = () => {
-    // setOpen(true);
+    setOpen(true);
     // setModal(
     //   <SimpleDialog
     //     content={
@@ -38,17 +38,17 @@ function ManageTask() {
     //     }
     //   />
     // );
-    setModal(
-      <ConfirmDialog
-        content={
-          <div>
-            <div>xoa khong?</div>
-          </div>
-        }
-        onCancel={unSetModal}
-        onSubmit={unSetModal}
-      />
-    );
+    // setModal(
+    //   <ConfirmDialog
+    //     content={
+    //       <div>
+    //         <div>xoa khong?</div>
+    //       </div>
+    //     }
+    //     onCancel={unSetModal}
+    //     onSubmit={unSetModal}
+    //   />
+    // );
   };
   const handleClose = () => {
     setOpen(false);

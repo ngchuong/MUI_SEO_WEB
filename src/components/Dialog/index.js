@@ -10,6 +10,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import MDBox from "components/MDBox";
 // import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
+import { InputImg } from "../InputImage";
 
 export default function FormDialog({ handleClose, open, onSubmit }) {
   const [inputVal, setInputVal] = useState({
@@ -20,7 +21,10 @@ export default function FormDialog({ handleClose, open, onSubmit }) {
     priority: "",
     image: {},
   });
-
+  const [inputImg, setInputImg] = useState([]);
+  const onChangeImg = (e) => {
+    setInputImg(e);
+  };
   const onChangeInput = (key) => (e) => {
     setInputVal({ ...inputVal, [key]: e.target.value });
   };
@@ -28,6 +32,8 @@ export default function FormDialog({ handleClose, open, onSubmit }) {
     onSubmit(inputVal);
     handleClose();
   };
+
+  console.log(inputImg);
 
   return (
     <div>
@@ -87,7 +93,7 @@ export default function FormDialog({ handleClose, open, onSubmit }) {
           </MDBox>
 
           <MDBox mb={2}>
-            <input type="file" onChange={onChangeInput("image")} multiple />
+            <InputImg multiple={true} onDone={onChangeImg} />
           </MDBox>
         </DialogContent>
         <DialogActions>
