@@ -14,6 +14,7 @@ Coded by www.creative-tim.com
 */
 
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 // react-router components
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
@@ -41,6 +42,8 @@ import { useMaterialUIController, setMiniSidenav } from "context";
 // Images
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
+
+import Home from "./layouts/home";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -95,26 +98,31 @@ export default function App() {
 
       return null;
     });
+  const isSignIn = useSelector((state) => state.user.isSignIn);
+  const isRoleAdmin = useSelector((state) => state.user.isAdmin);
+
+  const displayRouter = routes(isRoleAdmin).filter(
+    (el) => el.key !== "sign-in" && el.key !== "sign-up"
+  );
 
   return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CssBaseline />
-      {layout === "dashboard" && (
+      {isSignIn && layout === "dashboard" && (
         <>
           <Sidenav
             color={sidenavColor}
             brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
             brandName="Bảng điều khiển"
-            routes={routes}
+            routes={displayRouter}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
           <Configurator />
         </>
       )}
-      {layout === "vr" && <Configurator />}
       <Routes>
-        {getRoutes(routes)}
+        {getRoutes(routes(isRoleAdmin))}
         <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
     </ThemeProvider>

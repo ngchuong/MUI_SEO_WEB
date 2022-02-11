@@ -1,28 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// react-router-dom components
 import { Link, useNavigate } from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
-import Switch from "@mui/material/Switch";
+
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 import MDBox from "../../../components/MDBox";
 import MDTypography from "../../../components/MDTypography";
-import MDInput from "../../../components/MDInput";
 import MDButton from "../../../components/MDButton";
 
 // Authentication action
 import { reqSignIn } from "../../../actions/authentication";
 
-function Basic() {
+function SignInForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [inputVal, setInputVal] = useState({ email: "", pwd: "" });
-  const [rememberMe, setRememberMe] = useState(false);
   const isSignIn = useSelector((state) => state.user.isSignIn);
   useEffect(() => {
     if (isSignIn) {
@@ -30,13 +28,28 @@ function Basic() {
     }
   }, [isSignIn]);
 
-  const handleSetRememberMe = () => setRememberMe(!rememberMe);
   const onChangeInput = (key) => (e) => {
     setInputVal({ ...inputVal, [key]: e.target.value });
   };
 
+  const validateData = (data) => {
+    if (!data.email || !data.pwd) {
+      return false;
+    }
+    if (data.email && !/$|.+@.+..+/.test(data.email)) {
+      return false;
+    }
+
+    return true;
+  };
+
   const doSignIn = () => {
-    dispatch(reqSignIn(inputVal));
+    if (validateData(inputVal)) {
+      console.log("req login", inputVal);
+      dispatch(reqSignIn(inputVal));
+    } else {
+      console.log("khong du dieu kien");
+    }
   };
 
   return (
@@ -58,39 +71,32 @@ function Basic() {
           </MDTypography>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
-          <MDBox component="form" role="form">
+          <ValidatorForm onSubmit={doSignIn}>
             <MDBox mb={2}>
-              <MDInput
-                type="email"
+              <TextValidator
                 label="Email"
-                fullWidth
-                value={inputVal.email}
                 onChange={onChangeInput("email")}
+                name="email"
+                value={inputVal.email}
+                validators={["required", "isEmail"]}
+                errorMessages={["Không được để trống", "Email không đúng định dạng"]}
+                fullWidth
               />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput
-                type="password"
+              <TextValidator
                 label="Mật khẩu"
-                fullWidth
-                value={inputVal.pwd}
                 onChange={onChangeInput("pwd")}
+                name="password"
+                type="password"
+                validators={["required"]}
+                errorMessages={["Không được để trống"]}
+                value={inputVal.pwd}
+                fullWidth
               />
-            </MDBox>
-            <MDBox display="flex" alignItems="center" ml={-1}>
-              <Switch checked={rememberMe} onChange={handleSetRememberMe} />
-              <MDTypography
-                variant="button"
-                fontWeight="regular"
-                color="text"
-                onClick={handleSetRememberMe}
-                sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
-              >
-                &nbsp;&nbsp;Remember me
-              </MDTypography>
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth onClick={doSignIn}>
+              <MDButton type="submit" variant="gradient" color="info" fullWidth>
                 Đăng nhập
               </MDButton>
             </MDBox>
@@ -109,11 +115,11 @@ function Basic() {
                 </MDTypography>
               </MDTypography>
             </MDBox>
-          </MDBox>
+          </ValidatorForm>
         </MDBox>
       </Card>
     </BasicLayout>
   );
 }
 
-export default Basic;
+export default SignInForm;

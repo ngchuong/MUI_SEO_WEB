@@ -1,6 +1,6 @@
 import { requestSignIn, requestSignUp } from "../api";
 
-import { updateCurrentUser, updateIsSignIn } from "../store/reducers/user";
+import { updateCurrentUser } from "../store/reducers/user";
 
 export const reqSignIn =
   ({ email, pwd }) =>
@@ -11,9 +11,11 @@ export const reqSignIn =
     } catch (err) {
       console.log(err);
     }
+
+    console.log(response);
     if (response && response.status === 200) {
-      dispatch(updateCurrentUser(response.data));
-      dispatch(updateIsSignIn(true));
+      dispatch(updateCurrentUser(response.data.user));
+      // dispatch(updateIsSignIn(true));
     }
   };
 

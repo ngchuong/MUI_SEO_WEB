@@ -22,6 +22,7 @@
     "react/prop-types": 0,
     "prefer-destructuring": "off",
     "react/jsx-boolean-value": "off",
+    "react/no-string-refs": "off",
     "arrow-body-style": "off",
     "no-unused-vars": "off",
     "import/prefer-default-export": "off",

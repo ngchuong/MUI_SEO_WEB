@@ -2,7 +2,7 @@ import axios from "axios";
 
 // task
 export function requestGetTask() {
-  return axios.get("google.com").then((res) => res.data);
+  return axios.get("http://localhost:3000/api/task-user/random").then((res) => res.data);
 }
 
 export function requestPostKey(key) {
@@ -11,7 +11,7 @@ export function requestPostKey(key) {
 
 // authentication
 export function requestSignIn(email, password) {
-  return axios.post("http://localhost:3000/verify", { email, password }).then((res) => res);
+  return axios.post("http://localhost:3000/api/sessions", { email, password }).then((res) => res);
 }
 export function requestSignUp(name, telephone, address, email, password) {
   return axios
