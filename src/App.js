@@ -17,7 +17,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 // react-router components
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 
 // @mui material components
 import { ThemeProvider } from "@mui/material/styles";
@@ -45,6 +45,10 @@ import brandDark from "assets/images/logo-ct-dark.png";
 
 import Home from "./layouts/home";
 
+// import { reqVerify } from "./actions/authentication";
+import { requesVerify } from "./api/index";
+import { setCookie } from "./utils/cookie";
+
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
   const {
@@ -57,6 +61,12 @@ export default function App() {
     darkMode,
   } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
+  const navigate = useNavigate();
+
+  //
+  const [isVerify, setIsVerify] = useState(false);
+  const [user, setUser] = useState(null);
+
   const { pathname } = useLocation();
 
   // Open sidenav when mouse enter on mini sidenav
@@ -86,6 +96,27 @@ export default function App() {
     document.scrollingElement.scrollTop = 0;
   }, [pathname]);
 
+  // verify every when redirect
+  useEffect(async () => {
+    const responseVerify = await requesVerify();
+
+    if (responseVerify.status === 200) {
+      setCookie("user", responseVerify.data, 1);
+      setIsVerify(true);
+      setUser(responseVerify.data);
+    }
+  }, [pathname]);
+
+  useEffect(() => {
+    if (isVerify) {
+      if (user && user.is_admin) {
+        navigate("/manage-task");
+      } else {
+        navigate("/task");
+      }
+    }
+  }, [isVerify, user]);
+
   const getRoutes = (allRoutes) =>
     allRoutes.map((route) => {
       if (route.collapse) {
@@ -98,10 +129,9 @@ export default function App() {
 
       return null;
     });
-  const isSignIn = useSelector((state) => state.user.isSignIn);
-  const isRoleAdmin = useSelector((state) => state.user.isAdmin);
+  const isRoleAdmin = user && user.is_admin;
 
-  const displayRouter = routes(isSignIn, isRoleAdmin).filter(
+  const displayRouter = routes(isVerify, isRoleAdmin).filter(
     (el) => el.key !== "sign-in" && el.key !== "sign-up" && el.key !== "home"
   );
 
@@ -110,7 +140,7 @@ export default function App() {
   return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CssBaseline />
-      {isSignIn && !isPageHome && layout === "dashboard" && (
+      {isVerify && !isPageHome && layout === "dashboard" && (
         <>
           <Sidenav
             color={sidenavColor}
@@ -124,7 +154,7 @@ export default function App() {
         </>
       )}
       <Routes>
-        {getRoutes(routes(isSignIn, isRoleAdmin))}
+        {getRoutes(routes(isVerify, isRoleAdmin))}
         <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
     </ThemeProvider>

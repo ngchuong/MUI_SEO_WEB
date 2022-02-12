@@ -1,6 +1,6 @@
-import { requestSignIn, requestSignUp } from "../api";
+import { requestSignIn, requestSignUp, requesVerify } from "../api";
 
-import { updateCurrentUser } from "../store/reducers/user";
+import { setCookie } from "../utils/cookie";
 
 export const reqSignIn =
   ({ email, pwd }) =>
@@ -12,11 +12,7 @@ export const reqSignIn =
       console.log(err);
     }
 
-    console.log(response);
-    if (response && response.status === 200) {
-      dispatch(updateCurrentUser(response.data.user));
-      // dispatch(updateIsSignIn(true));
-    }
+    setCookie("user", response.data.user);
   };
 
 export const reqSignUp =
@@ -34,3 +30,14 @@ export const reqSignUp =
       // dispatch(updateCurrentUser(response));
     }
   };
+
+export const reqVerify = () => async () => {
+  let response;
+  try {
+    response = requesVerify();
+  } catch (err) {
+    console.log(err);
+  }
+
+  return response;
+};

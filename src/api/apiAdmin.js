@@ -1,5 +1,7 @@
 import axios from "axios";
 
+axios.defaults.withCredentials = true;
+
 export function requestAllUser() {
   return axios.get("http://localhost:3000/api/users").then((res) => res);
 }

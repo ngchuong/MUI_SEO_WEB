@@ -14,24 +14,26 @@ import MDTypography from "../../../components/MDTypography";
 import MDButton from "../../../components/MDButton";
 
 // Authentication action
-import { reqSignIn } from "../../../actions/authentication";
+import { reqSignIn, reqVerify } from "../../../actions/authentication";
+import { getCookie } from "../../../utils/cookie";
 
 function SignInForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [inputVal, setInputVal] = useState({ email: "", pwd: "" });
-  const isSignIn = useSelector((state) => state.user.isSignIn);
-  const isRoleAdmin = useSelector((state) => state.user.isAdmin);
+
+  const userCookie = JSON.parse(getCookie("user"));
+
   useEffect(() => {
-    if (isSignIn) {
-      if (isRoleAdmin) {
+    if (userCookie.email) {
+      if (userCookie.is_admin) {
         navigate("/manage-task");
       } else {
         navigate("/task");
       }
     }
-  }, [isSignIn]);
+  }, [userCookie]);
 
   const onChangeInput = (key) => (e) => {
     setInputVal({ ...inputVal, [key]: e.target.value });
