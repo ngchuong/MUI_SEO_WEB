@@ -11,7 +11,7 @@ import Footer from "./partials/footer";
 function Home() {
   const navigate = useNavigate();
   return (
-    <DashboardLayout>
+    <div>
       {/* <DashboardNavbar /> */}
       <MDBox
         style={{
@@ -39,7 +39,7 @@ function Home() {
         </MDBox>
         <Footer />
       </MDBox>
-    </DashboardLayout>
+    </div>
   );
 }
 

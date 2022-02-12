@@ -37,15 +37,7 @@ import Home from "./layouts/home";
 import ManageTask from "./layouts/admin/manageTask";
 import ManageUser from "./layouts/admin/manageUser";
 
-const routeUser = [
-  {
-    type: "collapse",
-    name: "Dashboard",
-    key: "dashboard",
-    icon: <Icon fontSize="small">dashboard</Icon>,
-    route: "/dashboard",
-    component: <Dashboard />,
-  },
+const routeDefault = [
   {
     type: "collapse",
     name: "Home",
@@ -54,6 +46,32 @@ const routeUser = [
     route: "/home",
     component: <Home />,
   },
+  {
+    type: "collapse",
+    name: "Sign In",
+    key: "sign-in",
+    icon: <Icon fontSize="small">login</Icon>,
+    route: "/authentication/sign-in",
+    component: <SignIn />,
+  },
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/authentication/sign-up",
+    component: <SignUp />,
+  },
+];
+const routeUser = [
+  // {
+  //   type: "collapse",
+  //   name: "Dashboard",
+  //   key: "dashboard",
+  //   icon: <Icon fontSize="small">dashboard</Icon>,
+  //   route: "/dashboard",
+  //   component: <Dashboard />,
+  // },
   {
     type: "collapse",
     name: "Làm nhiệm vụ kiếm tiền",
@@ -102,33 +120,9 @@ const routeUser = [
     route: "/profile",
     component: <Profile />,
   },
-  {
-    type: "collapse",
-    name: "Sign In",
-    key: "sign-in",
-    icon: <Icon fontSize="small">login</Icon>,
-    route: "/authentication/sign-in",
-    component: <SignIn />,
-  },
-  {
-    type: "collapse",
-    name: "Sign Up",
-    key: "sign-up",
-    icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/authentication/sign-up",
-    component: <SignUp />,
-  },
 ];
 
 const routeAdmin = [
-  {
-    type: "collapse",
-    name: "Home",
-    key: "home",
-    icon: <Icon fontSize="small">home</Icon>,
-    route: "/home",
-    component: <Home />,
-  },
   {
     type: "collapse",
     name: "Quản lý user",
@@ -153,26 +147,14 @@ const routeAdmin = [
   //   route: "/manage-table",
   //   component: <Tables />,
   // },
-  {
-    type: "collapse",
-    name: "Sign In",
-    key: "sign-in",
-    icon: <Icon fontSize="small">login</Icon>,
-    route: "/authentication/sign-in",
-    component: <SignIn />,
-  },
-  {
-    type: "collapse",
-    name: "Sign Up",
-    key: "sign-up",
-    icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/authentication/sign-up",
-    component: <SignUp />,
-  },
 ];
 
-const getRoutes = (isRoleAdmin) => {
-  const routes = isRoleAdmin ? routeAdmin : routeUser;
+const getRoutes = (isSignIn, isRoleAdmin) => {
+  let routes = routeDefault;
+  if (isSignIn) {
+    routes = isRoleAdmin ? [...routes, ...routeAdmin] : [...routes, ...routeUser];
+  }
+
   return routes;
 };
 

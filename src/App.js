@@ -101,14 +101,16 @@ export default function App() {
   const isSignIn = useSelector((state) => state.user.isSignIn);
   const isRoleAdmin = useSelector((state) => state.user.isAdmin);
 
-  const displayRouter = routes(isRoleAdmin).filter(
-    (el) => el.key !== "sign-in" && el.key !== "sign-up"
+  const displayRouter = routes(isSignIn, isRoleAdmin).filter(
+    (el) => el.key !== "sign-in" && el.key !== "sign-up" && el.key !== "home"
   );
+
+  const isPageHome = window.location.href.includes("home");
 
   return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CssBaseline />
-      {isSignIn && layout === "dashboard" && (
+      {isSignIn && !isPageHome && layout === "dashboard" && (
         <>
           <Sidenav
             color={sidenavColor}
@@ -122,7 +124,7 @@ export default function App() {
         </>
       )}
       <Routes>
-        {getRoutes(routes(isRoleAdmin))}
+        {getRoutes(routes(isSignIn, isRoleAdmin))}
         <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
     </ThemeProvider>

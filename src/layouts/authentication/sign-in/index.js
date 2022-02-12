@@ -22,9 +22,14 @@ function SignInForm() {
 
   const [inputVal, setInputVal] = useState({ email: "", pwd: "" });
   const isSignIn = useSelector((state) => state.user.isSignIn);
+  const isRoleAdmin = useSelector((state) => state.user.isAdmin);
   useEffect(() => {
     if (isSignIn) {
-      navigate("/task");
+      if (isRoleAdmin) {
+        navigate("/manage-task");
+      } else {
+        navigate("/task");
+      }
     }
   }, [isSignIn]);
 
