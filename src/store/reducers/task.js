@@ -1,7 +1,7 @@
 // function data(state) {
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { currentTask: "" };
+const initialState = { currentTask: {} };
 
 const Task = createSlice({
   name: "Task",
