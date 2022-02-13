@@ -1,19 +1,6 @@
-import { requestSignIn, requestSignUp, requesVerify } from "../api";
+import { requestSignUp, requestLogout } from "../api";
 
-import { setCookie } from "../utils/cookie";
-
-export const reqSignIn =
-  ({ email, pwd }) =>
-  async (dispatch) => {
-    let response;
-    try {
-      response = await requestSignIn(email, pwd);
-    } catch (err) {
-      console.log(err);
-    }
-
-    setCookie("user", response.data.user);
-  };
+import { setCookie, eraseCookie } from "../utils/cookie";
 
 export const reqSignUp =
   ({ name, phone, address, email, pwd }) =>
@@ -31,13 +18,15 @@ export const reqSignUp =
     }
   };
 
-export const reqVerify = () => async () => {
+export const reqSignOut = () => async () => {
   let response;
   try {
-    response = requesVerify();
+    response = await requestLogout();
   } catch (err) {
     console.log(err);
   }
 
-  return response;
+  console.log(response);
+
+  eraseCookie("user");
 };

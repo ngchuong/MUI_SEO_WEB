@@ -1,23 +1,7 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 
 // react-router components
-import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 // @mui material components
 import { ThemeProvider } from "@mui/material/styles";
@@ -34,7 +18,7 @@ import theme from "assets/theme";
 import themeDark from "assets/theme-dark";
 
 // Material Dashboard 2 React routes
-import routes from "routes";
+import { routeDefault, routeUser, routeAdmin } from "routes";
 
 // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav } from "context";
@@ -43,11 +27,8 @@ import { useMaterialUIController, setMiniSidenav } from "context";
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 
-import Home from "./layouts/home";
-
-// import { reqVerify } from "./actions/authentication";
 import { requesVerify } from "./api/index";
-import { setCookie } from "./utils/cookie";
+import { setCookie, getCookie, eraseCookie } from "./utils/cookie";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -61,11 +42,8 @@ export default function App() {
     darkMode,
   } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
-  const navigate = useNavigate();
 
-  //
   const [isVerify, setIsVerify] = useState(false);
-  const [user, setUser] = useState(null);
 
   const { pathname } = useLocation();
 
@@ -103,19 +81,23 @@ export default function App() {
     if (responseVerify.status === 200) {
       setCookie("user", responseVerify.data, 1);
       setIsVerify(true);
-      setUser(responseVerify.data);
+    } else {
+      eraseCookie("user");
     }
   }, [pathname]);
 
-  useEffect(() => {
-    if (isVerify) {
-      if (user && user.is_admin) {
-        navigate("/manage-task");
-      } else {
-        navigate("/task");
-      }
+  const userInfo = getCookie("user") ? JSON.parse(getCookie("user")) : {};
+  const isRoleAdmin = userInfo && userInfo.is_admin;
+  const isPageHome = window.location.href.includes("home");
+
+  const checkRoutes = (isSignIn, isAdmin) => {
+    let routes = routeDefault;
+    if (isSignIn) {
+      routes = isAdmin ? [...routes, ...routeAdmin] : [...routes, ...routeUser];
     }
-  }, [isVerify, user]);
+
+    return routes;
+  };
 
   const getRoutes = (allRoutes) =>
     allRoutes.map((route) => {
@@ -129,13 +111,10 @@ export default function App() {
 
       return null;
     });
-  const isRoleAdmin = user && user.is_admin;
 
-  const displayRouter = routes(isVerify, isRoleAdmin).filter(
+  const displayRouter = checkRoutes(isVerify, isRoleAdmin).filter(
     (el) => el.key !== "sign-in" && el.key !== "sign-up" && el.key !== "home"
   );
-
-  const isPageHome = window.location.href.includes("home");
 
   return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
@@ -154,7 +133,7 @@ export default function App() {
         </>
       )}
       <Routes>
-        {getRoutes(routes(isVerify, isRoleAdmin))}
+        {getRoutes(checkRoutes(userInfo.email, isRoleAdmin))}
         <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
     </ThemeProvider>

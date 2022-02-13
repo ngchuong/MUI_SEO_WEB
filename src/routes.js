@@ -37,7 +37,7 @@ import Home from "./layouts/home";
 import ManageTask from "./layouts/admin/manageTask";
 import ManageUser from "./layouts/admin/manageUser";
 
-const routeDefault = [
+export const routeDefault = [
   {
     type: "collapse",
     name: "Home",
@@ -63,7 +63,7 @@ const routeDefault = [
     component: <SignUp />,
   },
 ];
-const routeUser = [
+export const routeUser = [
   // {
   //   type: "collapse",
   //   name: "Dashboard",
@@ -122,7 +122,7 @@ const routeUser = [
   },
 ];
 
-const routeAdmin = [
+export const routeAdmin = [
   {
     type: "collapse",
     name: "Quản lý user",
@@ -148,14 +148,3 @@ const routeAdmin = [
   //   component: <Tables />,
   // },
 ];
-
-const getRoutes = (isSignIn, isRoleAdmin) => {
-  let routes = routeDefault;
-  if (isSignIn) {
-    routes = isRoleAdmin ? [...routes, ...routeAdmin] : [...routes, ...routeUser];
-  }
-
-  return routes;
-};
-
-export default getRoutes;

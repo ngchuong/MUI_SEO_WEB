@@ -11,7 +11,6 @@ function TrafficWeb() {
   const [doing, setDoing] = useState(false);
   const [inputKey, setInputKey] = useState("");
   // const test = useSelector((state) => state.data);
-  console.log(inputKey);
   useEffect(() => {
     // TODO: get api to make  task
     reqGetTask();

@@ -5,9 +5,6 @@
   "author": "ChuongNG",
   "license": "See license in https://www.creative-tim.com/license",
   "description": "For seo website",
-  "bugs": {
-    "url": "https://github.com/creativetimofficial/material-dashboard-react/issues"
-  },
   "engines": {
     "node": "14 || 15 || 16",
     "npm": ">=6"

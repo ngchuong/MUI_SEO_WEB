@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 // @mui material components
@@ -9,21 +8,24 @@ import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import { useModal } from "components/Modal";
+import { SimpleDialog } from "components/Modal/dialog";
 import MDBox from "../../../components/MDBox";
 import MDTypography from "../../../components/MDTypography";
 import MDButton from "../../../components/MDButton";
 
 // Authentication action
-import { reqSignIn, reqVerify } from "../../../actions/authentication";
-import { getCookie } from "../../../utils/cookie";
+import { requestSignIn } from "../../../api/index";
+import { getCookie, setCookie } from "../../../utils/cookie";
+
+// dialog
 
 function SignInForm() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { setModal, unSetModal } = useModal();
 
   const [inputVal, setInputVal] = useState({ email: "", pwd: "" });
-
-  const userCookie = JSON.parse(getCookie("user"));
+  const userCookie = getCookie("user") ? JSON.parse(getCookie("user")) : {};
 
   useEffect(() => {
     if (userCookie.email) {
@@ -50,12 +52,32 @@ function SignInForm() {
     return true;
   };
 
-  const doSignIn = () => {
+  const doSignIn = async () => {
     if (validateData(inputVal)) {
-      console.log("req login", inputVal);
-      dispatch(reqSignIn(inputVal));
+      const resSignIn = await requestSignIn(inputVal.email, inputVal.pwd);
+      if (resSignIn && resSignIn.status === 201) {
+        const data = resSignIn.data.user;
+        setCookie("user", data, 1);
+        if (data.is_admin) {
+          navigate("/manage-task");
+        } else {
+          navigate("/task");
+        }
+      }
     } else {
       console.log("khong du dieu kien");
+      // setModal(
+      //   <SimpleDialog
+      //     content={
+      //       <div>
+      //         <button type="button" onClick={unSetModal}>
+      //           button
+      //         </button>
+      //         <div>111111111111111</div>
+      //       </div>
+      //     }
+      //   />
+      // );
     }
   };
 
