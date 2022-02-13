@@ -19,8 +19,16 @@ export function requestSignIn(email, password) {
   return axios.post(`${host}/api/sessions`, { email, password }).then((res) => res);
 }
 export function requestSignUp(name, telephone, address, email, password) {
+  const userSocialId = 123456789;
   return axios
-    .post(`${host}/api/users`, { name, telephone, address, email, password })
+    .post(`${host}/api/users`, {
+      name,
+      telephone,
+      address,
+      email,
+      password,
+      user_social_id: userSocialId,
+    })
     .then((res) => res);
 }
 

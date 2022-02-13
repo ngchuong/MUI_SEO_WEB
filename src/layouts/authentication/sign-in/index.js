@@ -8,8 +8,7 @@ import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
-import { useModal } from "components/Modal";
-import { SimpleDialog } from "components/Modal/dialog";
+
 import MDBox from "../../../components/MDBox";
 import MDTypography from "../../../components/MDTypography";
 import MDButton from "../../../components/MDButton";
@@ -22,7 +21,6 @@ import { getCookie, setCookie } from "../../../utils/cookie";
 
 function SignInForm() {
   const navigate = useNavigate();
-  const { setModal, unSetModal } = useModal();
 
   const [inputVal, setInputVal] = useState({ email: "", pwd: "" });
   const userCookie = getCookie("user") ? JSON.parse(getCookie("user")) : {};
@@ -64,20 +62,6 @@ function SignInForm() {
           navigate("/task");
         }
       }
-    } else {
-      console.log("khong du dieu kien");
-      // setModal(
-      //   <SimpleDialog
-      //     content={
-      //       <div>
-      //         <button type="button" onClick={unSetModal}>
-      //           button
-      //         </button>
-      //         <div>111111111111111</div>
-      //       </div>
-      //     }
-      //   />
-      // );
     }
   };
 
@@ -125,7 +109,7 @@ function SignInForm() {
               />
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton type="submit" variant="gradient" color="info" fullWidth>
+              <MDButton onClick={doSignIn} type="submit" variant="gradient" color="info" fullWidth>
                 Đăng nhập
               </MDButton>
             </MDBox>

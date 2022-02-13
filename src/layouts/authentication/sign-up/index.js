@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
@@ -9,23 +8,26 @@ import Card from "@mui/material/Card";
 
 // Material Dashboard 2 React components
 import BasicLayout from "layouts/authentication/components/BasicLayout";
+import { useModal } from "components/Modal";
+import { SimpleDialog } from "components/Modal/dialog";
 import bgImage from "assets/images/bg-sign-up-cover.jpeg";
 import MDBox from "../../../components/MDBox";
 import MDTypography from "../../../components/MDTypography";
 import MDButton from "../../../components/MDButton";
 
-import { reqSignUp } from "../../../actions/authentication";
+import { requestSignUp } from "../../../api";
 
 function SignUpForm() {
-  const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  const [inputVal, setInputVal] = useState({
+  const { setModal, unSetModal } = useModal();
+
+  const defaultInput = {
     name: "",
     phone: "",
     address: "",
     email: "",
     pwd: "",
-  });
+  };
+  const [inputVal, setInputVal] = useState(defaultInput);
 
   const rulePhoneNumber = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
   const ruleEmail = /$|.+@.+..+/;
@@ -59,11 +61,17 @@ function SignUpForm() {
     return true;
   };
 
-  const doSignUp = () => {
+  const doSignUp = async () => {
     if (validateData(inputVal)) {
-      dispatch(reqSignUp(inputVal));
-    } else {
-      console.log("khong duoc dang ki");
+      const { name, phone, address, email, pwd } = inputVal;
+
+      const resSignUp = await requestSignUp(name, phone, address, email, pwd);
+      if (resSignUp && resSignUp.status === 200) {
+        setModal(<SimpleDialog content={<div>Đăng ký tài khoản thành công!</div>} />);
+        setInputVal(defaultInput);
+      } else {
+        setModal(<SimpleDialog content={<div>Đăng ký tài khoản thất bại!</div>} />);
+      }
     }
   };
   return (
