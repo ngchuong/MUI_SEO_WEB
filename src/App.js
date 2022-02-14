@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 // react-router components
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 
 // @mui material components
 import { ThemeProvider } from "@mui/material/styles";
@@ -31,6 +31,7 @@ import { requesVerify } from "./api/index";
 import { setCookie, getCookie, eraseCookie } from "./utils/cookie";
 
 export default function App() {
+  const navigate = useNavigate();
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,
@@ -83,6 +84,7 @@ export default function App() {
       setIsVerify(true);
     } else {
       eraseCookie("user");
+      navigate("/home");
     }
   }, [pathname]);
 

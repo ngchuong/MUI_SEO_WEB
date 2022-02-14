@@ -7,17 +7,17 @@ const host = "http://localhost:3000";
 
 // task
 export function requestGetCurrentTask() {
-  return axios.get(`${host}/api/task-user/current`).then((res) => res.data);
+  return axios.get(`${host}/api/task-user/current`).then((res) => res);
 }
 
 export function requestGetRandomTask() {
-  return axios.get(`${host}/api/task-user/random`).then((res) => res.data);
+  return axios.get(`${host}/api/task-user/random`).then((res) => res);
 }
 
-export function requestReceiveTask() {
-  return axios.post(`${host}/api/task-user/random`).then((res) => res.data);
+export function requestReceiveTask(id) {
+  return axios.post(`${host}/api/task-user/random`, { task_id: id }).then((res) => res);
 }
 
 export function requestPostKey(key) {
-  return axios.post("google.com", { key }).then((res) => res.data);
+  return axios.post(`${host}/api/task-user/finish`, { task_id: key }).then((res) => res);
 }

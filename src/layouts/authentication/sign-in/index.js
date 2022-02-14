@@ -30,7 +30,7 @@ function SignInForm() {
       if (userCookie.is_admin) {
         navigate("/manage-task");
       } else {
-        navigate("/task");
+        navigate("/do-task");
       }
     }
   }, [userCookie]);
@@ -59,7 +59,7 @@ function SignInForm() {
         if (data.is_admin) {
           navigate("/manage-task");
         } else {
-          navigate("/task");
+          navigate("/do-task");
         }
       }
     }

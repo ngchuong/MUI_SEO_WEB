@@ -30,7 +30,8 @@ import Billing from "./layouts/billing";
 import Profile from "./layouts/profile";
 import SignIn from "./layouts/authentication/sign-in";
 import SignUp from "./layouts/authentication/sign-up";
-import DoTask from "./layouts/task";
+import ReceiveTask from "./layouts/task/receiveTask";
+import DoTask from "./layouts/task/doTask";
 import Guideline from "./layouts/guideline";
 import Home from "./layouts/home";
 
@@ -74,10 +75,18 @@ export const routeUser = [
   // },
   {
     type: "collapse",
+    name: "Nhận nhiệm vụ",
+    key: "receive-task",
+    icon: <Icon fontSize="small">task_alt</Icon>,
+    route: "/receive-task",
+    component: <ReceiveTask />,
+  },
+  {
+    type: "collapse",
     name: "Làm nhiệm vụ kiếm tiền",
-    key: "task",
+    key: "do-task",
     icon: <Icon fontSize="small">task</Icon>,
-    route: "/task",
+    route: "/do-task",
     component: <DoTask />,
   },
   {

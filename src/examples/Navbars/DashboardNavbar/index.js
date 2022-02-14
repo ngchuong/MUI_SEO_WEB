@@ -24,6 +24,7 @@ import {
   navbar,
   navbarContainer,
   navbarRow,
+  navbarIconButton,
   navbarMobileMenu,
 } from "examples/Navbars/DashboardNavbar/styles";
 
@@ -102,9 +103,12 @@ function DashboardNavbar({ absolute, light, isMini }) {
         {isMini ? null : (
           <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
             <MDBox pr={1}>
-              <MDButton onClick={handleLogout} size="small" color="primary">
-                Đăng xuất
-              </MDButton>
+              <IconButton sx={navbarIconButton} size="small" disableRipple onClick={handleLogout}>
+                <Icon sx={iconsStyle}>logout</Icon> Đăng xuất
+              </IconButton>
+              {/* <MDButton onClick={handleLogout} size="small" color="primary">
+                <Icon fontSize="small">logout</Icon>,
+              </MDButton> */}
             </MDBox>
             <MDBox color={light ? "white" : "inherit"}>
               <IconButton
