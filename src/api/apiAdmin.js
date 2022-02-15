@@ -37,11 +37,11 @@ export function requestCreateTask({ name, description, reward, relatedData, prio
 }
 
 export function requestEditTask(taskId, body) {
-  return axios.patch(`${host}/api/tasks/${taskId}`, { ...body }).then((res) => res.data);
+  return axios.patch(`${host}/api/tasks/${taskId}`, { ...body }).then((res) => res);
 }
 
 export function requestDeleteTask(id) {
-  return axios.delete(`${host}/api/task-user/${id}`).then((res) => res.data);
+  return axios.delete(`${host}/api/tasks/${id}`).then((res) => res);
 }
 
 // withdraw

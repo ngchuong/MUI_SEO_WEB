@@ -1,8 +1,44 @@
 import React from "react";
 
-export const InputImg = ({ multiple = false, onDone }) => {
-  // const [files, setFiles] = useState([]);
+async function reduce_image_file_size(base64Str, MAX_WIDTH = 450, MAX_HEIGHT = 450) {
+  const resized_base64 = await new Promise((resolve) => {
+    const img = new Image();
+    img.src = base64Str;
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      let width = img.width;
+      let height = img.height;
 
+      if (width > height) {
+        if (width > MAX_WIDTH) {
+          height *= MAX_WIDTH / width;
+          width = MAX_WIDTH;
+        }
+      } else if (height > MAX_HEIGHT) {
+        width *= MAX_HEIGHT / height;
+        height = MAX_HEIGHT;
+      }
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, width, height);
+      resolve(canvas.toDataURL()); // this will return base64 image results after resize
+    };
+  });
+  return resized_base64;
+}
+
+async function image_to_base64(file) {
+  const result_base64 = await new Promise((resolve) => {
+    const fileReader = new FileReader();
+    fileReader.onload = (e) => resolve(fileReader.result);
+    fileReader.onerror = (error) => {};
+    fileReader.readAsDataURL(file);
+  });
+  return result_base64;
+}
+
+export const InputImg = ({ multiple = false, onDone }) => {
   const handleChange = (e) => {
     // get the files
     const files = e.target.files;

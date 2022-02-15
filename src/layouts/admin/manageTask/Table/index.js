@@ -11,6 +11,10 @@ import TableRow from "@mui/material/TableRow";
 import IconButton from "@mui/material/IconButton";
 import Icon from "@mui/material/Icon";
 
+import { useModal } from "components/Modal";
+import { SimpleDialog, ConfirmDialog } from "components/Modal/dialog";
+
+import { requestDeleteTask } from "api/apiAdmin";
 import { StyledTableCell, StyledTableRow, useStyles } from "./subComponent";
 
 import { reqDeleteTask } from "../../../../actions/admin";
@@ -18,6 +22,7 @@ import { reqDeleteTask } from "../../../../actions/admin";
 export default function TableMUI({ columns, rows }) {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { setModal, unSetModal } = useModal();
 
   // pagination
   const [page, setPage] = React.useState(0);
@@ -32,12 +37,33 @@ export default function TableMUI({ columns, rows }) {
     setPage(0);
   };
 
-  // handle open dialog
-  // const [openDialog, setOpenDialog] = useState(false);
-  // TODO: handle delete, edit
+  // handle delete, edit
+  const deleteTask = async (id) => {
+    let res;
+    try {
+      res = await requestDeleteTask(id);
+    } catch (err) {
+      setModal(<SimpleDialog content={<div>Xóa nhiệm vụ thất bại!</div>} />);
+      return;
+    }
+
+    if (res && /20[0-9]/.test(res.status)) {
+      setModal(<SimpleDialog content={<div>Xóa nhiệm vụ thành công!</div>} />);
+    }
+  };
+  const doCancel = () => {
+    unSetModal();
+  };
+
   const OpenEdit = () => {};
   const OpenDelete = (id) => {
-    dispatch(reqDeleteTask(id));
+    setModal(
+      <ConfirmDialog
+        content={<div>Bạn muốn xóa nhiệm vụ này không?</div>}
+        onSubmit={() => deleteTask(id)}
+        onCancel={doCancel}
+      />
+    );
   };
 
   return (

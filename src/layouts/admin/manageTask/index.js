@@ -6,7 +6,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
-import FormDialog from "components/Dialog";
+import FormDialog from "./Dialog";
 
 // import { useModal } from "components/Modal";
 // import { ConfirmDialog } from "components/Modal/dialog";
