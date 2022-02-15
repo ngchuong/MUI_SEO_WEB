@@ -15,7 +15,7 @@ export function requestUpdateUser(userId, body) {
 }
 
 export function requestDeleteUser(id) {
-  return axios.delete(`${host}/api/users/${id}`).then((res) => res.data);
+  return axios.delete(`${host}/api/users/${id}`).then((res) => res);
 }
 
 // task

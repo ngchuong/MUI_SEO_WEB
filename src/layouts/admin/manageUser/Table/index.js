@@ -1,4 +1,6 @@
-import * as React from "react";
+import React from "react";
+import { useDispatch } from "react-redux";
+
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -10,10 +12,16 @@ import TableRow from "@mui/material/TableRow";
 import IconButton from "@mui/material/IconButton";
 import Icon from "@mui/material/Icon";
 
+import { useModal } from "components/Modal";
+import { SimpleDialog, ConfirmDialog } from "components/Modal/dialog";
+
+import { requestDeleteUser } from "api/apiAdmin";
 import { StyledTableCell, StyledTableRow, useStyles } from "./subComponent";
 
 export default function TableMUI({ columns, rows }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { setModal, unSetModal } = useModal();
 
   // pagination
   const [page, setPage] = React.useState(0);
@@ -28,9 +36,31 @@ export default function TableMUI({ columns, rows }) {
     setPage(0);
   };
 
-  // TODO: handle delete, edit
+  // handle delete, edit
+  const deleteUser = (id) => {
+    try {
+      requestDeleteUser(id);
+    } catch (err) {
+      setModal(<SimpleDialog content={<div>Xóa tài khoản thất bại!</div>} />);
+      return;
+    }
+
+    setModal(<SimpleDialog content={<div>Xóa tài khoản thành công!</div>} />);
+  };
+  const doCancel = () => {
+    unSetModal();
+  };
+
   const ClickEdit = () => {};
-  const ClickDelete = () => {};
+  const ClickDelete = (id) => {
+    setModal(
+      <ConfirmDialog
+        content={<div>Bạn muốn xóa user này không?</div>}
+        onSubmit={() => deleteUser(id)}
+        onCancel={doCancel}
+      />
+    );
+  };
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -47,9 +77,9 @@ export default function TableMUI({ columns, rows }) {
                   {column.label}
                 </StyledTableCell>
               ))}
-              <StyledTableCell key="edit" align="center" style={{ minWidth: 100 }}>
+              {/* <StyledTableCell key="edit" align="center" style={{ minWidth: 100 }}>
                 Sửa
-              </StyledTableCell>
+              </StyledTableCell> */}
               <StyledTableCell key="delete" align="center" style={{ minWidth: 100 }}>
                 Xóa
               </StyledTableCell>
@@ -66,13 +96,18 @@ export default function TableMUI({ columns, rows }) {
                     </StyledTableCell>
                   );
                 })}
-                <StyledTableCell key="edit" align="center">
+                {/* <StyledTableCell key="edit" align="center">
                   <IconButton size="small" aria-label="close" color="inherit" onClick={ClickEdit}>
                     <Icon fontSize="small">edit</Icon>
                   </IconButton>
-                </StyledTableCell>
+                </StyledTableCell> */}
                 <StyledTableCell key="delete" align="center">
-                  <IconButton size="small" aria-label="close" color="inherit" onClick={ClickDelete}>
+                  <IconButton
+                    size="small"
+                    aria-label="close"
+                    color="inherit"
+                    onClick={() => ClickDelete(row.id)}
+                  >
                     <Icon fontSize="small">delete</Icon>
                   </IconButton>
                 </StyledTableCell>
