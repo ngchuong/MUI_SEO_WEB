@@ -15,9 +15,9 @@ export function requestGetRandomTask() {
 }
 
 export function requestReceiveTask(id) {
-  return axios.post(`${host}/api/task-user/random`, { task_id: id }).then((res) => res);
+  return axios.post(`${host}/api/task-user`, { task_id: id }).then((res) => res);
 }
 
-export function requestPostKey(key) {
+export function requestFinishTask(key) {
   return axios.post(`${host}/api/task-user/finish`, { task_id: key }).then((res) => res);
 }

@@ -10,7 +10,7 @@ const Admin = createSlice({
       return { ...state, allUser: payload };
     },
     updateAllTask(state, { payload }) {
-      return { ...state, allTask: [...state.allTask, ...payload] };
+      return { ...state, allTask: payload };
     },
   },
 });

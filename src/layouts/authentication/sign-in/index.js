@@ -9,6 +9,9 @@ import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
+import { useModal } from "components/Modal";
+import { SimpleDialog } from "components/Modal/dialog";
+
 import MDBox from "../../../components/MDBox";
 import MDTypography from "../../../components/MDTypography";
 import MDButton from "../../../components/MDButton";
@@ -21,6 +24,7 @@ import { getCookie, setCookie } from "../../../utils/cookie";
 
 function SignInForm() {
   const navigate = useNavigate();
+  const { setModal, unSetModal } = useModal();
 
   const [inputVal, setInputVal] = useState({ email: "", pwd: "" });
   const userCookie = getCookie("user") ? JSON.parse(getCookie("user")) : {};
@@ -52,7 +56,14 @@ function SignInForm() {
 
   const doSignIn = async () => {
     if (validateData(inputVal)) {
-      const resSignIn = await requestSignIn(inputVal.email, inputVal.pwd);
+      let resSignIn;
+      try {
+        resSignIn = await requestSignIn(inputVal.email, inputVal.pwd);
+      } catch (err) {
+        setModal(<SimpleDialog content={<div>Tài khoản hoặc mật khẩu không chính xác!</div>} />);
+        return;
+      }
+
       if (resSignIn && resSignIn.status === 201) {
         const data = resSignIn.data.user;
         setCookie("user", data, 1);

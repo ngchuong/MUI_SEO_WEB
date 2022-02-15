@@ -30,7 +30,7 @@ function DoTask() {
     dispatch(reqPostTask(inputKey));
   };
 
-  console.log(currentTask);
+  console.log("currentTask", currentTask);
 
   return (
     <DashboardLayout>

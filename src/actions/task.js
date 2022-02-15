@@ -2,7 +2,7 @@ import {
   requestGetCurrentTask,
   requestGetRandomTask,
   requestReceiveTask,
-  requestPostKey,
+  requestFinishTask,
 } from "../api/task";
 
 import { updateRandomTask, updateCurrentTask } from "../store/reducers/task";
@@ -28,7 +28,6 @@ export const reqGetRandomTask = () => async (dispatch) => {
   } catch (err) {
     console.log(err);
   }
-  console.log("random task", response);
 
   if (response && response.status === 200) {
     dispatch(updateRandomTask(response.data));
@@ -38,7 +37,7 @@ export const reqGetRandomTask = () => async (dispatch) => {
 export const reqPostTask = (keyVal) => async () => {
   let response;
   try {
-    response = await requestPostKey(keyVal);
+    response = await requestFinishTask(keyVal);
   } catch (err) {
     console.log(err);
   }

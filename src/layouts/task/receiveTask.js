@@ -19,7 +19,7 @@ function ReceiveTask() {
   const { setModal, unSetModal } = useModal();
 
   const randomTask = useSelector((state) => state.task.randomTask);
-  console.log(randomTask);
+  console.log("randomTask", randomTask);
 
   useEffect(() => {
     // get random task
@@ -28,7 +28,8 @@ function ReceiveTask() {
 
   const receiveRandomTask = async () => {
     const resReceiveTask = await requestReceiveTask(randomTask.id);
-    if (resReceiveTask && resReceiveTask.status === 200) {
+    console.log(resReceiveTask, "1");
+    if (resReceiveTask && resReceiveTask.status === 201) {
       setModal(<SimpleDialog content={<div>Nhận nhiệm vụ thành công!</div>} />);
     } else {
       setModal(<SimpleDialog content={<div>Nhận nhiệm vụ thất bại!</div>} />);
