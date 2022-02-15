@@ -126,7 +126,7 @@ export const routeAdmin = [
     type: "collapse",
     name: "Quản lý rút tiền",
     key: "manage-withdraw",
-    icon: <Icon fontSize="small">receipt_long</Icon>,
+    icon: <Icon fontSize="small">payment</Icon>,
     route: "/manage-withdrawal",
     component: <ManageWithdrawal />,
   },

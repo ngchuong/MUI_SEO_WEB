@@ -1,4 +1,5 @@
-import * as React from "react";
+import React from "react";
+
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -10,10 +11,15 @@ import TableRow from "@mui/material/TableRow";
 import IconButton from "@mui/material/IconButton";
 import Icon from "@mui/material/Icon";
 
+import { useModal } from "components/Modal";
+import { SimpleDialog, ConfirmDialog } from "components/Modal/dialog";
+
+import { requestAcceptWithdraw } from "api/apiAdmin";
 import { StyledTableCell, StyledTableRow, useStyles } from "./subComponent";
 
 export default function TableMUI({ columns, rows }) {
   const classes = useStyles();
+  const { setModal, unSetModal } = useModal();
 
   // pagination
   const [page, setPage] = React.useState(0);
@@ -22,15 +28,35 @@ export default function TableMUI({ columns, rows }) {
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
 
-  // TODO: handle delete, edit
-  const ClickEdit = () => {};
-  const ClickDelete = () => {};
+  // handle payment
+  const paymentForUser = (id) => {
+    try {
+      requestAcceptWithdraw(id);
+    } catch (err) {
+      setModal(<SimpleDialog content={<div>Thanh toán thất bại!</div>} />);
+      return;
+    }
+
+    setModal(<SimpleDialog content={<div>Thanh toán thành công!</div>} />);
+  };
+  const doCancel = () => {
+    unSetModal();
+  };
+
+  const ClickPayment = (id) => {
+    setModal(
+      <ConfirmDialog
+        content={<div>Bạn muốn thanh toán cho user này không?</div>}
+        onSubmit={() => paymentForUser(id)}
+        onCancel={doCancel}
+      />
+    );
+  };
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -47,11 +73,8 @@ export default function TableMUI({ columns, rows }) {
                   {column.label}
                 </StyledTableCell>
               ))}
-              <StyledTableCell key="edit" align="center" style={{ minWidth: 100 }}>
-                Sửa
-              </StyledTableCell>
               <StyledTableCell key="delete" align="center" style={{ minWidth: 100 }}>
-                Xóa
+                Thanh toán
               </StyledTableCell>
             </TableRow>
           </TableHead>
@@ -66,14 +89,14 @@ export default function TableMUI({ columns, rows }) {
                     </StyledTableCell>
                   );
                 })}
-                <StyledTableCell key="edit" align="center">
-                  <IconButton size="small" aria-label="close" color="inherit" onClick={ClickEdit}>
-                    <Icon fontSize="small">edit</Icon>
-                  </IconButton>
-                </StyledTableCell>
                 <StyledTableCell key="delete" align="center">
-                  <IconButton size="small" aria-label="close" color="inherit" onClick={ClickDelete}>
-                    <Icon fontSize="small">delete</Icon>
+                  <IconButton
+                    size="small"
+                    aria-label="close"
+                    color="inherit"
+                    onClick={() => ClickPayment(row.id)}
+                  >
+                    <Icon fontSize="small">payment</Icon>
                   </IconButton>
                 </StyledTableCell>
               </StyledTableRow>
