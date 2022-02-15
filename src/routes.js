@@ -37,6 +37,7 @@ import Home from "./layouts/home";
 
 import ManageTask from "./layouts/admin/manageTask";
 import ManageUser from "./layouts/admin/manageUser";
+import ManageWithdrawal from "./layouts/admin/manageWithdrawal";
 
 export const routeDefault = [
   {
@@ -147,6 +148,14 @@ export const routeAdmin = [
     icon: <Icon fontSize="small">task</Icon>,
     route: "/manage-task",
     component: <ManageTask />,
+  },
+  {
+    type: "collapse",
+    name: "Quản lý rút tiền",
+    key: "manage-withdraw",
+    icon: <Icon fontSize="small">receipt_long</Icon>,
+    route: "/manage-withdrawal",
+    component: <ManageWithdrawal />,
   },
   // {
   //   type: "collapse",

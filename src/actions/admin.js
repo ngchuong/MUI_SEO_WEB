@@ -4,9 +4,10 @@ import {
   requestCreateTask,
   requestEditTask,
   requestDeleteTask,
+  requestAllWithdraw,
 } from "../api/apiAdmin";
 
-import { updateAllUser, updateAllTask } from "../store/reducers/admin";
+import { updateAllUser, updateAllTask, updateAllWithdrawal } from "../store/reducers/admin";
 // TODO: update dialog;
 
 // user
@@ -47,7 +48,6 @@ export const reqCreateTask = (data) => async (dispatch) => {
   }
 };
 
-// TODO: make action edit, delete task
 export const reqEditTask = (data) => async (dispatch) => {
   let response;
   try {
@@ -69,5 +69,18 @@ export const reqDeleteTask = (id) => async (dispatch) => {
   }
   if (response && response.status === 200) {
     dispatch(updateAllTask([response.data]));
+  }
+};
+
+// withdraw
+export const reqAllWithdrawal = () => async (dispatch) => {
+  let response;
+  try {
+    response = await requestAllWithdraw();
+  } catch (err) {
+    console.log(err);
+  }
+  if (response && response.status === 200) {
+    dispatch(updateAllWithdrawal(response.data));
   }
 };

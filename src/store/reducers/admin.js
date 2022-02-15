@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { allUser: [], allTask: [] };
+const initialState = { allUser: [], allTask: [], allWithdrawal: [] };
 
 const Admin = createSlice({
   name: "Admin",
@@ -12,8 +12,11 @@ const Admin = createSlice({
     updateAllTask(state, { payload }) {
       return { ...state, allTask: payload };
     },
+    updateAllWithdrawal(state, { payload }) {
+      return { ...state, allWithdrawal: payload };
+    },
   },
 });
 
-export const { updateAllUser, updateAllTask } = Admin.actions;
+export const { updateAllUser, updateAllTask, updateAllWithdrawal } = Admin.actions;
 export default Admin.reducer;
