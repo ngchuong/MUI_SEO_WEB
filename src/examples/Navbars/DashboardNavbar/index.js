@@ -84,7 +84,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
 
   const handleLogout = async () => {
     const resLogout = await requestLogout();
-    if (resLogout && resLogout.status === 200) {
+    if (/20[0-9]/.test(resLogout.status)) {
       eraseCookie("user");
       navigate("/home");
     }

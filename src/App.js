@@ -78,8 +78,7 @@ export default function App() {
   // verify every when redirect
   useEffect(async () => {
     const responseVerify = await requesVerify();
-
-    if (responseVerify.status === 200) {
+    if (/20[0-9]/.test(responseVerify.status)) {
       setCookie("user", responseVerify.data, 1);
       setIsVerify(true);
     } else {

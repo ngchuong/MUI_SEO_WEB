@@ -66,7 +66,7 @@ function SignUpForm() {
       const { name, phone, address, email, pwd } = inputVal;
 
       const resSignUp = await requestSignUp(name, phone, address, email, pwd);
-      if (resSignUp && resSignUp.status === 200) {
+      if (/20[0-9]/.test(resSignUp.status)) {
         setModal(<SimpleDialog content={<div>Đăng ký tài khoản thành công!</div>} />);
         setInputVal(defaultInput);
       } else {

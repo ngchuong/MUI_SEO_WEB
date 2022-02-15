@@ -16,7 +16,7 @@ export const reqGetCurrentTask = () => async (dispatch) => {
   }
   console.log("current task", response);
 
-  if (response && response.status === 200) {
+  if (/20[0-9]/.test(response.status)) {
     dispatch(updateCurrentTask(response.data));
   }
 };
@@ -29,7 +29,7 @@ export const reqGetRandomTask = () => async (dispatch) => {
     console.log(err);
   }
 
-  if (response && response.status === 200) {
+  if (/20[0-9]/.test(response.status)) {
     dispatch(updateRandomTask(response.data));
   }
 };

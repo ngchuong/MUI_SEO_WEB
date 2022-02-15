@@ -37,15 +37,18 @@ export default function TableMUI({ columns, rows }) {
   };
 
   // handle delete, edit
-  const deleteUser = (id) => {
+  const deleteUser = async (id) => {
+    let res;
     try {
-      requestDeleteUser(id);
+      res = await requestDeleteUser(id);
     } catch (err) {
       setModal(<SimpleDialog content={<div>Xóa tài khoản thất bại!</div>} />);
       return;
     }
 
-    setModal(<SimpleDialog content={<div>Xóa tài khoản thành công!</div>} />);
+    if (res && /20[0-9]/.test(res.status)) {
+      setModal(<SimpleDialog content={<div>Xóa tài khoản thành công!</div>} />);
+    }
   };
   const doCancel = () => {
     unSetModal();

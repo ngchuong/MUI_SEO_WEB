@@ -18,7 +18,7 @@ export const reqAllUser = () => async (dispatch) => {
   } catch (err) {
     console.log(err);
   }
-  if (response && response.status === 200) {
+  if (/20[0-9]/.test(response.status)) {
     dispatch(updateAllUser(response.data));
   }
 };
@@ -31,7 +31,7 @@ export const reqAllTask = () => async (dispatch) => {
   } catch (err) {
     console.log(err);
   }
-  if (response && response.status === 200) {
+  if (/20[0-9]/.test(response.status)) {
     dispatch(updateAllTask(response.data));
   }
 };
@@ -43,7 +43,7 @@ export const reqCreateTask = (data) => async (dispatch) => {
   } catch (err) {
     console.log(err);
   }
-  if (response && response.status === 200) {
+  if (/20[0-9]/.test(response.status)) {
     dispatch(updateAllTask([response.data]));
   }
 };
@@ -55,7 +55,7 @@ export const reqEditTask = (data) => async (dispatch) => {
   } catch (err) {
     console.log(err);
   }
-  if (response && response.status === 200) {
+  if (/20[0-9]/.test(response.status)) {
     dispatch(updateAllTask([response.data]));
   }
 };
@@ -67,7 +67,7 @@ export const reqDeleteTask = (id) => async (dispatch) => {
   } catch (err) {
     console.log(err);
   }
-  if (response && response.status === 200) {
+  if (/20[0-9]/.test(response.status)) {
     dispatch(updateAllTask([response.data]));
   }
 };
@@ -80,7 +80,7 @@ export const reqAllWithdrawal = () => async (dispatch) => {
   } catch (err) {
     console.log(err);
   }
-  if (response && response.status === 200) {
+  if (/20[0-9]/.test(response.status)) {
     dispatch(updateAllWithdrawal(response.data));
   }
 };
