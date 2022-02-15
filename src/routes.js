@@ -22,11 +22,8 @@
 
 // Material Dashboard 2 React layouts
 import Icon from "@mui/material/Icon";
-import Dashboard from "./layouts/dashboard";
-// import Tables from "./layouts/tables";
 import Billing from "./layouts/billing";
 // import RTL from "layouts/rtl";
-// import Notifications from "layouts/notifications";
 import Profile from "./layouts/profile";
 import SignIn from "./layouts/authentication/sign-in";
 import SignUp from "./layouts/authentication/sign-up";
@@ -66,14 +63,6 @@ export const routeDefault = [
   },
 ];
 export const routeUser = [
-  // {
-  //   type: "collapse",
-  //   name: "Dashboard",
-  //   key: "dashboard",
-  //   icon: <Icon fontSize="small">dashboard</Icon>,
-  //   route: "/dashboard",
-  //   component: <Dashboard />,
-  // },
   {
     type: "collapse",
     name: "Nhận nhiệm vụ",
@@ -98,14 +87,6 @@ export const routeUser = [
     route: "/guide",
     component: <Guideline />,
   },
-  // {
-  //   type: "collapse",
-  //   name: "Tables",
-  //   key: "tables",
-  //   icon: <Icon fontSize="small">table_view</Icon>,
-  //   route: "/tables",
-  //   component: <Tables />,
-  // },
   {
     type: "collapse",
     name: "Rút tiền",
@@ -114,14 +95,6 @@ export const routeUser = [
     route: "/billing",
     component: <Billing />,
   },
-  // {
-  //   type: "collapse",
-  //   name: "Notifications",
-  //   key: "notifications",
-  //   icon: <Icon fontSize="small">notifications</Icon>,
-  //   route: "/notifications",
-  //   component: <Notifications />,
-  // },
   {
     type: "collapse",
     name: "Tài khoản",
@@ -157,12 +130,4 @@ export const routeAdmin = [
     route: "/manage-withdrawal",
     component: <ManageWithdrawal />,
   },
-  // {
-  //   type: "collapse",
-  //   name: "table",
-  //   key: "manage-table",
-  //   icon: <Icon fontSize="small">task</Icon>,
-  //   route: "/manage-table",
-  //   component: <Tables />,
-  // },
 ];
