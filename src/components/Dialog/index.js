@@ -65,14 +65,14 @@ export default function FormDialog({ handleClose, open, onSubmit }) {
   // change type form
   const onSwitchTypeForm = (e) => {
     setTypeForm(e.target.value);
+
+    // when change type task reset state
+    setInputVal(defaultInput);
   };
 
   // change input
   const onChangeImg = (e) => {
     setInputImg(e);
-
-    // when change type task reset state
-    setInputVal(defaultInput);
   };
   const onChangeInput = (key) => (e) => {
     setInputVal({ ...inputVal, [key]: e.target.value });
