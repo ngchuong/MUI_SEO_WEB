@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -15,11 +15,12 @@ import { useModal } from "components/Modal";
 import { SimpleDialog, ConfirmDialog } from "components/Modal/dialog";
 
 import { requestDeleteTask } from "api/apiAdmin";
+import { updateAllTask } from "store/reducers/admin";
 import { StyledTableCell, StyledTableRow, useStyles } from "./subComponent";
 
-import { reqDeleteTask } from "../../../../actions/admin";
-
 export default function TableMUI({ columns, rows }) {
+  const allTask = useSelector((state) => state.admin.allTask);
+
   const classes = useStyles();
   const dispatch = useDispatch();
   const { setModal, unSetModal } = useModal();
@@ -48,6 +49,9 @@ export default function TableMUI({ columns, rows }) {
     }
 
     if (res && /20[0-9]/.test(res.status)) {
+      const data = allTask.filter((el) => el.id !== id);
+      dispatch(updateAllTask(data));
+
       setModal(<SimpleDialog content={<div>Xóa nhiệm vụ thành công!</div>} />);
     }
   };

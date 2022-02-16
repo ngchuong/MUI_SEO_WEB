@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useSelector, useDispatch } from "react-redux";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -15,9 +15,13 @@ import { useModal } from "components/Modal";
 import { SimpleDialog, ConfirmDialog } from "components/Modal/dialog";
 
 import { requestAcceptWithdraw } from "api/apiAdmin";
+import { updateAllWithdrawal } from "store/reducers/admin";
 import { StyledTableCell, StyledTableRow, useStyles } from "./subComponent";
 
 export default function TableMUI({ columns, rows }) {
+  const dispatch = useDispatch();
+  const allWithdrawal = useSelector((state) => state.admin.allWithdrawal);
+
   const classes = useStyles();
   const { setModal, unSetModal } = useModal();
 
@@ -34,15 +38,21 @@ export default function TableMUI({ columns, rows }) {
   };
 
   // handle payment
-  const paymentForUser = (id) => {
+  const paymentForUser = async (id) => {
+    let res;
     try {
-      requestAcceptWithdraw(id);
+      res = await requestAcceptWithdraw(id);
     } catch (err) {
       setModal(<SimpleDialog content={<div>Thanh toán thất bại!</div>} />);
       return;
     }
 
-    setModal(<SimpleDialog content={<div>Thanh toán thành công!</div>} />);
+    if (res && /20[0-9]/.test(res.status)) {
+      const data = allWithdrawal.filter((el) => el.id !== id);
+      dispatch(updateAllWithdrawal(data));
+
+      setModal(<SimpleDialog content={<div>Thanh toán thành công!</div>} />);
+    }
   };
   const doCancel = () => {
     unSetModal();

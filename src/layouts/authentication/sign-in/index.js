@@ -66,7 +66,7 @@ function SignInForm() {
 
       if (resSignIn && resSignIn.status === 201) {
         const data = resSignIn.data.user;
-        setCookie("user", data, 1);
+        setCookie("user", data);
         if (data.is_admin) {
           navigate("/manage-task");
         } else {

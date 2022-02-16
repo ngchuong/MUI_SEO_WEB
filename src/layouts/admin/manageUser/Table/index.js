@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -16,9 +16,12 @@ import { useModal } from "components/Modal";
 import { SimpleDialog, ConfirmDialog } from "components/Modal/dialog";
 
 import { requestDeleteUser } from "api/apiAdmin";
+import { updateAllUser } from "store/reducers/admin";
 import { StyledTableCell, StyledTableRow, useStyles } from "./subComponent";
 
 export default function TableMUI({ columns, rows }) {
+  const allUser = useSelector((state) => state.admin.allUser);
+
   const classes = useStyles();
   const dispatch = useDispatch();
   const { setModal, unSetModal } = useModal();
@@ -47,6 +50,8 @@ export default function TableMUI({ columns, rows }) {
     }
 
     if (res && /20[0-9]/.test(res.status)) {
+      const data = allUser.filter((el) => el.id !== id);
+      dispatch(updateAllUser(data));
       setModal(<SimpleDialog content={<div>Xóa tài khoản thành công!</div>} />);
     }
   };

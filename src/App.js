@@ -79,7 +79,7 @@ export default function App() {
   useEffect(async () => {
     const responseVerify = await requesVerify();
     if (/20[0-9]/.test(responseVerify.status)) {
-      setCookie("user", responseVerify.data, 1);
+      setCookie("user", responseVerify.data);
       setIsVerify(true);
     } else {
       eraseCookie("user");

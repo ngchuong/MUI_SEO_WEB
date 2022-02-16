@@ -38,6 +38,7 @@ async function image_to_base64(file) {
   return result_base64;
 }
 
+// TODO: reduce data base64
 export const InputImg = ({ multiple = false, onDone }) => {
   const handleChange = (e) => {
     // get the files
