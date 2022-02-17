@@ -19,16 +19,16 @@ import BillingInformation from "layouts/billing/components/BillingInformation";
 
 import { reqGetAllWithdraw } from "actions/withdraw";
 import { requestWithdraw } from "api/withdraw";
-import { getCookie, setCookie } from "utils/cookie";
+import { setCookie } from "utils/cookie";
 import { useModal } from "components/Modal";
 import { SimpleDialog, ConfirmDialog } from "components/Modal/dialog";
-
-const userInfo = getCookie("user") ? JSON.parse(getCookie("user")) : {};
+import { updateUserInfo } from "store/reducers/user";
 
 function Billing() {
   const dispatch = useDispatch();
   const [inputMoney, setInputMoney] = useState(0);
   const { setModal, unSetModal } = useModal();
+  const userInfo = useSelector((state) => state.user.userInfo);
 
   const listWithdrawal = useSelector((state) => state.user.allWithdrawal);
   useEffect(() => {
@@ -59,6 +59,7 @@ function Billing() {
     if (res && /20[0-9]/.test(res.status)) {
       const newData = { ...userInfo, balance: userInfo.balance - inputMoney };
       setCookie("user", newData);
+      dispatch(updateUserInfo(newData));
       setModal(<SimpleDialog content={<div>Rút tiền thành công</div>} />);
     }
   };

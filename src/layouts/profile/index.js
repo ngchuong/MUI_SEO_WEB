@@ -12,17 +12,14 @@ import { requestUpdateUser } from "api/apiAdmin";
 
 import { useModal } from "components/Modal";
 import { SimpleDialog, ConfirmDialog } from "components/Modal/dialog";
-import { getCookie } from "../../utils/cookie";
 
-const userInfo = getCookie("user") ? JSON.parse(getCookie("user")) : {};
-
-console.log(userInfo);
 function Profile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { setModal, unSetModal } = useModal();
-
   const [open, setOpen] = useState(false);
+
+  const userInfo = useSelector((state) => state.user.userInfo);
 
   const handleClickOpen = () => {
     setOpen(true);

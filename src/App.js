@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { useDispatch } from "react-redux";
 // react-router components
 import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 
@@ -27,11 +27,13 @@ import { useMaterialUIController, setMiniSidenav } from "context";
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 
+import { updateUserInfo } from "store/reducers/user";
 import { requesVerify } from "./api/index";
 import { setCookie, getCookie, eraseCookie } from "./utils/cookie";
 
 export default function App() {
   const navigate = useNavigate();
+  const usedDispatch = useDispatch();
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,
@@ -79,7 +81,9 @@ export default function App() {
   useEffect(async () => {
     const responseVerify = await requesVerify();
     if (/20[0-9]/.test(responseVerify.status)) {
+      eraseCookie("user");
       setCookie("user", responseVerify.data);
+      usedDispatch(updateUserInfo(responseVerify.data));
       setIsVerify(true);
     } else {
       eraseCookie("user");
