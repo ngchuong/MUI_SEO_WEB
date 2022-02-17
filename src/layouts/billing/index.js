@@ -67,16 +67,20 @@ function Billing() {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox mt={8}>
+        <MDBox mb={1}>
+          <MDTypography olor="text" fontWeight="bold" textTransform="capitalize">
+            Rút tiền
+          </MDTypography>
+        </MDBox>
         <MDBox mb={3}>
           <Grid container spacing={3}>
             <Grid item xs={12} lg={8}>
               <Grid container spacing={3}>
-                <Grid item xs={12} xl={6}>
-                  // TODO: display social id
+                {/* <Grid item xs={12} xl={6}>
                   <MasterCard number={4562112245947852} holder="jack peterson" expires="11/22" />
-                </Grid>
+                </Grid> */}
                 <Grid item xs={12} xl={6}>
-                  <MDBox my={2}>{`Số tiền hiện tại: ${userInfo.balance} đồng`}</MDBox>
+                  <MDBox my={2}>{`Số dư hiện tại: ${userInfo.balance} đồng`}</MDBox>
                   <MDBox mb={2}>
                     <MDTypography variant="button" fontWeight="regular" color="primary">
                       * Số tiền tối thiểu được rút là 10.000 đồng
