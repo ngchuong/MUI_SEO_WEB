@@ -1,15 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {};
+const initialState = {
+  allWithdrawal: [],
+};
 
 const User = createSlice({
   name: "User",
   initialState,
   reducers: {
-    updateCurrentUser(state, { payload }) {},
-    updateIsSignIn(state, { payload }) {},
+    updateAllWithdrawal(state, { payload }) {
+      return {
+        ...state,
+        allWithdrawal: payload,
+      };
+    },
   },
 });
 
-export const { updateCurrentUser, updateIsSignIn } = User.actions;
+export const { updateAllWithdrawal } = User.actions;
 export default User.reducer;

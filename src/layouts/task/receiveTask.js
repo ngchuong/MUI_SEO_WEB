@@ -29,7 +29,7 @@ function ReceiveTask() {
   const receiveRandomTask = async () => {
     const resReceiveTask = await requestReceiveTask(randomTask.id);
     console.log(resReceiveTask, "1");
-    if (resReceiveTask && resReceiveTask.status === 201) {
+    if (resReceiveTask && /20[0-9]/.test(resReceiveTask.status)) {
       setModal(<SimpleDialog content={<div>Nhận nhiệm vụ thành công!</div>} />);
     } else {
       setModal(<SimpleDialog content={<div>Nhận nhiệm vụ thất bại!</div>} />);

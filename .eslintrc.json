@@ -29,6 +29,7 @@
     "camelcase": "off",
     "react/react-in-jsx-scope": "off",
     "no-await-in-loop": "off",
+    "react/jsx-no-comment-textnodes": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-props-no-spreading": [
       1,

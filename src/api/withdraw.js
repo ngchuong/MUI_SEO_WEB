@@ -5,6 +5,8 @@ axios.defaults.withCredentials = true;
 const host = "http://localhost:3000";
 // const host = "http://192.168.30.105:3000";
 
+// For User
+
 // request withdraw
 export function requestWithdraw(amount) {
   return axios
@@ -22,4 +24,9 @@ export function requestCancelWithdraw(userId) {
 // request get withdraw detail
 export function requestWithdrawDetail(userId) {
   return axios.get(`${host}/api/withdraw/${userId}`).then((res) => res);
+}
+
+// request get all withdraw
+export function requestAllWithdraw(userId) {
+  return axios.get(`${host}/api/users/${userId}/withdraw`).then((res) => res);
 }
