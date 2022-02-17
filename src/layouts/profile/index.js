@@ -9,12 +9,19 @@ import ProfileInfoCard from "layouts/profile/components/ProfileInfoCard";
 import FormDialog from "layouts/profile/components/Dialog";
 
 import { requestUpdateUser } from "api/apiAdmin";
+
+import { useModal } from "components/Modal";
+import { SimpleDialog, ConfirmDialog } from "components/Modal/dialog";
 import { getCookie } from "../../utils/cookie";
 
 const userInfo = getCookie("user") ? JSON.parse(getCookie("user")) : {};
+
+console.log(userInfo);
 function Profile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { setModal, unSetModal } = useModal();
+
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -24,9 +31,19 @@ function Profile() {
     setOpen(false);
   };
 
-  const updateUser = (data) => {
+  const updateUser = async (data) => {
     console.log(data);
-    dispatch(requestUpdateUser(data));
+    let res;
+    try {
+      res = await requestUpdateUser(userInfo.id, data);
+    } catch (err) {
+      setModal(<SimpleDialog content={<div>Cập nhật thông tin thất bại!</div>} />);
+    }
+
+    console.log(res, "res");
+    if (res && /20[0-9]/.test(res.status)) {
+      setModal(<SimpleDialog content={<div>Cập nhật thông tin thành công</div>} />);
+    }
   };
 
   // const editUserInfo = () => {

@@ -7,7 +7,8 @@ import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 
-import { InputImg } from "components/InputImage";
+// import { InputImg } from "components/InputImage";
+import { InputImage } from "components/InputImage/test";
 
 export default function FormDialog({ handleClose, open, onSubmit, userInfo }) {
   const rulePhoneNumber = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
@@ -37,6 +38,7 @@ export default function FormDialog({ handleClose, open, onSubmit, userInfo }) {
 
   // change input
   const onChangeImg = (e) => {
+    console.log(e);
     setInputImg(e);
   };
   const onChangeInput = (key) => (e) => {
@@ -126,7 +128,8 @@ export default function FormDialog({ handleClose, open, onSubmit, userInfo }) {
               />
             </MDBox>
             <MDBox mb={2}>
-              <InputImg onDone={onChangeImg} />
+              {/* <InputImg onDone={onChangeImg} /> */}
+              <InputImage handleChange={onChangeImg} />
               <DisplayImg />
             </MDBox>
           </DialogContent>
