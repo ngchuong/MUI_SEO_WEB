@@ -10,7 +10,6 @@ import MDBox from "components/MDBox";
 // Material Dashboard 2 PRO React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import MasterCard from "examples/Cards/MasterCard";
 import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
 import MDTypography from "components/MDTypography";
@@ -60,7 +59,15 @@ function Billing() {
       const newData = { ...userInfo, balance: userInfo.balance - inputMoney };
       setCookie("user", newData);
       dispatch(updateUserInfo(newData));
-      setModal(<SimpleDialog content={<div>Rút tiền thành công</div>} />);
+      setModal(
+        <SimpleDialog
+          content={
+            <div>
+              Rút tiền thành công. Sau 5 ngày bạn có thể quay lại để làm thêm nhiệm vụ kiếm tiền
+            </div>
+          }
+        />
+      );
     }
   };
 

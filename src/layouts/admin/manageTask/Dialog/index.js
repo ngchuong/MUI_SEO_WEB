@@ -99,7 +99,7 @@ export default function FormDialog({ handleClose, open, onSubmit }) {
       type_task: typeForm,
       related_data: {
         image: inputImg,
-        host,
+        origin: host,
         key_word,
         key: uuidv4(),
       },

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
@@ -13,6 +14,8 @@ import { reqGetCurrentTask, reqPostTask } from "actions/task";
 
 function DoTask() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const currentTask = useSelector((state) => state.task.currentTask);
   const [inputKey, setInputKey] = useState("");
 
@@ -30,6 +33,11 @@ function DoTask() {
     dispatch(reqPostTask(inputKey));
   };
 
+  const doTask = () => {
+    navigate("/feeder-page");
+
+    window.open(currentTask.related_data.origin);
+  };
   console.log("currentTask", currentTask);
 
   return (
@@ -40,36 +48,46 @@ function DoTask() {
           Nhiệm vụ hiện tại
         </MDTypography>
         <MDBox my={1}>
-          <div>Tên nhiệm vụ: {currentTask && currentTask.name}</div>
-          <div>Mô tả: {currentTask && currentTask.description}</div>
-          <div>Tiền thưởng: {currentTask && currentTask.reward}</div>
-          <div>
-            <div>
-              <MDBox
-                component="img"
-                src="https://thumbs.dreamstime.com/b/environment-earth-day-hands-trees-growing-seedlings-bokeh-green-background-female-hand-holding-tree-nature-field-gra-130247647.jpg"
-                alt="#"
-                borderRadius="lg"
-                shadow="md"
-                width="100%"
-                height="100%"
-                position="relative"
-                zIndex={1}
-              />
-            </div>
-          </div>
-          <MDBox component="form" role="form">
-            <MDInput
-              type="text"
-              label="Nhập key hoàn thành"
-              value={inputKey}
-              onChange={onChangeKey}
-            />
-          </MDBox>
-
-          <MDButton onClick={doneTask} size="small" color="primary">
-            Hoàn thành nhiệm vụ
-          </MDButton>
+          {currentTask.name ? (
+            <MDBox my={1}>
+              <div>Tên nhiệm vụ: {currentTask && currentTask.name}</div>
+              <div>Mô tả: {currentTask && currentTask.description}</div>
+              <div>Tiền thưởng: {currentTask && currentTask.reward} đồng</div>
+              <div>
+                <div>
+                  <MDBox
+                    component="img"
+                    src="https://thumbs.dreamstime.com/b/environment-earth-day-hands-trees-growing-seedlings-bokeh-green-background-female-hand-holding-tree-nature-field-gra-130247647.jpg"
+                    alt="#"
+                    borderRadius="lg"
+                    shadow="md"
+                    width="100%"
+                    height="100%"
+                    position="relative"
+                    zIndex={1}
+                  />
+                </div>
+              </div>
+              {currentTask.type_task === "LIKE_PAGE" && (
+                <MDButton onClick={doTask} size="small" color="primary">
+                  Làm nhiệm vụ ngay
+                </MDButton>
+              )}
+              <MDBox component="form" role="form">
+                <MDInput
+                  type="text"
+                  label="Nhập key hoàn thành"
+                  value={inputKey}
+                  onChange={onChangeKey}
+                />
+              </MDBox>
+              <MDButton onClick={doneTask} size="small" color="primary">
+                Hoàn thành nhiệm vụ
+              </MDButton>
+            </MDBox>
+          ) : (
+            <MDBox>Bạn chưa nhận nhiệm vụ</MDBox>
+          )}
         </MDBox>
       </MDBox>
     </DashboardLayout>
