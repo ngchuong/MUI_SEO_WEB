@@ -16,6 +16,7 @@ import "./index.css";
 function FeederPage() {
   const navigate = useNavigate();
   const [time, setTime] = useState(3);
+  const [isUnlock, setIsUnlock] = useState(false);
   const currentTask = useSelector((state) => state.task.currentTask);
 
   const countdownTimer = () => {
@@ -24,13 +25,14 @@ function FeederPage() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTime((timer) => timer - 1);
       if (time === 0) {
-        clearInterval(interval);
+        setIsUnlock(true);
+        return () => clearInterval(interval);
       }
+      setTime(time - 1);
     }, 1000);
-    // return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval);
+  }, [time]);
 
   const handleClick = () => {
     const link = currentTask && currentTask.related_data && currentTask.related_data.origin;
@@ -101,7 +103,8 @@ function FeederPage() {
               size="large"
               color="primary"
             >
-              <Icon fontSize="small">lock</Icon>&nbsp;UNLOCK
+              <Icon fontSize="small">{isUnlock ? "lock_open" : "lock"}</Icon>&nbsp;
+              {isUnlock ? "Unlocked" : "Locked"}
             </MDButton>
           </MDBox>
         </MDBox>
