@@ -21,3 +21,7 @@ export function requestReceiveTask(id) {
 export function requestFinishTask(key) {
   return axios.post(`${host}/api/task-user/finish`, { task_id: key }).then((res) => res);
 }
+
+export function requestDestroyTask(id) {
+  return axios.delete(`${host}/api/task-user/${id}`).then((res) => res);
+}

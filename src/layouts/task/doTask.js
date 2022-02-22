@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -10,17 +10,35 @@ import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
 
 // api
-import { reqPostTask } from "actions/task";
+import { reqPostTask, destroyTask } from "actions/task";
+
+import { useModal } from "components/Modal";
+import { ConfirmDialog } from "components/Modal/dialog";
 
 function DoTask() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { setModal, unSetModal } = useModal();
 
   const currentTask = useSelector((state) => state.task.currentTask);
   const [inputKey, setInputKey] = useState("");
 
   const onChangeKey = (e) => {
     setInputKey(e.target.value);
+  };
+
+  const cancelTask = () => {
+    const handleDestroyTask = () => {
+      dispatch(destroyTask(currentTask.id));
+      unSetModal();
+    };
+    setModal(
+      <ConfirmDialog
+        content={<div>Bạn muốn xóa nhiệm vụ này không?</div>}
+        onSubmit={() => handleDestroyTask()}
+        onCancel={unSetModal}
+      />
+    );
   };
 
   const doneTask = () => {
@@ -30,10 +48,8 @@ function DoTask() {
 
   const doTask = () => {
     navigate("/feeder-page");
-
     // window.open(currentTask.related_data.origin);
   };
-  // console.log("currentTask", currentTask);
 
   const DisplayImg = (data1) => {
     const data = [
@@ -61,7 +77,7 @@ function DoTask() {
           Nhiệm vụ hiện tại
         </MDTypography>
         <MDBox my={1}>
-          {currentTask.name ? (
+          {currentTask.id ? (
             <MDBox my={1}>
               <div>Tên nhiệm vụ: {currentTask && currentTask.name}</div>
               <div>Mô tả: {currentTask && currentTask.description}</div>
@@ -93,8 +109,11 @@ function DoTask() {
                   onChange={onChangeKey}
                 />
               </MDBox>
-              <MDButton onClick={doneTask} size="small" color="primary">
+              <MDButton onClick={doneTask} size="small" color="info">
                 Hoàn thành nhiệm vụ
+              </MDButton>
+              <MDButton onClick={cancelTask} size="small" color="primary">
+                Hủy nhiệm vụ này
               </MDButton>
             </MDBox>
           ) : (

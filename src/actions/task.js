@@ -1,4 +1,9 @@
-import { requestGetCurrentTask, requestGetRandomTask, requestFinishTask } from "../api/task";
+import {
+  requestGetCurrentTask,
+  requestGetRandomTask,
+  requestFinishTask,
+  requestDestroyTask,
+} from "../api/task";
 
 import { updateRandomTask, updateCurrentTask } from "../store/reducers/task";
 
@@ -37,4 +42,17 @@ export const reqPostTask = (keyVal) => async () => {
   }
 
   console.log(response);
+};
+
+export const destroyTask = (id) => async (dispatch) => {
+  let response;
+  try {
+    response = await requestDestroyTask(id);
+  } catch (err) {
+    console.log(err);
+  }
+
+  if (response && /20[0-9]/.test(response.status)) {
+    dispatch(updateCurrentTask({}));
+  }
 };

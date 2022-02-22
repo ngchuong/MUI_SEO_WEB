@@ -82,7 +82,7 @@ export default function App() {
   useEffect(() => {
     usedDispatch(reqGetRandomTask());
     usedDispatch(reqGetCurrentTask());
-  }, []);
+  });
 
   // verify every when redirect
   useEffect(async () => {
