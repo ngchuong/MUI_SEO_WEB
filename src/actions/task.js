@@ -1,9 +1,4 @@
-import {
-  requestGetCurrentTask,
-  requestGetRandomTask,
-  requestReceiveTask,
-  requestFinishTask,
-} from "../api/task";
+import { requestGetCurrentTask, requestGetRandomTask, requestFinishTask } from "../api/task";
 
 import { updateRandomTask, updateCurrentTask } from "../store/reducers/task";
 
@@ -14,7 +9,6 @@ export const reqGetCurrentTask = () => async (dispatch) => {
   } catch (err) {
     console.log(err);
   }
-  console.log("current task", response);
 
   if (/20[0-9]/.test(response.status)) {
     dispatch(updateCurrentTask(response.data));

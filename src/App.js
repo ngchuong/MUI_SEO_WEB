@@ -28,6 +28,7 @@ import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 
 import { updateUserInfo } from "store/reducers/user";
+import { reqGetCurrentTask, reqGetRandomTask } from "actions/task";
 import { requesVerify } from "./api/index";
 import { setCookie, getCookie, eraseCookie } from "./utils/cookie";
 
@@ -76,6 +77,12 @@ export default function App() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
   }, [pathname]);
+
+  // request data
+  useEffect(() => {
+    usedDispatch(reqGetRandomTask());
+    usedDispatch(reqGetCurrentTask());
+  }, []);
 
   // verify every when redirect
   useEffect(async () => {

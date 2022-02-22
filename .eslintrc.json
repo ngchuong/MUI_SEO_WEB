@@ -31,6 +31,8 @@
     "no-await-in-loop": "off",
     "react/jsx-no-comment-textnodes": "off",
     "consistent-return": "off",
+    "react/destructuring-assignment": "off",
+    "react/no-array-index-key": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-props-no-spreading": [
       1,

@@ -8,7 +8,6 @@ import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 
 // api
-import { reqGetRandomTask } from "actions/task";
 import { requestReceiveTask } from "api/task";
 
 import { useModal } from "components/Modal";
@@ -19,11 +18,6 @@ function ReceiveTask() {
   const { setModal, unSetModal } = useModal();
 
   const randomTask = useSelector((state) => state.task.randomTask);
-
-  useEffect(() => {
-    // get random task
-    dispatch(reqGetRandomTask());
-  }, []);
 
   const receiveRandomTask = async () => {
     let resReceiveTask;
@@ -44,11 +38,16 @@ function ReceiveTask() {
     }
   };
 
-  const DisplayImg = (data = []) => {
+  const DisplayImg = (data1) => {
+    const data = [
+      "https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg",
+      "https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg",
+      "https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg",
+    ];
     if (data && Array.isArray(data)) {
-      return data.map((el) => {
+      return data.map((el, index) => {
         return (
-          <div key={el}>
+          <div key={`${el}_${index}`}>
             <img src={el} alt="#" />
           </div>
         );
@@ -72,7 +71,13 @@ function ReceiveTask() {
               <div>Tiền thưởng: {randomTask && randomTask.reward} đồng</div>
               <div>
                 <div>Hướng dẫn làm nhiệm vụ: </div>
-                <div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
                   <DisplayImg data={randomTask.related_data && randomTask.related_data.image} />
                 </div>
               </div>

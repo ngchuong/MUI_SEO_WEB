@@ -10,7 +10,7 @@ import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
 
 // api
-import { reqGetCurrentTask, reqPostTask } from "actions/task";
+import { reqPostTask } from "actions/task";
 
 function DoTask() {
   const dispatch = useDispatch();
@@ -18,11 +18,6 @@ function DoTask() {
 
   const currentTask = useSelector((state) => state.task.currentTask);
   const [inputKey, setInputKey] = useState("");
-
-  useEffect(() => {
-    // get current task task
-    dispatch(reqGetCurrentTask());
-  }, []);
 
   const onChangeKey = (e) => {
     setInputKey(e.target.value);
@@ -36,9 +31,27 @@ function DoTask() {
   const doTask = () => {
     navigate("/feeder-page");
 
-    window.open(currentTask.related_data.origin);
+    // window.open(currentTask.related_data.origin);
   };
-  console.log("currentTask", currentTask);
+  // console.log("currentTask", currentTask);
+
+  const DisplayImg = (data1) => {
+    const data = [
+      "https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg",
+      "https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg",
+      "https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg",
+    ];
+    if (data && Array.isArray(data)) {
+      return data.map((el, index) => {
+        return (
+          <div key={`${el}_${index}`}>
+            <img width={450} height={300} src={el} alt="#" />
+          </div>
+        );
+      });
+    }
+    return null;
+  };
 
   return (
     <DashboardLayout>
@@ -55,17 +68,16 @@ function DoTask() {
               <div>Tiền thưởng: {currentTask && currentTask.reward} đồng</div>
               <div>
                 <div>
-                  <MDBox
-                    component="img"
-                    src="https://thumbs.dreamstime.com/b/environment-earth-day-hands-trees-growing-seedlings-bokeh-green-background-female-hand-holding-tree-nature-field-gra-130247647.jpg"
-                    alt="#"
-                    borderRadius="lg"
-                    shadow="md"
-                    width="100%"
-                    height="100%"
-                    position="relative"
-                    zIndex={1}
-                  />
+                  <div>Hướng dẫn làm nhiệm vụ: </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
+                    <DisplayImg data={currentTask.related_data && currentTask.related_data.image} />
+                  </div>
                 </div>
               </div>
               {currentTask.type_task === "LIKE_PAGE" && (

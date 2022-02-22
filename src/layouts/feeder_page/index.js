@@ -19,10 +19,6 @@ function FeederPage() {
   const [isUnlock, setIsUnlock] = useState(false);
   const currentTask = useSelector((state) => state.task.currentTask);
 
-  const countdownTimer = () => {
-    // setTimeout(() => {});
-  };
-
   useEffect(() => {
     const interval = setInterval(() => {
       if (time === 0) {
@@ -35,7 +31,9 @@ function FeederPage() {
   }, [time]);
 
   const handleClick = () => {
-    setTime(0);
+    setTimeout(() => {
+      setTime(0);
+    }, 3000);
     const link = currentTask && currentTask.related_data && currentTask.related_data.origin;
     window.open(link);
   };
