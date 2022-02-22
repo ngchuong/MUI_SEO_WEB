@@ -51,6 +51,8 @@ export default function App() {
 
   const { pathname } = useLocation();
 
+  const userInfo = getCookie("user") ? JSON.parse(getCookie("user")) : {};
+
   // Open sidenav when mouse enter on mini sidenav
   const handleOnMouseEnter = () => {
     if (miniSidenav && !onMouseEnter) {
@@ -80,14 +82,16 @@ export default function App() {
 
   // request data
   useEffect(() => {
-    usedDispatch(reqGetRandomTask());
-    usedDispatch(reqGetCurrentTask());
+    if (userInfo && userInfo.id) {
+      usedDispatch(reqGetRandomTask());
+      usedDispatch(reqGetCurrentTask());
+    }
   });
 
   // verify every when redirect
   useEffect(async () => {
     const responseVerify = await requesVerify();
-    if (/20[0-9]/.test(responseVerify.status)) {
+    if (responseVerify && /20[0-9]/.test(responseVerify.status)) {
       eraseCookie("user");
       setCookie("user", responseVerify.data);
       usedDispatch(updateUserInfo(responseVerify.data));
@@ -98,7 +102,6 @@ export default function App() {
     }
   }, [pathname]);
 
-  const userInfo = getCookie("user") ? JSON.parse(getCookie("user")) : {};
   const isRoleAdmin = userInfo && userInfo.is_admin;
   const isPageHome = window.location.href.includes("home");
 
