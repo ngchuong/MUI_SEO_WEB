@@ -53,9 +53,9 @@ const SwitchForm = ({ type, onChangeInput, onChangeImg, inputVal, inputImg }) =>
   return display;
 };
 
-export default function FormDialog({ handleClose, open, onSubmit }) {
+export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
   const [typeForm, setTypeForm] = useState("TRAFFIC");
-  const defaultInput = {
+  const defaultInput = dataForm || {
     name: "",
     description: "",
     host: "",

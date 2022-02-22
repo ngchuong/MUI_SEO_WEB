@@ -50,7 +50,17 @@ export function requestGetFile(fileId) {
 }
 
 export function requestPostFile(files) {
-  return axios.post(`${host}/api/files`, {}).then((res) => res);
+  const body = new FormData();
+  body.append("files", files);
+
+  return axios({
+    method: "post",
+    url: `${host}/api/files`,
+    data: body,
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  }).then((res) => res);
 }
 
 export function requestDeleteFile(fileId) {

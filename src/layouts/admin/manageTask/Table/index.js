@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -16,7 +16,9 @@ import { SimpleDialog, ConfirmDialog } from "components/Modal/dialog";
 
 import { requestDeleteTask } from "api/apiAdmin";
 import { updateAllTask } from "store/reducers/admin";
+import { reqEditTask } from "actions/admin";
 import { StyledTableCell, StyledTableRow, useStyles } from "./subComponent";
+import FormDialog from "../Dialog";
 
 export default function TableMUI({ columns, rows }) {
   const allTask = useSelector((state) => state.admin.allTask);
@@ -24,10 +26,12 @@ export default function TableMUI({ columns, rows }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { setModal, unSetModal } = useModal();
+  const [open, setOpen] = useState(false);
+  const [idRow, setIdRow] = useState("");
 
   // pagination
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -59,7 +63,10 @@ export default function TableMUI({ columns, rows }) {
     unSetModal();
   };
 
-  const OpenEdit = () => {};
+  const OpenEdit = (id) => {
+    setOpen(true);
+    setIdRow(id);
+  };
   const OpenDelete = (id) => {
     setModal(
       <ConfirmDialog
@@ -68,6 +75,14 @@ export default function TableMUI({ columns, rows }) {
         onCancel={doCancel}
       />
     );
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const updateTask = (data, files) => {
+    dispatch(reqEditTask(data, files));
   };
 
   return (
@@ -105,7 +120,12 @@ export default function TableMUI({ columns, rows }) {
                   );
                 })}
                 <StyledTableCell key="edit" align="center">
-                  <IconButton size="small" aria-label="close" color="inherit" onClick={OpenEdit}>
+                  <IconButton
+                    size="small"
+                    aria-label="close"
+                    color="inherit"
+                    onClick={() => OpenEdit(row.id)}
+                  >
                     <Icon fontSize="small">edit</Icon>
                   </IconButton>
                 </StyledTableCell>
@@ -133,6 +153,14 @@ export default function TableMUI({ columns, rows }) {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      {open && (
+        <FormDialog
+          handleClose={handleClose}
+          open={open}
+          onSubmit={updateTask}
+          dataForm={rows.filter((el) => el.id === idRow)[0]}
+        />
+      )}
     </Paper>
   );
 }
