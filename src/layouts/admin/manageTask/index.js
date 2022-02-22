@@ -54,8 +54,8 @@ function ManageTask() {
     setOpen(false);
   };
 
-  const createTask = (data) => {
-    dispatch(reqCreateTask(data));
+  const createTask = (data, files) => {
+    dispatch(reqCreateTask(data, files));
   };
 
   return (

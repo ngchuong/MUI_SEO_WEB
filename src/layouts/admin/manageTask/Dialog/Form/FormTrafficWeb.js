@@ -5,15 +5,18 @@ import MDInput from "components/MDInput";
 import TextField from "@mui/material/TextField";
 
 import { InputImg } from "components/InputImage";
+// import { InputImage } from "components/InputImage/test";
 
 export const FormTrafficWeb = ({ onChangeInput, onChangeImg, inputVal, inputImg }) => {
-  const displayImg = inputImg.map((img) => {
-    return (
-      <div key={img.base64} style={{ marginRight: "4px" }}>
-        <img width={100} height={100} src={img.base64} alt="#" />
-      </div>
-    );
-  });
+  const displayImg =
+    Array.isArray(inputImg) &&
+    inputImg.map((img) => {
+      return (
+        <div key={img.base64} style={{ marginRight: "4px" }}>
+          <img width={100} height={100} src={img.base64} alt="#" />
+        </div>
+      );
+    });
   return (
     <div>
       <MDBox mb={2} mt={2}>
@@ -85,6 +88,7 @@ export const FormTrafficWeb = ({ onChangeInput, onChangeImg, inputVal, inputImg 
       </MDBox>
       <MDBox mb={2}>
         <InputImg multiple={true} onDone={onChangeImg} />
+        {/* <InputImage multiple={true} handleChange={onChangeImg} /> */}
         <div style={{ display: "flex" }}>{displayImg}</div>
       </MDBox>
     </div>

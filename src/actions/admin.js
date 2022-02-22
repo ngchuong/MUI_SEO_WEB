@@ -5,10 +5,10 @@ import {
   requestEditTask,
   requestDeleteTask,
   requestAllWithdraw,
+  requestPostFile,
 } from "../api/apiAdmin";
 
 import { updateAllUser, updateAllTask, updateAllWithdrawal } from "../store/reducers/admin";
-// TODO: update dialog;
 
 // user
 export const reqAllUser = () => async (dispatch) => {
@@ -37,10 +37,12 @@ export const reqAllTask = () => async (dispatch) => {
   }
 };
 
-export const reqCreateTask = (data) => async (dispatch) => {
+export const reqCreateTask = (data, files) => async (dispatch) => {
   let response;
+  let responseFile;
   try {
     response = await requestCreateTask(data);
+    responseFile = await requestPostFile(files);
   } catch (err) {
     console.log(err);
   }

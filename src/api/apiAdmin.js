@@ -44,6 +44,19 @@ export function requestDeleteTask(id) {
   return axios.delete(`${host}/api/tasks/${id}`).then((res) => res);
 }
 
+// task file
+export function requestGetFile(fileId) {
+  return axios.get(`${host}/api/files/${fileId}`).then((res) => res);
+}
+
+export function requestPostFile(files) {
+  return axios.post(`${host}/api/files`, {}).then((res) => res);
+}
+
+export function requestDeleteFile(fileId) {
+  return axios.delete(`${host}/api/files/${fileId}`).then((res) => res);
+}
+
 // withdraw
 export function requestAllWithdraw() {
   return axios.get(`${host}/api/withdraw`).then((res) => res);
