@@ -19,7 +19,6 @@ function ReceiveTask() {
   const { setModal, unSetModal } = useModal();
 
   const randomTask = useSelector((state) => state.task.randomTask);
-  console.log("randomTask", randomTask);
 
   useEffect(() => {
     // get random task
@@ -27,20 +26,42 @@ function ReceiveTask() {
   }, []);
 
   const receiveRandomTask = async () => {
-    const resReceiveTask = await requestReceiveTask(randomTask.id);
-    console.log(resReceiveTask, "1");
+    let resReceiveTask;
+    try {
+      resReceiveTask = await requestReceiveTask(randomTask.id);
+    } catch (err) {
+      setModal(<SimpleDialog content={<div>Có lỗi xảy ra!</div>} />);
+    }
+
     if (resReceiveTask && /20[0-9]/.test(resReceiveTask.status)) {
       setModal(<SimpleDialog content={<div>Nhận nhiệm vụ thành công!</div>} />);
     } else {
-      setModal(<SimpleDialog content={<div>Nhận nhiệm vụ thất bại!</div>} />);
+      setModal(
+        <SimpleDialog
+          content={<div>Vui lòng hoàn thành nhiệm vụ hiện tại trước khi nhận nhiệm vụ mới!</div>}
+        />
+      );
     }
+  };
+
+  const DisplayImg = (data = []) => {
+    if (data && Array.isArray(data)) {
+      return data.map((el) => {
+        return (
+          <div key={el}>
+            <img src={el} alt="#" />
+          </div>
+        );
+      });
+    }
+    return null;
   };
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox py={3}>
-        <MDTypography sx={{ borderBottom: "solid 1px #c1c1c1" }} variant="h5">
+        <MDTypography sx={{ borderBottom: "solid 1px #c1c1c1" }} variant="h4">
           Nhận nhiệm vụ
         </MDTypography>
         <MDBox my={1}>
@@ -48,13 +69,19 @@ function ReceiveTask() {
             <div>
               <div>Tên nhiệm vụ: {randomTask && randomTask.name}</div>
               <div>Mô tả: {randomTask && randomTask.description}</div>
-              <div>Tiền thưởng: {randomTask && randomTask.reward}</div>
+              <div>Tiền thưởng: {randomTask && randomTask.reward} đồng</div>
+              <div>
+                <div>Hướng dẫn làm nhiệm vụ: </div>
+                <div>
+                  <DisplayImg data={randomTask.related_data && randomTask.related_data.image} />
+                </div>
+              </div>
               <MDButton onClick={receiveRandomTask} size="small" color="primary">
                 Nhận nhiệm vụ
               </MDButton>
             </div>
           ) : (
-            <div>Hiện tại không có nhiệm vụ nào</div>
+            <div>Hiện tại không có nhiệm vụ nào!</div>
           )}
         </MDBox>
       </MDBox>
