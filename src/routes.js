@@ -31,6 +31,7 @@ import ReceiveTask from "./layouts/task/receiveTask";
 import DoTask from "./layouts/task/doTask";
 import Guideline from "./layouts/guideline";
 import Home from "./layouts/home";
+import FeederPage from "./layouts/feeder_page";
 
 import ManageTask from "./layouts/admin/manageTask";
 import ManageUser from "./layouts/admin/manageUser";
@@ -79,14 +80,14 @@ export const routeUser = [
     route: "/do-task",
     component: <DoTask />,
   },
-  {
-    type: "collapse",
-    name: "Hướng dẫn làm nhiệm vụ",
-    key: "guideline",
-    icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/guide",
-    component: <Guideline />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Hướng dẫn làm nhiệm vụ",
+  //   key: "guideline",
+  //   icon: <Icon fontSize="small">table_view</Icon>,
+  //   route: "/guide",
+  //   component: <Guideline />,
+  // },
   {
     type: "collapse",
     name: "Rút tiền",
@@ -102,6 +103,14 @@ export const routeUser = [
     icon: <Icon fontSize="small">person</Icon>,
     route: "/profile",
     component: <Profile />,
+  },
+  {
+    type: "collapse",
+    name: "feeder page",
+    key: "feeder-page",
+    icon: <Icon fontSize="small">yes</Icon>,
+    route: "/feeder-page",
+    component: <FeederPage />,
   },
 ];
 

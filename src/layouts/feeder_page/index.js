@@ -15,7 +15,7 @@ import "./index.css";
 // white","primary","secondary","info","success","warning","error","light","dark
 function FeederPage() {
   const navigate = useNavigate();
-  const [time, setTime] = useState(3);
+  const [time, setTime] = useState(60);
   const [isUnlock, setIsUnlock] = useState(false);
   const currentTask = useSelector((state) => state.task.currentTask);
 
@@ -35,6 +35,7 @@ function FeederPage() {
   }, [time]);
 
   const handleClick = () => {
+    setTime(0);
     const link = currentTask && currentTask.related_data && currentTask.related_data.origin;
     window.open(link);
   };

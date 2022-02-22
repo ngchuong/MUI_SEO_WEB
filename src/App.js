@@ -117,8 +117,9 @@ export default function App() {
       return null;
     });
 
+  const routeNeedFilter = ["sign-in", "sign-up", "home", "feeder-page"];
   const displayRouter = checkRoutes(isVerify, isRoleAdmin).filter(
-    (el) => el.key !== "sign-in" && el.key !== "sign-up" && el.key !== "home"
+    (el) => !routeNeedFilter.includes(el.key)
   );
 
   return (
