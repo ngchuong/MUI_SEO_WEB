@@ -26,29 +26,6 @@ function ManageTask() {
 
   const handleClickOpen = () => {
     setOpen(true);
-    // setModal(
-    //   <SimpleDialog
-    //     content={
-    //       <div>
-    //         <button type="button" onClick={unSetModal}>
-    //           button
-    //         </button>
-    //         <div>111111111111111</div>
-    //       </div>
-    //     }
-    //   />
-    // );
-    // setModal(
-    //   <ConfirmDialog
-    //     content={
-    //       <div>
-    //         <div>xoa khong?</div>
-    //       </div>
-    //     }
-    //     onCancel={unSetModal}
-    //     onSubmit={unSetModal}
-    //   />
-    // );
   };
   const handleClose = () => {
     setOpen(false);

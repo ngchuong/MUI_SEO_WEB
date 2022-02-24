@@ -82,7 +82,7 @@ export default function App() {
 
   // request data
   useEffect(() => {
-    if (userInfo && userInfo.id) {
+    if (userInfo && userInfo.id && !userInfo.is_admin) {
       usedDispatch(reqGetRandomTask());
       usedDispatch(reqGetCurrentTask());
     }

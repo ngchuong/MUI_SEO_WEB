@@ -4,7 +4,7 @@ import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import TextField from "@mui/material/TextField";
 
-import { InputImg } from "components/InputImage";
+// import { InputImg } from "components/InputImage";
 // import { InputImage } from "components/InputImage/test";
 
 export const FormTrafficWeb = ({ onChangeInput, onChangeImg, inputVal, inputImg }) => {
@@ -61,7 +61,7 @@ export const FormTrafficWeb = ({ onChangeInput, onChangeImg, inputVal, inputImg 
       </MDBox>
       <MDBox mb={2}>
         <MDInput
-          type="text"
+          type="number"
           label="Tiền thưởng"
           fullWidth
           value={inputVal.reward}
@@ -70,7 +70,7 @@ export const FormTrafficWeb = ({ onChangeInput, onChangeImg, inputVal, inputImg 
       </MDBox>
       <MDBox mb={2}>
         <MDInput
-          type="text"
+          type="number"
           label="Số lượt làm nhiệm vụ"
           fullWidth
           value={inputVal.max_turn}
@@ -79,7 +79,7 @@ export const FormTrafficWeb = ({ onChangeInput, onChangeImg, inputVal, inputImg 
       </MDBox>
       <MDBox mb={2}>
         <MDInput
-          type="text"
+          type="number"
           label="Độ ưu tiên"
           fullWidth
           value={inputVal.priority}
@@ -87,8 +87,9 @@ export const FormTrafficWeb = ({ onChangeInput, onChangeImg, inputVal, inputImg 
         />
       </MDBox>
       <MDBox mb={2}>
-        <InputImg multiple={true} onDone={onChangeImg} />
+        {/* <InputImg multiple={true} onDone={onChangeImg} /> */}
         {/* <InputImage multiple={true} handleChange={onChangeImg} /> */}
+        <input type="file" onChange={onChangeImg} multiple />
         <div style={{ display: "flex" }}>{displayImg}</div>
       </MDBox>
     </div>

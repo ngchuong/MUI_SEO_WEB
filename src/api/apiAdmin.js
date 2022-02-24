@@ -23,17 +23,19 @@ export function requestAllTask() {
   return axios.get(`${host}/api/tasks`).then((res) => res);
 }
 
-export function requestCreateTask({ name, description, reward, relatedData, priority, image }) {
+export function requestCreateTask(data) {
+  const { name, description, reward, related_data, priority, max_turn, type_task } = data;
   return axios
     .post(`${host}/api/tasks`, {
       name,
       description,
       reward,
-      related_data: relatedData,
+      related_data,
+      max_turn,
       priority,
-      image,
+      type_task,
     })
-    .then((res) => res.data);
+    .then((res) => res);
 }
 
 export function requestEditTask(taskId, body) {
@@ -51,7 +53,7 @@ export function requestGetFile(fileId) {
 
 export function requestPostFile(files) {
   const body = new FormData();
-  body.append("files", files);
+  body.append("file", files);
 
   return axios({
     method: "post",

@@ -17,38 +17,45 @@ import { FormLikePage } from "./Form/FormLikeFB";
 import { FormJoinGroup } from "./Form/FormJoinGroup";
 
 const SwitchForm = ({ type, onChangeInput, onChangeImg, inputVal, inputImg }) => {
-  let display;
-  switch (type) {
-    case "TRAFFIC":
-      display = (
-        <FormTrafficWeb
-          onChangeInput={onChangeInput}
-          onChangeImg={onChangeImg}
-          inputVal={inputVal}
-          inputImg={inputImg}
-        />
-      );
-      break;
-    case "SUB_YOUTUBE":
-      display = <FormSubYtb />;
-      break;
-    case "LIKE_PAGE":
-      display = <FormLikePage />;
-      break;
-    case "JOIN_GROUP":
-      display = <FormJoinGroup />;
-      break;
-    default:
-      display = (
-        <FormTrafficWeb
-          onChangeInput={onChangeInput}
-          onChangeImg={onChangeImg}
-          inputVal={inputVal}
-          inputImg={inputImg}
-        />
-      );
-      break;
-  }
+  const display = (
+    <FormTrafficWeb
+      onChangeInput={onChangeInput}
+      onChangeImg={onChangeImg}
+      inputVal={inputVal}
+      inputImg={inputImg}
+    />
+  );
+  // switch (type) {
+  //   case "TRAFFIC":
+  //     display = (
+  //       <FormTrafficWeb
+  //         onChangeInput={onChangeInput}
+  //         onChangeImg={onChangeImg}
+  //         inputVal={inputVal}
+  //         inputImg={inputImg}
+  //       />
+  //     );
+  //     break;
+  //   case "SUB_YOUTUBE":
+  //     display = <FormSubYtb />;
+  //     break;
+  //   case "LIKE_PAGE":
+  //     display = <FormLikePage />;
+  //     break;
+  //   case "JOIN_GROUP":
+  //     display = <FormJoinGroup />;
+  //     break;
+  //   default:
+  //     display = (
+  //       <FormTrafficWeb
+  //         onChangeInput={onChangeInput}
+  //         onChangeImg={onChangeImg}
+  //         inputVal={inputVal}
+  //         inputImg={inputImg}
+  //       />
+  //     );
+  //     break;
+  // }
 
   return display;
 };
@@ -68,8 +75,6 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
   const [inputVal, setInputVal] = useState(defaultInput);
   const [inputImg, setInputImg] = useState([]);
 
-  console.log(inputImg);
-
   // change type form
   const onSwitchTypeForm = (e) => {
     setTypeForm(e.target.value);
@@ -81,7 +86,7 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
 
   // change input
   const onChangeImg = (e) => {
-    setInputImg(e);
+    setInputImg(e.target.files);
   };
   const onChangeInput = (key) => (e) => {
     setInputVal({ ...inputVal, [key]: e.target.value });
@@ -98,16 +103,15 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
       priority,
       type_task: typeForm,
       related_data: {
-        image: inputImg,
         origin: host,
         key_word,
         key: uuidv4(),
       },
     };
 
-    console.log(data);
-    // onSubmit(data);
-    // handleClose();
+    // console.log(data);
+    onSubmit(data, inputImg);
+    handleClose();
   };
 
   return (

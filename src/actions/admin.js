@@ -1,3 +1,4 @@
+import get from "lodash/get";
 import {
   requestAllUser,
   requestAllTask,
@@ -37,17 +38,36 @@ export const reqAllTask = () => async (dispatch) => {
   }
 };
 
-export const reqCreateTask = (data, files) => async (dispatch) => {
-  let response;
-  let responseFile;
+export const reqCreateTask = (data, files) => async (dispatch, getState) => {
+  // request file image;
+  const listIdFile = [];
   try {
-    response = await requestCreateTask(data);
-    responseFile = await requestPostFile(files);
+    for (let i = 0; i < files.length; i += 1) {
+      const responseFile = await requestPostFile(files[i]);
+      if (responseFile && /20[0-9]/.test(responseFile.status)) {
+        listIdFile.push(get(responseFile, ["data", "fileId"], ""));
+      }
+    }
   } catch (err) {
     console.log(err);
   }
-  if (/20[0-9]/.test(response.status)) {
-    dispatch(updateAllTask([response.data]));
+
+  const {
+    admin: { allTask },
+  } = getState();
+
+  // request task
+  let response;
+  const dataTask = { ...data, related_data: { ...data.related_data, image: listIdFile } };
+  try {
+    response = await requestCreateTask(dataTask);
+  } catch (err) {
+    console.log(err);
+  }
+
+  if (response && /20[0-9]/.test(response.status)) {
+    const newAllTask = [...allTask, response.data];
+    dispatch(updateAllTask(newAllTask));
   }
 };
 
