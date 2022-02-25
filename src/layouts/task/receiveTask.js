@@ -38,21 +38,23 @@ function ReceiveTask() {
     }
   };
 
-  const DisplayImg = (data1) => {
-    const data = [
-      "https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg",
-      "https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg",
-      "https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg",
-    ];
-    if (data && Array.isArray(data)) {
-      return data.map((el, index) => {
+  const DisplayImg = ({ data }) => {
+    // get link file;
+    const relatedData = data ? JSON.parse(data) : {};
+    const listFileId = relatedData.image;
+
+    const host = "http://localhost:3000";
+    const urlGetFile = `${host}/api/files/`;
+    if (listFileId && Array.isArray(listFileId) && listFileId.length) {
+      return listFileId.map((fileId) => {
         return (
-          <div key={`${el}_${index}`}>
-            <img src={el} alt="#" />
+          <div key={fileId}>
+            <img height={300} width={450} src={`${urlGetFile}${fileId}`} alt="#" />;
           </div>
         );
       });
     }
+
     return null;
   };
 
@@ -78,7 +80,7 @@ function ReceiveTask() {
                     alignItems: "center",
                   }}
                 >
-                  <DisplayImg data={randomTask.related_data && randomTask.related_data.image} />
+                  <DisplayImg data={randomTask.related_data} />
                 </div>
               </div>
               <MDButton onClick={receiveRandomTask} size="small" color="primary">

@@ -47,10 +47,6 @@ export function requestDeleteTask(id) {
 }
 
 // task file
-export function requestGetFile(fileId) {
-  return axios.get(`${host}/api/files/${fileId}`).then((res) => res);
-}
-
 export function requestPostFile(files) {
   const body = new FormData();
   body.append("file", files);

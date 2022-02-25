@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -10,7 +10,7 @@ import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
 
 // api
-import { reqPostTask, destroyTask } from "actions/task";
+import { reqPostTask, destroyTask, reqGetCurrentTask } from "actions/task";
 
 import { useModal } from "components/Modal";
 import { ConfirmDialog } from "components/Modal/dialog";
@@ -22,6 +22,12 @@ function DoTask() {
 
   const currentTask = useSelector((state) => state.task.currentTask);
   const [inputKey, setInputKey] = useState("");
+
+  useEffect(() => {
+    if (!currentTask.id) {
+      dispatch(reqGetCurrentTask());
+    }
+  }, []);
 
   const onChangeKey = (e) => {
     setInputKey(e.target.value);
@@ -51,17 +57,18 @@ function DoTask() {
     // window.open(currentTask.related_data.origin);
   };
 
-  const DisplayImg = (data1) => {
-    const data = [
-      "https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg",
-      "https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg",
-      "https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg",
-    ];
-    if (data && Array.isArray(data)) {
-      return data.map((el, index) => {
+  const DisplayImg = ({ data }) => {
+    // get link file;
+    const relatedData = data ? JSON.parse(data) : {};
+    const listFileId = relatedData.image;
+
+    const host = "http://localhost:3000";
+    const urlGetFile = `${host}/api/files/`;
+    if (listFileId && Array.isArray(listFileId) && listFileId.length) {
+      return listFileId.map((fileId) => {
         return (
-          <div key={`${el}_${index}`}>
-            <img width={450} height={300} src={el} alt="#" />
+          <div key={fileId}>
+            <img height={300} width={450} src={`${urlGetFile}${fileId}`} alt="#" />;
           </div>
         );
       });
@@ -92,7 +99,7 @@ function DoTask() {
                       alignItems: "center",
                     }}
                   >
-                    <DisplayImg data={currentTask.related_data && currentTask.related_data.image} />
+                    <DisplayImg data={currentTask.related_data} />
                   </div>
                 </div>
               </div>
