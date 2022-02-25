@@ -80,18 +80,35 @@ function DoTask() {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox py={3}>
-        <MDTypography sx={{ borderBottom: "solid 1px #c1c1c1" }} variant="h5">
+        <MDTypography sx={{ borderBottom: "solid 1px #c1c1c1" }} variant="h4">
           Nhiệm vụ hiện tại
         </MDTypography>
         <MDBox my={1}>
           {currentTask.id ? (
             <MDBox my={1}>
-              <div>Tên nhiệm vụ: {currentTask && currentTask.name}</div>
-              <div>Mô tả: {currentTask && currentTask.description}</div>
-              <div>Tiền thưởng: {currentTask && currentTask.reward} đồng</div>
+              <div>
+                <MDTypography fontWeight="medium" color="dark" variant="xx">
+                  Tên nhiệm vụ:
+                </MDTypography>
+                &nbsp;{currentTask && currentTask.name}
+              </div>
+              <div>
+                <MDTypography fontWeight="medium" color="dark" variant="xx">
+                  Mô tả:
+                </MDTypography>
+                &nbsp;{currentTask && currentTask.description}
+              </div>
+              <div>
+                <MDTypography fontWeight="medium" color="dark" variant="xx">
+                  Tiền thưởng:
+                </MDTypography>
+                &nbsp;{currentTask && currentTask.reward} đồng
+              </div>
               <div>
                 <div>
-                  <div>Hướng dẫn làm nhiệm vụ: </div>
+                  <MDTypography fontWeight="medium" color="dark" variant="xx">
+                    Hướng dẫn làm nhiệm vụ:
+                  </MDTypography>
                   <div
                     style={{
                       display: "flex",

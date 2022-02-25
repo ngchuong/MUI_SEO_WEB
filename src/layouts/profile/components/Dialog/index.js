@@ -38,8 +38,7 @@ export default function FormDialog({ handleClose, open, onSubmit, userInfo }) {
 
   // change input
   const onChangeImg = (e) => {
-    console.log(e);
-    setInputImg(e);
+    setInputImg(e.target.files);
   };
   const onChangeInput = (key) => (e) => {
     setInputVal({ ...inputVal, [key]: e.target.value });
@@ -53,12 +52,9 @@ export default function FormDialog({ handleClose, open, onSubmit, userInfo }) {
       telephone,
       address,
       user_social_id,
-      related_data: {
-        image: inputImg.base64,
-      },
     };
 
-    onSubmit(data);
+    onSubmit(data, inputImg);
     // handleClose();
   };
 
@@ -128,13 +124,12 @@ export default function FormDialog({ handleClose, open, onSubmit, userInfo }) {
               />
             </MDBox>
             <MDBox mb={2}>
-              {/* <InputImg onDone={onChangeImg} /> */}
-              <InputImage handleChange={onChangeImg} />
+              <input type="file" onChange={onChangeImg} multiple />
               <DisplayImg />
             </MDBox>
           </DialogContent>
           <DialogActions>
-            <MDButton variant="gradient" color="primary" onClick={updateUserInfo}>
+            <MDButton variant="gradient" color="primary" onClick={handleClose}>
               Quay về
             </MDButton>
             <MDButton type="submit" variant="gradient" color="info" onClick={updateUserInfo}>

@@ -68,11 +68,29 @@ function ReceiveTask() {
         <MDBox my={1}>
           {randomTask.id ? (
             <div>
-              <div>Tên nhiệm vụ: {randomTask && randomTask.name}</div>
-              <div>Mô tả: {randomTask && randomTask.description}</div>
-              <div>Tiền thưởng: {randomTask && randomTask.reward} đồng</div>
               <div>
-                <div>Hướng dẫn làm nhiệm vụ: </div>
+                <MDTypography fontWeight="medium" color="dark" variant="xx">
+                  Tên nhiệm vụ:
+                </MDTypography>
+                &nbsp;
+                {randomTask && randomTask.name}
+              </div>
+              <div>
+                <MDTypography fontWeight="medium" color="dark" variant="xx">
+                  Mô tả:
+                </MDTypography>
+                &nbsp; {randomTask && randomTask.description}
+              </div>
+              <div>
+                <MDTypography fontWeight="medium" color="dark" variant="xx">
+                  Tiền thưởng:
+                </MDTypography>{" "}
+                &nbsp;{randomTask && randomTask.reward} đồng
+              </div>
+              <div>
+                <MDTypography fontWeight="medium" color="dark" variant="xx">
+                  Hướng dẫn làm nhiệm vụ:
+                </MDTypography>
                 <div
                   style={{
                     display: "flex",

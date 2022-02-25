@@ -89,7 +89,14 @@ export default function App() {
 
   // verify every when redirect
   useEffect(async () => {
-    const responseVerify = await requesVerify();
+    let responseVerify;
+    try {
+      responseVerify = await requesVerify();
+    } catch (err) {
+      eraseCookie("user");
+      return;
+    }
+
     if (responseVerify && /20[0-9]/.test(responseVerify.status)) {
       eraseCookie("user");
       setCookie("user", responseVerify.data);
