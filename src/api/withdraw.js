@@ -1,12 +1,9 @@
 import axios from "axios";
+import { host } from "configs.js";
 
 axios.defaults.withCredentials = true;
 
-const host = "http://localhost:3000";
-// const host = "http://192.168.30.105:3000";
-
 // For User
-
 // request withdraw
 export function requestWithdraw(amount) {
   return axios

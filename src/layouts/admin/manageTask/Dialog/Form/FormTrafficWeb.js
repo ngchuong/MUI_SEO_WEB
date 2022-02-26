@@ -8,15 +8,28 @@ import TextField from "@mui/material/TextField";
 // import { InputImage } from "components/InputImage/test";
 
 export const FormTrafficWeb = ({ onChangeInput, onChangeImg, inputVal, inputImg }) => {
-  const displayImg =
-    Array.isArray(inputImg) &&
-    inputImg.map((img) => {
-      return (
-        <div key={img.base64} style={{ marginRight: "4px" }}>
-          <img width={100} height={100} src={img.base64} alt="#" />
-        </div>
-      );
-    });
+  const DisplayImg = () => {
+    const img = document.getElementById("idImg");
+    if (img) {
+      const files = img.files;
+
+      const srcImg = [];
+      for (let i = 0; i < files.length; i += 1) {
+        const src = files[i] ? URL.createObjectURL(files[i]) : "";
+        srcImg.push(src);
+      }
+
+      return srcImg.map((src) => {
+        return (
+          <div key={src} style={{ margin: "2px 10px" }}>
+            <img width={150} height={100} src={src} alt="#" />
+          </div>
+        );
+      });
+    }
+
+    return null;
+  };
   return (
     <div>
       <MDBox mb={2} mt={2}>
@@ -89,8 +102,18 @@ export const FormTrafficWeb = ({ onChangeInput, onChangeImg, inputVal, inputImg 
       <MDBox mb={2}>
         {/* <InputImg multiple={true} onDone={onChangeImg} /> */}
         {/* <InputImage multiple={true} handleChange={onChangeImg} /> */}
-        <input type="file" onChange={onChangeImg} multiple />
-        <div style={{ display: "flex" }}>{displayImg}</div>
+        Nhập ảnh: &nbsp;
+        <input type="file" onChange={onChangeImg} multiple id="idImg" />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            // justifyContent: "space-around",
+          }}
+        >
+          <DisplayImg />
+        </div>
       </MDBox>
     </div>
   );

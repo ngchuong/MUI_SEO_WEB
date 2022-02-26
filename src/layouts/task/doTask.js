@@ -14,6 +14,7 @@ import { reqPostTask, destroyTask, reqGetCurrentTask } from "actions/task";
 
 import { useModal } from "components/Modal";
 import { ConfirmDialog } from "components/Modal/dialog";
+import { host } from "configs.js";
 
 function DoTask() {
   const dispatch = useDispatch();
@@ -62,7 +63,6 @@ function DoTask() {
     const relatedData = data ? JSON.parse(data) : {};
     const listFileId = relatedData.image;
 
-    const host = "http://localhost:3000";
     const urlGetFile = `${host}/api/files/`;
     if (listFileId && Array.isArray(listFileId) && listFileId.length) {
       return listFileId.map((fileId) => {

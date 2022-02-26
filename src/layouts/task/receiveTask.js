@@ -12,6 +12,7 @@ import { requestReceiveTask } from "api/task";
 
 import { useModal } from "components/Modal";
 import { SimpleDialog } from "components/Modal/dialog";
+import { host } from "configs.js";
 
 function ReceiveTask() {
   const dispatch = useDispatch();
@@ -43,7 +44,6 @@ function ReceiveTask() {
     const relatedData = data ? JSON.parse(data) : {};
     const listFileId = relatedData.image;
 
-    const host = "http://localhost:3000";
     const urlGetFile = `${host}/api/files/`;
     if (listFileId && Array.isArray(listFileId) && listFileId.length) {
       return listFileId.map((fileId) => {
