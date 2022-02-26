@@ -22,18 +22,35 @@ function SignUpForm() {
 
   const defaultInput = {
     name: "",
+    email: "",
     phone: "",
     address: "",
-    email: "",
+    user_social_id: "",
+    account_number: "",
+    bank_name: "",
     pwd: "",
   };
   const [inputVal, setInputVal] = useState(defaultInput);
 
-  const rulePhoneNumber = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
   const ruleEmail = /$|.+@.+..+/;
+  const rulePhoneNumber = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+  const ruleSocialId = /^[0-9]*$/;
+  const ruleBankNumber = /^[0-9]*$/;
 
   ValidatorForm.addValidationRule("isPhone", (value) => {
     if (rulePhoneNumber.test(value)) {
+      return true;
+    }
+    return false;
+  });
+  ValidatorForm.addValidationRule("isSocialId", (value) => {
+    if (ruleSocialId.test(value)) {
+      return true;
+    }
+    return false;
+  });
+  ValidatorForm.addValidationRule("isBankNumber", (value) => {
+    if (value && ruleBankNumber.test(value)) {
       return true;
     }
     return false;
@@ -43,30 +60,54 @@ function SignUpForm() {
     setInputVal({ ...inputVal, [key]: e.target.value });
   };
 
+  // validate
+  const checkRule = (rule, data) => {
+    if (data && !rule.test(data)) return false;
+    return true;
+  };
   const validateData = (data) => {
     const checkRequire = Object.keys(data).map((key) => {
       if (!data[key]) return false;
       return true;
     });
 
-    if (checkRequire.every((el) => el === false)) return false;
+    if (checkRequire.some((el) => el === false)) return false;
 
-    if (data.email && !ruleEmail.test(data.email)) {
-      return false;
-    }
-    if (data.phone && !rulePhoneNumber.test(data.phone)) {
-      return false;
-    }
+    // check own rules
+    if (!checkRule(ruleEmail, data.email)) return false;
+    if (!checkRule(rulePhoneNumber, data.phone)) return false;
+    if (!checkRule(ruleSocialId, data.user_social_id)) return false;
+    if (!checkRule(ruleBankNumber, data.account_number)) return false;
 
     return true;
   };
 
   const doSignUp = async () => {
     if (validateData(inputVal)) {
-      const { name, phone, address, email, pwd } = inputVal;
+      const { name, email, phone, address, user_social_id, account_number, bank_name, pwd } =
+        inputVal;
+      const related_data = {
+        account_number,
+        bank_name,
+      };
 
-      const resSignUp = await requestSignUp(name, phone, address, email, pwd);
-      if (/20[0-9]/.test(resSignUp.status)) {
+      // request
+      let resSignUp;
+      try {
+        resSignUp = await requestSignUp(
+          name,
+          phone,
+          address,
+          email,
+          pwd,
+          user_social_id,
+          related_data
+        );
+      } catch (err) {
+        setModal(<SimpleDialog content={<div>Đăng ký tài khoản thất bại!</div>} />);
+      }
+
+      if (resSignUp && /20[0-9]/.test(resSignUp.status)) {
         setModal(<SimpleDialog content={<div>Đăng ký tài khoản thành công!</div>} />);
         setInputVal(defaultInput);
       } else {
@@ -96,7 +137,7 @@ function SignUpForm() {
           <ValidatorForm onSubmit={doSignUp}>
             <MDBox mb={2}>
               <TextValidator
-                label="Họ tên"
+                label="Họ tên*"
                 onChange={onChangeInput("name")}
                 name="name"
                 value={inputVal.name}
@@ -107,7 +148,7 @@ function SignUpForm() {
             </MDBox>
             <MDBox mb={2}>
               <TextValidator
-                label="Email"
+                label="Email*"
                 onChange={onChangeInput("email")}
                 name="email"
                 value={inputVal.email}
@@ -118,7 +159,7 @@ function SignUpForm() {
             </MDBox>
             <MDBox mb={2}>
               <TextValidator
-                label="Số điện thoại"
+                label="Số điện thoại*"
                 onChange={onChangeInput("phone")}
                 name="phone"
                 validators={["required", "isPhone"]}
@@ -129,18 +170,54 @@ function SignUpForm() {
             </MDBox>
             <MDBox mb={2}>
               <TextValidator
-                label="Địa chỉ"
-                onChange={onChangeInput("address")}
-                name="address"
-                validators={["required"]}
-                errorMessages={["Không được để trống"]}
-                value={inputVal.address}
+                label="Số chứng minh nhân dân*"
+                onChange={onChangeInput("user_social_id")}
+                name="user_social_id"
+                value={inputVal.user_social_id}
+                validators={["required", "isSocialId"]}
+                errorMessages={["Không được để trống", "Số chứng minh nhân dân không đúng"]}
                 fullWidth
               />
             </MDBox>
             <MDBox mb={2}>
               <TextValidator
-                label="Mật khẩu"
+                label="Địa chỉ*"
+                onChange={onChangeInput("address")}
+                name="address"
+                value={inputVal.address}
+                validators={["required"]}
+                errorMessages={["Không được để trống"]}
+                fullWidth
+              />
+            </MDBox>
+            <MDBox mb={2}>
+              <TextValidator
+                label="Số tài khoản ngân hàng*"
+                onChange={onChangeInput("account_number")}
+                name="account_number"
+                value={inputVal.account_number}
+                validators={["required", "isBankNumber"]}
+                errorMessages={[
+                  "Không được để trống",
+                  "Số tài khoản ngân hàng không đúng định dạng",
+                ]}
+                fullWidth
+              />
+            </MDBox>
+            <MDBox mb={2}>
+              <TextValidator
+                label="Tên ngân hàng, chi nhánh"
+                onChange={onChangeInput("bank_name")}
+                name="bank_name"
+                value={inputVal.bank_name}
+                validators={["required"]}
+                errorMessages={["Không được để trống"]}
+                fullWidth
+              />
+            </MDBox>
+            <MDBox mb={2}>
+              <TextValidator
+                label="Mật khẩu*"
                 onChange={onChangeInput("pwd")}
                 name="password"
                 type="password"
@@ -151,7 +228,7 @@ function SignUpForm() {
               />
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton type="submit" variant="gradient" color="info" fullWidth onClick={doSignUp}>
+              <MDButton type="submit" variant="gradient" color="info" fullWidth>
                 Đăng ký
               </MDButton>
             </MDBox>
