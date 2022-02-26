@@ -23,7 +23,7 @@ function SignUpForm() {
   const defaultInput = {
     name: "",
     email: "",
-    phone: "",
+    telephone: "",
     address: "",
     user_social_id: "",
     account_number: "",
@@ -75,7 +75,7 @@ function SignUpForm() {
 
     // check own rules
     if (!checkRule(ruleEmail, data.email)) return false;
-    if (!checkRule(rulePhoneNumber, data.phone)) return false;
+    if (!checkRule(rulePhoneNumber, data.telephone)) return false;
     if (!checkRule(ruleSocialId, data.user_social_id)) return false;
     if (!checkRule(ruleBankNumber, data.account_number)) return false;
 
@@ -84,7 +84,7 @@ function SignUpForm() {
 
   const doSignUp = async () => {
     if (validateData(inputVal)) {
-      const { name, email, phone, address, user_social_id, account_number, bank_name, pwd } =
+      const { name, email, telephone, address, user_social_id, account_number, bank_name, pwd } =
         inputVal;
       const related_data = {
         account_number,
@@ -96,7 +96,7 @@ function SignUpForm() {
       try {
         resSignUp = await requestSignUp(
           name,
-          phone,
+          telephone,
           address,
           email,
           pwd,
@@ -160,11 +160,11 @@ function SignUpForm() {
             <MDBox mb={2}>
               <TextValidator
                 label="Số điện thoại*"
-                onChange={onChangeInput("phone")}
-                name="phone"
+                onChange={onChangeInput("telephone")}
+                name="telephone"
                 validators={["required", "isPhone"]}
                 errorMessages={["Không được để trống", "Sai định dạng số điện thoại"]}
-                value={inputVal.phone}
+                value={inputVal.telephone}
                 fullWidth
               />
             </MDBox>

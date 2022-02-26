@@ -8,37 +8,78 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
 import MDButton from "components/MDButton";
+import { host } from "configs.js";
 
 function ProfileInfoCard({ title, info, shadow, openDialog }) {
-  const labels = [];
-  const values = [];
-
-  // Convert this form `objectKey` of the object key in to this `object key`
-  Object.keys(info).forEach((el) => {
-    if (el.match(/[A-Z\s]+/)) {
-      const uppercaseLetter = Array.from(el).find((i) => i.match(/[A-Z]+/));
-      const newElement = el.replace(uppercaseLetter, ` ${uppercaseLetter.toLowerCase()}`);
-
-      labels.push(newElement);
-    } else {
-      labels.push(el);
-    }
-  });
-
-  // Push the object values into the values array
-  Object.values(info).forEach((el) => values.push(el));
+  // build dataa
+  const relatedData = info.related_data ? JSON.parse(info.related_data) : {};
+  const dataUser = [
+    {
+      key: "name",
+      label: "Họ tên",
+      value: info.name,
+    },
+    {
+      key: "email",
+      label: "Email",
+      value: info.email,
+    },
+    {
+      key: "telephone",
+      label: "Số điện thoại",
+      value: info.telephone,
+    },
+    {
+      key: "address",
+      label: "Địa chỉ",
+      value: info.address,
+    },
+    {
+      key: "balance",
+      label: "Số dư",
+      value: `${info.balance} đồng`,
+    },
+    {
+      key: "user_social_id",
+      label: "Số chứng minh nhân dân",
+      value: info.user_social_id,
+    },
+    {
+      key: "bank_number",
+      label: "Số tài khoản ngân hàng",
+      value: relatedData.bank_number,
+    },
+    {
+      key: "bank_name",
+      label: "Tên ngân hàng, chi nhánh",
+      value: relatedData.bank_name,
+    },
+  ];
 
   // Render the card info items
-  const renderItems = labels.map((label, key) => (
-    <MDBox key={label} display="flex" py={1} pr={2}>
+  const renderItems = dataUser.map((item, index) => (
+    <MDBox key={item.key} display="flex" py={1} pr={2}>
       <MDTypography variant="button" fontWeight="bold" textTransform="capitalize">
-        {label}: &nbsp;
+        {item.label}: &nbsp;
       </MDTypography>
       <MDTypography variant="button" fontWeight="regular" color="text">
-        &nbsp;{values[key]}
+        &nbsp;{item.value}
       </MDTypography>
     </MDBox>
   ));
+
+  // display image
+  const DisplayImg = () => {
+    const fileId = relatedData.image;
+    if (fileId) {
+      return (
+        <div>
+          <img height={300} width={450} src={`${host}/api/files/${fileId}`} alt="#" />;
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
     <Card sx={{ height: "100%", boxShadow: !shadow && "none" }}>
@@ -59,12 +100,7 @@ function ProfileInfoCard({ title, info, shadow, openDialog }) {
             Ảnh chứng minh nhân dân:
           </MDTypography>
           <MDBox>
-            <img
-              width={250}
-              height={180}
-              src="https://thumbs.dreamstime.com/b/environment-earth-day-hands-trees-growing-seedlings-bokeh-green-background-female-hand-holding-tree-nature-field-gra-130247647.jpg"
-              alt="#"
-            />
+            <DisplayImg />
           </MDBox>
         </MDBox>
       </MDBox>
