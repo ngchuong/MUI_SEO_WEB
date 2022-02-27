@@ -58,14 +58,13 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
       priority,
       type_task: typeForm,
       related_data: {
-        image: inputImg,
+        image: dataForm ? relatedData.image : inputImg,
         origin,
         key_word,
         key: uuidv4(),
       },
     };
 
-    // console.log(data);
     onSubmit(data, inputImg);
     handleClose();
   };
@@ -97,6 +96,7 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
             onChangeImg={onChangeImg}
             inputVal={inputVal}
             inputImg={inputImg}
+            isCreate={!dataForm}
           />
         </DialogContent>
         <DialogActions>

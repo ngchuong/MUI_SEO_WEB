@@ -9,7 +9,17 @@ export function requestAllUser() {
 }
 
 export function requestUpdateUser(userId, body) {
-  return axios.patch(`${host}/api/users/${userId}`, { ...body }).then((res) => res);
+  const { name, telephone, address, user_social_id, related_data } = body;
+
+  return axios
+    .post(`${host}/api/users/${userId}`, {
+      name,
+      telephone,
+      address,
+      user_social_id,
+      related_data,
+    })
+    .then((res) => res);
 }
 
 export function requestDeleteUser(id) {
@@ -37,7 +47,7 @@ export function requestCreateTask(data) {
 }
 
 export function requestEditTask(taskId, body) {
-  return axios.patch(`${host}/api/tasks/${taskId}`, { ...body }).then((res) => res);
+  return axios.post(`${host}/api/tasks/${taskId}`, { ...body }).then((res) => res);
 }
 
 export function requestDeleteTask(id) {

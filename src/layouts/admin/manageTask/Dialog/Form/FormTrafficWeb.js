@@ -4,10 +4,7 @@ import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import TextField from "@mui/material/TextField";
 
-// import { InputImg } from "components/InputImage";
-// import { InputImage } from "components/InputImage/test";
-
-export const FormTrafficWeb = ({ onChangeInput, onChangeImg, inputVal, inputImg }) => {
+export const FormTrafficWeb = ({ onChangeInput, onChangeImg, inputVal, isCreate }) => {
   const DisplayImg = () => {
     const img = document.getElementById("idImg");
     if (img) {
@@ -99,22 +96,22 @@ export const FormTrafficWeb = ({ onChangeInput, onChangeImg, inputVal, inputImg 
           onChange={onChangeInput("priority")}
         />
       </MDBox>
-      <MDBox mb={2}>
-        {/* <InputImg multiple={true} onDone={onChangeImg} /> */}
-        {/* <InputImage multiple={true} handleChange={onChangeImg} /> */}
-        Nhập ảnh: &nbsp;
-        <input type="file" onChange={onChangeImg} multiple id="idImg" />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            // justifyContent: "space-around",
-          }}
-        >
-          <DisplayImg />
-        </div>
-      </MDBox>
+      {isCreate ? (
+        <MDBox mb={2}>
+          Nhập ảnh: &nbsp;
+          <input type="file" onChange={onChangeImg} multiple id="idImg" />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              // justifyContent: "space-around",
+            }}
+          >
+            <DisplayImg />
+          </div>
+        </MDBox>
+      ) : null}
     </div>
   );
 };

@@ -60,7 +60,7 @@ export default function TableMUI({ columns, rows }) {
     }
   };
   const updateTask = (data, files) => {
-    dispatch(reqEditTask(data, files));
+    dispatch(reqEditTask(idRow, data, files));
   };
 
   // cancel, close dialog

@@ -50,6 +50,8 @@ export const reqCreateTask = (data, files) => async (dispatch, getState) => {
     }
   } catch (err) {
     console.log(err);
+    alert("Tạo task thất bại");
+    return;
   }
 
   const {
@@ -71,15 +73,25 @@ export const reqCreateTask = (data, files) => async (dispatch, getState) => {
   }
 };
 
-export const reqEditTask = (data) => async (dispatch) => {
+export const reqEditTask = (idTask, data) => async (dispatch, getState) => {
+  const {
+    admin: { allTask },
+  } = getState();
+
   let response;
   try {
-    response = await requestEditTask(data);
+    response = await requestEditTask(idTask, data);
   } catch (err) {
     console.log(err);
   }
-  if (/20[0-9]/.test(response.status)) {
-    dispatch(updateAllTask([response.data]));
+  if (response && /20[0-9]/.test(response.status)) {
+    const newAllTask = allTask.map((el) => {
+      if (el.id === idTask) {
+        return response.data;
+      }
+      return el;
+    });
+    dispatch(updateAllTask(newAllTask));
   }
 };
 

@@ -8,7 +8,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import ProfileInfoCard from "layouts/profile/components/ProfileInfoCard";
 import FormDialog from "layouts/profile/components/Dialog";
 
-import { requestUpdateUser } from "api/apiAdmin";
+import { reqUpdateUser } from "actions/user";
 
 import { useModal } from "components/Modal";
 import { SimpleDialog, ConfirmDialog } from "components/Modal/dialog";
@@ -28,39 +28,20 @@ function Profile() {
     setOpen(false);
   };
 
-  const updateUser = async (data) => {
-    console.log(data);
-    let res;
-    try {
-      res = await requestUpdateUser(userInfo.id, data);
-    } catch (err) {
-      setModal(<SimpleDialog content={<div>Cập nhật thông tin thất bại!</div>} />);
-    }
-
-    console.log(res, "res");
-    if (res && /20[0-9]/.test(res.status)) {
-      setModal(<SimpleDialog content={<div>Cập nhật thông tin thành công</div>} />);
-    }
+  const updateUser = (data, files) => {
+    dispatch(reqUpdateUser(userInfo.id, data, files));
+    // handleClose();
   };
-
-  // const editUserInfo = () => {
-  //   console.log(2);
-  // };
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <ProfileInfoCard
         title="Thông tin cá nhân"
-        info={{
-          fullName: `${userInfo.name}`,
-          mobile: `${userInfo.telephone}`,
-          email: `${userInfo.email}`,
-          location: `${userInfo.address}`,
-          balance: `${userInfo.balance} vnđ`,
-        }}
+        info={userInfo}
         openDialog={handleClickOpen}
         shadow={true}
+        isEdit={true}
       />
       {open && (
         <FormDialog
