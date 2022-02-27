@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+// import { useNavigate } from "react-router-dom";
 
 import Icon from "@mui/material/Icon";
 
@@ -8,13 +8,12 @@ import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
 
-import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import { reqPostTask } from "actions/task";
 import "./index.css";
 
 // white","primary","secondary","info","success","warning","error","light","dark
 function FeederPage() {
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [time, setTime] = useState(60);
   const [isUnlock, setIsUnlock] = useState(false);
   const currentTask = useSelector((state) => state.task.currentTask);
@@ -38,6 +37,10 @@ function FeederPage() {
     window.open(link);
   };
 
+  const handleFinishTask = () => {
+    dispatch(reqPostTask(currentTask.id, ""));
+  };
+
   const DisplayTime = () => {
     if (time === 0) {
       return <div className="timer">Time up!</div>;
@@ -47,7 +50,6 @@ function FeederPage() {
 
   return (
     <div>
-      {/* <DashboardNavbar /> */}
       <MDBox
         style={{
           display: "flex",
@@ -56,8 +58,8 @@ function FeederPage() {
           flexDirection: "column",
         }}
       >
-        <MDBox>Background</MDBox>
-        <MDBox>
+        {/* <MDBox>Background</MDBox> */}
+        <MDBox mt={2}>
           <MDTypography
             component="span"
             variant="header"
@@ -87,7 +89,8 @@ function FeederPage() {
           </MDBox>
           <MDBox mt={4.5}>
             <MDButton
-              style={{ padding: "13px 75px" }}
+              width={200}
+              style={{ width: "250px" }}
               size="large"
               color="info"
               onClick={handleClick}
@@ -97,17 +100,23 @@ function FeederPage() {
           </MDBox>
           <MDBox my={4.5}>
             <MDButton
-              style={{ padding: "13px 75px" }}
-              onClick={() => navigate("/authentication/sign-up")}
+              style={{ width: "250px" }}
+              onClick={handleFinishTask}
               size="large"
               color="primary"
+              disabled={!isUnlock}
             >
               <Icon fontSize="small">{isUnlock ? "lock_open" : "lock"}</Icon>&nbsp;
               {isUnlock ? "Unlocked" : "Locked"}
             </MDButton>
           </MDBox>
         </MDBox>
-        <MDBox>Footer</MDBox>
+        <MDBox px={4} mt={1}>
+          Follow the actions set by the creator to unlock this link. when you have done what the
+          creator has asked you to do click on the now green unlock button. Do you like Sub1s? Would
+          you like to create your own Sub1s link? Its never been easier to do so. Sign Up by
+          clicking here and watch this in depth tutorial on how to use all features of Sub1s.
+        </MDBox>
       </MDBox>
     </div>
   );

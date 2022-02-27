@@ -24,11 +24,11 @@ function DoTask() {
   const currentTask = useSelector((state) => state.task.currentTask);
   const [inputKey, setInputKey] = useState("");
 
-  useEffect(() => {
-    if (!currentTask.id) {
-      dispatch(reqGetCurrentTask());
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!currentTask.id) {
+  //     dispatch(reqGetCurrentTask());
+  //   }
+  // }, []);
 
   const onChangeKey = (e) => {
     setInputKey(e.target.value);

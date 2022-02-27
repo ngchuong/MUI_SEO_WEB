@@ -28,7 +28,7 @@ import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 
 import { updateUserInfo } from "store/reducers/user";
-import { reqGetRandomTask } from "actions/task";
+import { reqGetCurrentTask, reqGetRandomTask } from "actions/task";
 import { requesVerify } from "./api/index";
 import { setCookie, getCookie, eraseCookie } from "./utils/cookie";
 
@@ -84,6 +84,7 @@ export default function App() {
   useEffect(() => {
     if (userInfo && userInfo.id && !userInfo.is_admin) {
       usedDispatch(reqGetRandomTask());
+      usedDispatch(reqGetCurrentTask());
     }
   }, []);
 
