@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { useDispatch } from "react-redux";
 // react-router components
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -14,7 +14,7 @@ import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
-import MDButton from "components/MDButton";
+import { updateCurrentTask } from "store/reducers/task";
 
 // Material Dashboard 2 React example components
 import Breadcrumbs from "examples/Breadcrumbs";
@@ -36,6 +36,7 @@ import { eraseCookie } from "../../../utils/cookie";
 
 function DashboardNavbar({ absolute, light, isMini }) {
   const navigate = useNavigate();
+  const doDispatch = useDispatch();
   const [navbarType, setNavbarType] = useState();
   const [controller, dispatch] = useMaterialUIController();
   const { miniSidenav, transparentNavbar, fixedNavbar, darkMode } = controller;
@@ -87,6 +88,9 @@ function DashboardNavbar({ absolute, light, isMini }) {
     if (/20[0-9]/.test(resLogout.status)) {
       eraseCookie("user");
       navigate("/home");
+
+      // clear state
+      doDispatch(updateCurrentTask({}));
     }
   };
 
