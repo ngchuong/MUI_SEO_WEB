@@ -90,7 +90,7 @@ export default function TableMUI({ columns, rows }) {
           </TableHead>
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-              <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+              <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.withdraw_id}>
                 {columns.map((column) => {
                   const value = row[column.id];
                   return (
@@ -104,7 +104,7 @@ export default function TableMUI({ columns, rows }) {
                     size="small"
                     aria-label="close"
                     color="inherit"
-                    onClick={() => ClickPayment(row.id)}
+                    onClick={() => ClickPayment(row.withdraw_id)}
                   >
                     <Icon fontSize="small">payment</Icon>
                   </IconButton>
