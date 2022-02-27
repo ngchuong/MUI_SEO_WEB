@@ -8,57 +8,9 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-
 import { v4 as uuidv4 } from "uuid";
 
 import { FormTrafficWeb } from "./Form/FormTrafficWeb";
-// import { FormSubYtb } from "./Form/FormSubYtb";
-// import { FormLikePage } from "./Form/FormLikeFB";
-// import { FormJoinGroup } from "./Form/FormJoinGroup";
-
-const SwitchForm = ({ type, onChangeInput, onChangeImg, inputVal, inputImg }) => {
-  const display = (
-    <FormTrafficWeb
-      onChangeInput={onChangeInput}
-      onChangeImg={onChangeImg}
-      inputVal={inputVal}
-      inputImg={inputImg}
-    />
-  );
-  // switch (type) {
-  //   case "TRAFFIC":
-  //     display = (
-  //       <FormTrafficWeb
-  //         onChangeInput={onChangeInput}
-  //         onChangeImg={onChangeImg}
-  //         inputVal={inputVal}
-  //         inputImg={inputImg}
-  //       />
-  //     );
-  //     break;
-  //   case "SUB_YOUTUBE":
-  //     display = <FormSubYtb />;
-  //     break;
-  //   case "LIKE_PAGE":
-  //     display = <FormLikePage />;
-  //     break;
-  //   case "JOIN_GROUP":
-  //     display = <FormJoinGroup />;
-  //     break;
-  //   default:
-  //     display = (
-  //       <FormTrafficWeb
-  //         onChangeInput={onChangeInput}
-  //         onChangeImg={onChangeImg}
-  //         inputVal={inputVal}
-  //         inputImg={inputImg}
-  //       />
-  //     );
-  //     break;
-  // }
-
-  return display;
-};
 
 export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
   const [typeForm, setTypeForm] = useState("TRAFFIC");
@@ -140,8 +92,7 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
             </Select>
           </FormControl>
 
-          <SwitchForm
-            type={typeForm}
+          <FormTrafficWeb
             onChangeInput={onChangeInput}
             onChangeImg={onChangeImg}
             inputVal={inputVal}

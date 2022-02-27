@@ -19,6 +19,7 @@ import { updateAllTask } from "store/reducers/admin";
 import { reqEditTask } from "actions/admin";
 import { StyledTableCell, StyledTableRow, useStyles } from "./subComponent";
 import FormDialog from "../Dialog";
+import FormDetailTask from "../Dialog/Form/Detail Task";
 
 export default function TableMUI({ columns, rows }) {
   const allTask = useSelector((state) => state.admin.allTask);
@@ -27,6 +28,7 @@ export default function TableMUI({ columns, rows }) {
   const dispatch = useDispatch();
   const { setModal, unSetModal } = useModal();
   const [open, setOpen] = useState(false);
+  const [openDetailTask, setOpenDetailTask] = useState(false);
   const [idRow, setIdRow] = useState("");
 
   // pagination
@@ -61,19 +63,23 @@ export default function TableMUI({ columns, rows }) {
     dispatch(reqEditTask(data, files));
   };
 
+  // cancel, close dialog
   const doCancel = () => {
     unSetModal();
   };
   const handleClose = () => {
     setOpen(false);
+    setOpenDetailTask(false);
   };
 
   // open dialog
-  const OpenEdit = (id) => {
+  const OpenEdit = (e, id) => {
+    e.stopPropagation();
     setOpen(true);
     setIdRow(id);
   };
-  const OpenDelete = (id) => {
+  const OpenDelete = (e, id) => {
+    e.stopPropagation();
     setModal(
       <ConfirmDialog
         content={<div>Bạn muốn xóa nhiệm vụ này không?</div>}
@@ -81,6 +87,10 @@ export default function TableMUI({ columns, rows }) {
         onCancel={doCancel}
       />
     );
+  };
+  const OpenDetail = (id) => {
+    setOpenDetailTask(true);
+    setIdRow(id);
   };
 
   return (
@@ -108,7 +118,14 @@ export default function TableMUI({ columns, rows }) {
           </TableHead>
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-              <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+              <StyledTableRow
+                hover
+                role="checkbox"
+                tabIndex={-1}
+                key={row.id}
+                onClick={() => OpenDetail(row.id)}
+                style={{ cursor: "pointer" }}
+              >
                 {columns.map((column) => {
                   const value = row[column.id];
                   return (
@@ -122,7 +139,7 @@ export default function TableMUI({ columns, rows }) {
                     size="small"
                     aria-label="close"
                     color="inherit"
-                    onClick={() => OpenEdit(row.id)}
+                    onClick={(e) => OpenEdit(e, row.id)}
                   >
                     <Icon fontSize="small">edit</Icon>
                   </IconButton>
@@ -132,7 +149,7 @@ export default function TableMUI({ columns, rows }) {
                     size="small"
                     aria-label="close"
                     color="inherit"
-                    onClick={() => OpenDelete(row.id)}
+                    onClick={(e) => OpenDelete(e, row.id)}
                   >
                     <Icon fontSize="small">delete</Icon>
                   </IconButton>
@@ -156,6 +173,14 @@ export default function TableMUI({ columns, rows }) {
           handleClose={handleClose}
           open={open}
           onSubmit={updateTask}
+          dataForm={rows.filter((el) => el.id === idRow)[0]}
+        />
+      )}
+
+      {openDetailTask && (
+        <FormDetailTask
+          handleClose={handleClose}
+          open={openDetailTask}
           dataForm={rows.filter((el) => el.id === idRow)[0]}
         />
       )}
