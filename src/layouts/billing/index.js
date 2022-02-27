@@ -31,8 +31,10 @@ function Billing() {
 
   const listWithdrawal = useSelector((state) => state.user.allWithdrawal);
   useEffect(() => {
-    dispatch(reqGetAllWithdraw(userInfo.id));
-  }, []);
+    if (userInfo && userInfo.id) {
+      dispatch(reqGetAllWithdraw(userInfo.id));
+    }
+  }, [userInfo]);
 
   const onChangeMoney = (e) => {
     setInputMoney(e.target.value);

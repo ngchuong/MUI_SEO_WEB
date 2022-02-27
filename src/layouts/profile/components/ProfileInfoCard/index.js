@@ -41,7 +41,7 @@ function ProfileInfoCard({ title, info, shadow, openDialog, isEdit }) {
     },
     {
       key: "user_social_id",
-      label: "Số chứng minh nhân dân",
+      label: "Số cmnd/cccd",
       value: info.user_social_id,
     },
     {
@@ -74,7 +74,7 @@ function ProfileInfoCard({ title, info, shadow, openDialog, isEdit }) {
     if (fileId) {
       return (
         <div>
-          <img height={300} width={450} src={`${host}/api/files/${fileId}`} alt="#" />;
+          <img height={200} width={250} src={`${host}/api/files/${fileId}`} alt="#" />;
         </div>
       );
     }
@@ -97,7 +97,7 @@ function ProfileInfoCard({ title, info, shadow, openDialog, isEdit }) {
       </MDBox>
       <MDBox display="flex" justifyContent="space-between" p={2}>
         <MDBox>{renderItems}</MDBox>
-        <MDBox width="50%">
+        <MDBox width="50%" ml={1}>
           <MDTypography variant="button" fontWeight="bold" textTransform="capitalize">
             Ảnh chứng minh nhân dân:
           </MDTypography>
