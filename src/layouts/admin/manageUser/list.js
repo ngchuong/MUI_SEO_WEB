@@ -1,10 +1,19 @@
 import TableMUI from "./Table";
 
 export default function UserList({ data }) {
-  const rows = data.map((el, index) => ({ ...el, index: index + 1 }));
+  const rows = data.map((el, index) => {
+    const relatedData = el.related_data ? JSON.parse(el.related_data) : {};
+    return {
+      ...el,
+      index: index + 1,
+      bank_number: relatedData.bank_number,
+      bank_name: relatedData.bank_name,
+      // img_social_id: relatedData.image,
+    };
+  });
   const columns = [
-    { id: "index", label: "STT", minWidth: 50 },
-    { id: "name", label: "Tên", minWidth: 100 },
+    { id: "index", label: "STT", minWidth: 30 },
+    { id: "name", label: "Tên", minWidth: 150 },
     { id: "email", label: "Email", minWidth: 70 },
     {
       id: "telephone",
@@ -20,8 +29,26 @@ export default function UserList({ data }) {
     },
     {
       id: "balance",
-      label: "Số tiền kiếm được",
+      label: "Số dư",
       minWidth: 50,
+      align: "left",
+    },
+    {
+      id: "user_social_id",
+      label: "Số cmnd",
+      minWidth: 70,
+      align: "left",
+    },
+    {
+      id: "bank_number",
+      label: "Stk ngân hàng",
+      minWidth: 100,
+      align: "left",
+    },
+    {
+      id: "bank_name",
+      label: "Tên ngân hàng",
+      minWidth: 100,
       align: "left",
     },
   ];

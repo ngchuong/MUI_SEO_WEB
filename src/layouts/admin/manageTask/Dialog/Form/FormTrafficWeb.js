@@ -58,8 +58,8 @@ export const FormTrafficWeb = ({ onChangeInput, onChangeImg, inputVal, inputImg 
           label="Trang web đích"
           fullWidth
           rows={4}
-          value={inputVal.host}
-          onChange={onChangeInput("host")}
+          value={inputVal.origin}
+          onChange={onChangeInput("origin")}
         />
       </MDBox>
       <MDBox mb={2}>

@@ -33,10 +33,10 @@ export const reqGetRandomTask = () => async (dispatch) => {
   }
 };
 
-export const reqPostTask = (keyVal) => async () => {
+export const reqPostTask = (taskId, keyVal) => async () => {
   let response;
   try {
-    response = await requestFinishTask(keyVal);
+    response = await requestFinishTask(taskId, keyVal);
   } catch (err) {
     console.log(err);
   }

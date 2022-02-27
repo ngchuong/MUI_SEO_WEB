@@ -12,9 +12,9 @@ import FormControl from "@mui/material/FormControl";
 import { v4 as uuidv4 } from "uuid";
 
 import { FormTrafficWeb } from "./Form/FormTrafficWeb";
-import { FormSubYtb } from "./Form/FormSubYtb";
-import { FormLikePage } from "./Form/FormLikeFB";
-import { FormJoinGroup } from "./Form/FormJoinGroup";
+// import { FormSubYtb } from "./Form/FormSubYtb";
+// import { FormLikePage } from "./Form/FormLikeFB";
+// import { FormJoinGroup } from "./Form/FormJoinGroup";
 
 const SwitchForm = ({ type, onChangeInput, onChangeImg, inputVal, inputImg }) => {
   const display = (
@@ -62,16 +62,19 @@ const SwitchForm = ({ type, onChangeInput, onChangeImg, inputVal, inputImg }) =>
 
 export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
   const [typeForm, setTypeForm] = useState("TRAFFIC");
-  const defaultInput = dataForm || {
-    name: "",
-    description: "",
-    host: "",
-    key_word: "",
-    reward: "",
-    max_turn: "",
-    priority: "",
-    related_data: {},
-  };
+  const relatedData = dataForm && dataForm.related_data ? JSON.parse(dataForm.related_data) : {};
+  const defaultInput = dataForm
+    ? { ...dataForm, origin: relatedData.origin, key_word: relatedData.key_word }
+    : {
+        name: "",
+        description: "",
+        origin: "",
+        key_word: "",
+        reward: "",
+        max_turn: "",
+        priority: "",
+      };
+
   const [inputVal, setInputVal] = useState(defaultInput);
   const [inputImg, setInputImg] = useState([]);
 
@@ -93,8 +96,8 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
   };
 
   // do create task
-  const createTask = () => {
-    const { name, description, host, key_word, reward, max_turn, priority } = inputVal;
+  const handleSubmit = () => {
+    const { name, description, origin, key_word, reward, max_turn, priority } = inputVal;
     const data = {
       name,
       description,
@@ -103,7 +106,8 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
       priority,
       type_task: typeForm,
       related_data: {
-        origin: host,
+        image: inputImg,
+        origin,
         key_word,
         key: uuidv4(),
       },
@@ -146,7 +150,7 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Quay về</Button>
-          <Button onClick={createTask}>Tạo mới</Button>
+          <Button onClick={handleSubmit}>{dataForm ? "Cập nhật" : "Tạo mới"}</Button>
         </DialogActions>
       </Dialog>
     </div>

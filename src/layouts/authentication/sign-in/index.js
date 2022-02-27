@@ -32,7 +32,7 @@ function SignInForm() {
   useEffect(() => {
     if (userCookie.email) {
       if (userCookie.is_admin) {
-        navigate("/manage-task");
+        navigate("/manage-user");
       } else {
         navigate("/do-task");
       }
@@ -68,7 +68,7 @@ function SignInForm() {
         const data = resSignIn.data.user;
         setCookie("user", data);
         if (data.is_admin) {
-          navigate("/manage-task");
+          navigate("/manage-user");
         } else {
           navigate("/do-task");
         }

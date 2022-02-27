@@ -32,11 +32,9 @@ export default function TableMUI({ columns, rows }) {
   // pagination
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
@@ -59,10 +57,18 @@ export default function TableMUI({ columns, rows }) {
       setModal(<SimpleDialog content={<div>Xóa nhiệm vụ thành công!</div>} />);
     }
   };
+  const updateTask = (data, files) => {
+    dispatch(reqEditTask(data, files));
+  };
+
   const doCancel = () => {
     unSetModal();
   };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
+  // open dialog
   const OpenEdit = (id) => {
     setOpen(true);
     setIdRow(id);
@@ -75,14 +81,6 @@ export default function TableMUI({ columns, rows }) {
         onCancel={doCancel}
       />
     );
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const updateTask = (data, files) => {
-    dispatch(reqEditTask(data, files));
   };
 
   return (

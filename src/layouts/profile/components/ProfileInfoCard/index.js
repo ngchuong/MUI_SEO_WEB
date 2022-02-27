@@ -10,7 +10,7 @@ import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 import { host } from "configs.js";
 
-function ProfileInfoCard({ title, info, shadow, openDialog }) {
+function ProfileInfoCard({ title, info, shadow, openDialog, isEdit }) {
   // build dataa
   const relatedData = info.related_data ? JSON.parse(info.related_data) : {};
   const dataUser = [
@@ -87,11 +87,13 @@ function ProfileInfoCard({ title, info, shadow, openDialog }) {
         <MDTypography variant="h6" fontWeight="medium" textTransform="capitalize">
           {title}
         </MDTypography>
-        <MDButton onClick={openDialog}>
-          <Tooltip title="Edit Profile" placement="top">
-            <Icon>edit</Icon>
-          </Tooltip>
-        </MDButton>
+        {isEdit ? (
+          <MDButton onClick={openDialog}>
+            <Tooltip title="Edit Profile" placement="top">
+              <Icon>edit</Icon>
+            </Tooltip>
+          </MDButton>
+        ) : null}
       </MDBox>
       <MDBox display="flex" justifyContent="space-between" p={2}>
         <MDBox>{renderItems}</MDBox>

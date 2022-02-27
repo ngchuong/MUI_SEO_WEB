@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Paper from "@mui/material/Paper";
@@ -14,10 +14,12 @@ import Icon from "@mui/material/Icon";
 
 import { useModal } from "components/Modal";
 import { SimpleDialog, ConfirmDialog } from "components/Modal/dialog";
+import { host } from "configs.js";
 
 import { requestDeleteUser } from "api/apiAdmin";
 import { updateAllUser } from "store/reducers/admin";
 import { StyledTableCell, StyledTableRow, useStyles } from "./subComponent";
+import FormDialog from "../Form";
 
 export default function TableMUI({ columns, rows }) {
   const allUser = useSelector((state) => state.admin.allUser);
@@ -25,6 +27,8 @@ export default function TableMUI({ columns, rows }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { setModal, unSetModal } = useModal();
+  const [open, setOpen] = useState(false);
+  const [idRow, setIdRow] = useState("");
 
   // pagination
   const [page, setPage] = React.useState(0);
@@ -59,8 +63,9 @@ export default function TableMUI({ columns, rows }) {
     unSetModal();
   };
 
-  const ClickEdit = () => {};
-  const ClickDelete = (id) => {
+  // const ClickEdit = () => {};
+  const ClickDelete = (e, id) => {
+    e.stopPropagation();
     setModal(
       <ConfirmDialog
         content={<div>Bạn muốn xóa user này không?</div>}
@@ -68,6 +73,15 @@ export default function TableMUI({ columns, rows }) {
         onCancel={doCancel}
       />
     );
+  };
+
+  // open dialog detail user
+  const openDetailUser = (id) => {
+    setOpen(true);
+    setIdRow(id);
+  };
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -95,9 +109,31 @@ export default function TableMUI({ columns, rows }) {
           </TableHead>
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-              <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+              <StyledTableRow
+                hover
+                role="checkbox"
+                tabIndex={-1}
+                key={row.id}
+                onClick={() => openDetailUser(row.id)}
+                style={{ cursor: "pointer" }}
+              >
                 {columns.map((column) => {
                   const value = row[column.id];
+                  if (column.id === "img_social_id") {
+                    if (!value) {
+                      return <StyledTableCell key={column.id} />;
+                    }
+                    return (
+                      <StyledTableCell key={column.id} align={column.align}>
+                        <img
+                          height={100}
+                          width={150}
+                          src={`${host}/api/files/${value || ""}`}
+                          alt="#"
+                        />
+                      </StyledTableCell>
+                    );
+                  }
                   return (
                     <StyledTableCell key={column.id} align={column.align}>
                       {column.format && typeof value === "number" ? column.format(value) : value}
@@ -114,7 +150,7 @@ export default function TableMUI({ columns, rows }) {
                     size="small"
                     aria-label="close"
                     color="inherit"
-                    onClick={() => ClickDelete(row.id)}
+                    onClick={(event) => ClickDelete(event, row.id)}
                   >
                     <Icon fontSize="small">delete</Icon>
                   </IconButton>
@@ -133,6 +169,13 @@ export default function TableMUI({ columns, rows }) {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      {open && (
+        <FormDialog
+          handleClose={handleClose}
+          open={open}
+          dataForm={rows.filter((el) => el.id === idRow)[0]}
+        />
+      )}
     </Paper>
   );
 }

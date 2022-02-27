@@ -50,7 +50,7 @@ function DoTask() {
 
   const doneTask = () => {
     // request api send key to server, receive task
-    dispatch(reqPostTask(inputKey));
+    dispatch(reqPostTask(currentTask.id, inputKey));
   };
 
   const doTask = () => {
