@@ -125,20 +125,23 @@ function DoTask() {
                   Làm nhiệm vụ ngay
                 </MDButton>
               )}
-              <MDBox component="form" role="form">
+              <MDBox my={1} component="form" role="form">
                 <MDInput
                   type="text"
                   label="Nhập key hoàn thành"
                   value={inputKey}
                   onChange={onChangeKey}
+                  fullWidth
                 />
               </MDBox>
-              <MDButton onClick={doneTask} size="small" color="info">
-                Hoàn thành nhiệm vụ
-              </MDButton>
-              <MDButton onClick={cancelTask} size="small" color="primary">
-                Hủy nhiệm vụ này
-              </MDButton>
+              <MDBox style={{ display: "flex", justifyContent: "flex-end" }}>
+                <MDButton onClick={doneTask} size="small" color="info">
+                  Hoàn thành nhiệm vụ
+                </MDButton>
+                <MDButton onClick={cancelTask} size="small" color="primary">
+                  Hủy nhiệm vụ này
+                </MDButton>
+              </MDBox>
             </MDBox>
           ) : (
             <MDBox>Bạn chưa nhận nhiệm vụ</MDBox>
