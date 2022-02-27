@@ -28,9 +28,9 @@ function Profile() {
     setOpen(false);
   };
 
-  const updateUser = (data, files) => {
-    dispatch(reqUpdateUser(userInfo.id, data, files));
-    // handleClose();
+  const updateUser = (id, data, files) => {
+    dispatch(reqUpdateUser(id, data, files));
+    handleClose();
   };
 
   return (

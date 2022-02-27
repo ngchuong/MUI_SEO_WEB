@@ -74,7 +74,8 @@ export default function FormDialog({ handleClose, open, onSubmit, userInfo }) {
 
     return true;
   };
-  // do create task
+
+  // do update user
   const updateUserInfo = () => {
     if (validateData(inputVal)) {
       const { name, telephone, address, user_social_id, bank_number, bank_name } = inputVal;
@@ -89,7 +90,7 @@ export default function FormDialog({ handleClose, open, onSubmit, userInfo }) {
         },
       };
 
-      onSubmit(data, inputImg);
+      onSubmit(userInfo.id, data, inputImg);
       // handleClose();
     }
   };

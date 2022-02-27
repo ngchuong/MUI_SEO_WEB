@@ -4,13 +4,14 @@ import { requestUpdateUser, requestPostFile } from "api/apiAdmin";
 import { updateUserInfo } from "../store/reducers/user";
 
 export const reqUpdateUser = (userId, body, file) => async (dispatch) => {
-  console.log(1, file);
   let responseFile;
   if (file) {
     try {
       responseFile = await requestPostFile(file);
     } catch (err) {
       console.log(err);
+      alert("Cập nhật thông tin thất bại");
+      return;
     }
   }
 
