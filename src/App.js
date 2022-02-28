@@ -84,9 +84,15 @@ export default function App() {
   useEffect(() => {
     if (userInfo && userInfo.id && !userInfo.is_admin) {
       usedDispatch(reqGetRandomTask());
-      usedDispatch(reqGetCurrentTask());
     }
   }, []);
+
+  // request data
+  useEffect(() => {
+    if (userInfo && userInfo.id && !userInfo.is_admin) {
+      usedDispatch(reqGetCurrentTask());
+    }
+  }, [pathname]);
 
   // verify every when redirect
   useEffect(async () => {

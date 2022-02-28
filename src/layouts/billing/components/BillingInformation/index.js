@@ -6,15 +6,17 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
 // Billing page components
-import Bill from "layouts/billing/components/Bill";
+// import Bill from "layouts/billing/components/Bill";
 
 function BillingInformation({ bills }) {
-  console.log(1, bills);
   const DisplayBill = bills.map((el, index) => {
     const DefineStatus = {
       0: "Đang chờ về",
       1: "Đã rút thành công",
     };
+
+    const date = new Date(el.created_at);
+    const displayDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
     return (
       // <Bill
       //   key={el}
@@ -25,11 +27,17 @@ function BillingInformation({ bills }) {
       // />
       <div
         key={el.id}
-        style={{ border: "1px solid #c1c1c1", fontSize: "15px", borderRadius: "4px", padding: 4 }}
+        style={{
+          border: "1px solid #c1c1c1",
+          fontSize: "15px",
+          borderRadius: "4px",
+          padding: 4,
+          marginBottom: 4,
+        }}
       >
-        <div>{`Số tiền rút: ${el.amount}`}</div>
+        <div>{`Số tiền rút: ${el.amount} đồng`}</div>
         <div>{`Trạng thái rút: ${DefineStatus[el.status]}`}</div>
-        <div>{`Ngày rút: ${el.created_at}`}</div>
+        <div>{`Ngày rút: ${displayDate}`}</div>
       </div>
     );
   });

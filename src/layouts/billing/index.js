@@ -65,7 +65,8 @@ function Billing() {
         <SimpleDialog
           content={
             <div>
-              Rút tiền thành công. Sau 5 ngày bạn có thể quay lại để làm thêm nhiệm vụ kiếm tiền
+              <div>Rút tiền thành công.</div>
+              <div>Sau 1 đến 2 ngày bạn có thể quay lại để làm thêm nhiệm vụ kiếm tiền</div>
             </div>
           }
         />

@@ -95,9 +95,9 @@ function ProfileInfoCard({ title, info, shadow, openDialog, isEdit }) {
           </MDButton>
         ) : null}
       </MDBox>
-      <MDBox display="flex" justifyContent="space-between" p={2}>
+      <MDBox p={2}>
         <MDBox>{renderItems}</MDBox>
-        <MDBox width="50%" ml={1}>
+        <MDBox>
           <MDTypography variant="button" fontWeight="bold" textTransform="capitalize">
             Ảnh chứng minh nhân dân:
           </MDTypography>
