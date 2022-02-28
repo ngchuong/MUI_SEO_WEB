@@ -41,6 +41,16 @@ function Billing() {
   };
 
   const doWithdraw = async () => {
+    const relatedData = userInfo.related_data ? JSON.parse(userInfo.related_data) : {};
+    const { bank_number, bank_name, image } = relatedData;
+    if (!bank_number || !bank_name || !image) {
+      setModal(
+        <SimpleDialog
+          content={<div>Vui lòng cập nhật đúng và đủ thông tin cá nhân trước khi rút tiền</div>}
+        />
+      );
+      return;
+    }
     if (inputMoney < 10000) {
       setModal(<SimpleDialog content={<div>Số tiền tối thiểu được rút là 10.000 đồng</div>} />);
       return;
