@@ -32,10 +32,12 @@ export function requestAllTask() {
 }
 
 export function requestCreateTask(data) {
-  const { name, description, reward, related_data, priority, max_turn, type_task } = data;
+  const { name, list_posts, description, reward, related_data, priority, max_turn, type_task } =
+    data;
   return axios
     .post(`${host}/api/tasks`, {
       name,
+      list_posts,
       description,
       reward,
       related_data,

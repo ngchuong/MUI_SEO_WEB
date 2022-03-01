@@ -22,6 +22,7 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
         description: "",
         origin: "",
         key_word: "",
+        list_posts: [],
         reward: "",
         max_turn: "",
         priority: "",
@@ -44,15 +45,19 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
     setInputImg(e.target.files);
   };
   const onChangeInput = (key) => (e) => {
-    setInputVal({ ...inputVal, [key]: e.target.value });
+    const value = key === "list_posts" ? e : e.target.value;
+    setInputVal({ ...inputVal, [key]: value });
   };
 
   // do create task
   const handleSubmit = () => {
-    const { name, description, origin, key_word, reward, max_turn, priority } = inputVal;
+    console.log("inputVal", inputVal);
+    const { name, description, origin, key_word, list_posts, reward, max_turn, priority } =
+      inputVal;
     const data = {
       name,
       description,
+      list_posts,
       reward,
       max_turn,
       priority,
@@ -88,6 +93,7 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
               <MenuItem value="SUB_YOUTUBE">Sub Youtube</MenuItem>
               <MenuItem value="LIKE_PAGE">Like Page Facebook</MenuItem>
               <MenuItem value="JOIN_GROUP">Join Group Facebook</MenuItem>
+              <MenuItem value="REVIEW_SOCIAL">Review Social</MenuItem>
             </Select>
           </FormControl>
 
@@ -97,6 +103,7 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
             inputVal={inputVal}
             inputImg={inputImg}
             isCreate={!dataForm}
+            typeForm={typeForm}
           />
         </DialogContent>
         <DialogActions>

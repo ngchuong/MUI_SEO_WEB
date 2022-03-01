@@ -49,7 +49,7 @@ function ReceiveTask() {
       return listFileId.map((fileId) => {
         return (
           <div key={fileId}>
-            <img height={300} width={450} src={`${urlGetFile}${fileId}`} alt="#" />;
+            <img height={300} width={450} src={`${urlGetFile}${fileId}`} alt="#" />
           </div>
         );
       });

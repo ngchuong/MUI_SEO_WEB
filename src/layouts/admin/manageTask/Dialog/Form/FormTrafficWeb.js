@@ -1,32 +1,92 @@
-import React from "react";
+import React, { useState } from "react";
 
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
+import MDButton from "components/MDButton";
 import TextField from "@mui/material/TextField";
 
-export const FormTrafficWeb = ({ onChangeInput, onChangeImg, inputVal, isCreate }) => {
-  const DisplayImg = () => {
-    const img = document.getElementById("idImg");
-    if (img) {
-      const files = img.files;
+const DisplayImg = () => {
+  const img = document.getElementById("idImg");
+  if (img) {
+    const files = img.files;
 
-      const srcImg = [];
-      for (let i = 0; i < files.length; i += 1) {
-        const src = files[i] ? URL.createObjectURL(files[i]) : "";
-        srcImg.push(src);
-      }
-
-      return srcImg.map((src) => {
-        return (
-          <div key={src} style={{ margin: "2px 10px" }}>
-            <img width={150} height={100} src={src} alt="#" />
-          </div>
-        );
-      });
+    const srcImg = [];
+    for (let i = 0; i < files.length; i += 1) {
+      const src = files[i] ? URL.createObjectURL(files[i]) : "";
+      srcImg.push(src);
     }
 
-    return null;
+    return srcImg.map((src) => {
+      return (
+        <div key={src} style={{ margin: "2px 10px" }}>
+          <img width={150} height={100} src={src} alt="#" />
+        </div>
+      );
+    });
+  }
+
+  return null;
+};
+
+const InputFormContent = ({ inputVal, onChangeInput }) => {
+  const [inputItem, setInputItem] = useState("");
+
+  // list type
+  const onChangePost = (e) => {
+    setInputItem(e.target.value);
   };
+  const addItem = () => {
+    onChangeInput([...inputVal, inputItem]);
+    setInputItem("");
+  };
+
+  const deleteItem = (item) => {
+    const newArr = inputVal.filter((el) => el !== item);
+    onChangeInput(newArr);
+  };
+
+  const ListItem = inputVal.map((el) => {
+    return (
+      <MDBox
+        key={el}
+        display="flex"
+        flexDirection="row"
+        justifyContent="space-between"
+        width="100%"
+        sx={{ border: "1px solid #c1c1c1", padding: 2 }}
+      >
+        <MDBox>{el}</MDBox>
+        <MDBox>
+          <MDButton onClick={() => deleteItem(el)} size="small" color="primary">
+            Xóa
+          </MDButton>
+        </MDBox>
+      </MDBox>
+    );
+  });
+
+  return (
+    <MDBox sx={{ border: "1px solid #c1c1c1", borderRadius: "4px" }}>
+      <MDBox display="flex" flexDirection="row" justifyContent="space-between" m={1} mb={2}>
+        <MDInput
+          type="text"
+          label="Tên nhiệm vụ"
+          fullWidth
+          value={inputItem}
+          onChange={onChangePost}
+        />
+        <MDBox>
+          <MDButton onClick={() => addItem()} size="small" color="info">
+            Thêm mới
+          </MDButton>
+        </MDBox>
+      </MDBox>
+      <MDBox m={1}>Danh sách nội dung bài đăng{ListItem}</MDBox>
+    </MDBox>
+  );
+};
+
+export const FormTrafficWeb = ({ onChangeInput, onChangeImg, inputVal, isCreate, typeForm }) => {
   return (
     <div>
       <MDBox mb={2} mt={2}>
@@ -49,6 +109,15 @@ export const FormTrafficWeb = ({ onChangeInput, onChangeImg, inputVal, isCreate 
           onChange={onChangeInput("description")}
         />
       </MDBox>
+      {typeForm === "REVIEW_SOCIAL" && (
+        <MDBox mb={2}>
+          <InputFormContent
+            inputVal={inputVal.list_posts}
+            onChangeInput={onChangeInput("list_posts")}
+          />
+        </MDBox>
+      )}
+
       <MDBox mb={2}>
         <TextField
           id="filled-multiline-static"

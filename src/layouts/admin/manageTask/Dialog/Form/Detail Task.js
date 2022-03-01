@@ -14,7 +14,7 @@ import { host } from "configs.js";
 
 const DisplayTaskDetail = ({ info, shadow }) => {
   const relatedData = info.related_data ? JSON.parse(info.related_data) : {};
-  const dataUser = [
+  const dataTask = [
     {
       key: "type_task",
       label: "Loại nhiệm vụ",
@@ -48,7 +48,7 @@ const DisplayTaskDetail = ({ info, shadow }) => {
     {
       key: "reward",
       label: "Tiền thưởng",
-      value: info.reward,
+      value: `${info.reward} đồng`,
     },
     {
       key: "created_at",
@@ -58,7 +58,7 @@ const DisplayTaskDetail = ({ info, shadow }) => {
   ];
 
   // Render the card info items
-  const renderItems = dataUser.map((item, index) => (
+  const renderItems = dataTask.map((item, index) => (
     <MDBox key={item.key} display="flex" py={1} pr={2}>
       <MDTypography variant="button" fontWeight="bold" textTransform="capitalize">
         {item.label}: &nbsp;

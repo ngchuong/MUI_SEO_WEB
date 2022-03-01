@@ -68,7 +68,7 @@ function DoTask() {
       return listFileId.map((fileId) => {
         return (
           <div key={fileId}>
-            <img height={300} width={450} src={`${urlGetFile}${fileId}`} alt="#" />;
+            <img height={300} width={380} src={`${urlGetFile}${fileId}`} alt="#" />
           </div>
         );
       });
@@ -114,6 +114,7 @@ function DoTask() {
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
+                      margin: 1,
                     }}
                   >
                     <DisplayImg data={currentTask.related_data} />
