@@ -11,6 +11,7 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
 import { host } from "configs.js";
+import { getDate } from "utils";
 
 const DisplayTaskDetail = ({ info, shadow }) => {
   const relatedData = info.related_data ? JSON.parse(info.related_data) : {};
@@ -31,14 +32,19 @@ const DisplayTaskDetail = ({ info, shadow }) => {
       value: info.description,
     },
     {
+      key: "origin",
+      label: "Trang web đích",
+      value: info.origin,
+    },
+    {
       key: "key_word",
       label: "Từ khóa",
       value: info.key_word,
     },
     {
-      key: "origin",
-      label: "Trang web đích",
-      value: info.origin,
+      key: "list_posts",
+      label: "Bài đăng",
+      value: info.list_posts,
     },
     {
       key: "priority",
@@ -53,21 +59,46 @@ const DisplayTaskDetail = ({ info, shadow }) => {
     {
       key: "created_at",
       label: "Ngày tạo nhiệm vụ",
-      value: info.created_at,
+      value: getDate(info.created_at),
     },
   ];
 
   // Render the card info items
-  const renderItems = dataTask.map((item, index) => (
-    <MDBox key={item.key} display="flex" py={1} pr={2}>
-      <MDTypography variant="button" fontWeight="bold" textTransform="capitalize">
-        {item.label}: &nbsp;
-      </MDTypography>
-      <MDTypography variant="button" fontWeight="regular" color="text">
-        &nbsp;{item.value}
-      </MDTypography>
-    </MDBox>
-  ));
+  const renderItems = dataTask.map((item, index) => {
+    if (item.key === "list_posts") {
+      return (
+        <MDBox key={item.key} py={1} pr={2}>
+          <MDTypography variant="button" fontWeight="bold" textTransform="capitalize">
+            {item.label}: &nbsp;
+          </MDTypography>
+          <MDBox sx={{ border: "1px solid #c1c1c1" }} p={1}>
+            <MDTypography variant="button" fontWeight="regular" color="text">
+              {item.value.map((el) => {
+                return (
+                  <div
+                    style={{ border: "1px solid #c1c1c1", marginBottom: 2, padding: 1 }}
+                    key={el}
+                  >
+                    {el}
+                  </div>
+                );
+              })}
+            </MDTypography>
+          </MDBox>
+        </MDBox>
+      );
+    }
+    return (
+      <MDBox key={item.key} display="flex" py={1} pr={2}>
+        <MDTypography variant="button" fontWeight="bold" textTransform="capitalize">
+          {item.label}: &nbsp;
+        </MDTypography>
+        <MDTypography variant="button" fontWeight="regular" color="text">
+          &nbsp;{item.value}
+        </MDTypography>
+      </MDBox>
+    );
+  });
 
   // display image
   const DisplayImg = () => {

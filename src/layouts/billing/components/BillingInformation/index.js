@@ -4,6 +4,7 @@ import Card from "@mui/material/Card";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
+import { getDate } from "utils";
 
 // Billing page components
 // import Bill from "layouts/billing/components/Bill";
@@ -15,8 +16,7 @@ function BillingInformation({ bills }) {
       1: "Đã rút thành công",
     };
 
-    const date = new Date(el.created_at);
-    const displayDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+    const displayDate = getDate(el.created_at);
     return (
       // <Bill
       //   key={el}

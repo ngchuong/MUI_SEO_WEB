@@ -13,7 +13,8 @@ import { v4 as uuidv4 } from "uuid";
 import { FormTrafficWeb } from "./Form/FormTrafficWeb";
 
 export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
-  const [typeForm, setTypeForm] = useState("TRAFFIC");
+  const typeTaskDefault = dataForm ? dataForm.type_task : "TRAFFIC";
+  const [typeForm, setTypeForm] = useState(typeTaskDefault);
   const relatedData = dataForm && dataForm.related_data ? JSON.parse(dataForm.related_data) : {};
   const defaultInput = dataForm
     ? { ...dataForm, origin: relatedData.origin, key_word: relatedData.key_word }
@@ -51,7 +52,6 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
 
   // do create task
   const handleSubmit = () => {
-    console.log("inputVal", inputVal);
     const { name, description, origin, key_word, list_posts, reward, max_turn, priority } =
       inputVal;
     const data = {

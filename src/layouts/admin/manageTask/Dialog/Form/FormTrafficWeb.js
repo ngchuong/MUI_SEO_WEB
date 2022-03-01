@@ -68,20 +68,14 @@ const InputFormContent = ({ inputVal, onChangeInput }) => {
   return (
     <MDBox sx={{ border: "1px solid #c1c1c1", borderRadius: "4px" }}>
       <MDBox display="flex" flexDirection="row" justifyContent="space-between" m={1} mb={2}>
-        <MDInput
-          type="text"
-          label="Tên nhiệm vụ"
-          fullWidth
-          value={inputItem}
-          onChange={onChangePost}
-        />
+        <MDInput type="text" label="Bài đăng" fullWidth value={inputItem} onChange={onChangePost} />
         <MDBox>
           <MDButton onClick={() => addItem()} size="small" color="info">
             Thêm mới
           </MDButton>
         </MDBox>
       </MDBox>
-      <MDBox m={1}>Danh sách nội dung bài đăng{ListItem}</MDBox>
+      <MDBox m={1}>Danh sách bài đăng{ListItem}</MDBox>
     </MDBox>
   );
 };

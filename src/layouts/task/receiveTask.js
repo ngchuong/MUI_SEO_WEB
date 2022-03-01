@@ -13,6 +13,7 @@ import { requestReceiveTask } from "api/task";
 import { useModal } from "components/Modal";
 import { SimpleDialog } from "components/Modal/dialog";
 import { host } from "configs.js";
+import { ListPost } from "./common/listPosts";
 
 function ReceiveTask() {
   const dispatch = useDispatch();
@@ -81,6 +82,9 @@ function ReceiveTask() {
                 </MDTypography>
                 &nbsp; {randomTask && randomTask.description}
               </div>
+              {randomTask && randomTask.type_task === "REVIEW_SOCIAL" && (
+                <ListPost data={randomTask.list_posts} />
+              )}
               <div>
                 <MDTypography fontWeight="medium" color="dark" variant="xx">
                   Tiền thưởng:

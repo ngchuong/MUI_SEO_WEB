@@ -15,6 +15,7 @@ import { reqPostTask, destroyTask, reqGetCurrentTask } from "actions/task";
 import { useModal } from "components/Modal";
 import { ConfirmDialog } from "components/Modal/dialog";
 import { host } from "configs.js";
+import { ListPost } from "./common/listPosts";
 
 function DoTask() {
   const dispatch = useDispatch();
@@ -98,6 +99,9 @@ function DoTask() {
                 </MDTypography>
                 &nbsp;{currentTask && currentTask.description}
               </div>
+              {currentTask && currentTask.type_task === "REVIEW_SOCIAL" && (
+                <ListPost data={currentTask.list_posts} />
+              )}
               <div>
                 <MDTypography fontWeight="medium" color="dark" variant="xx">
                   Tiền thưởng:
