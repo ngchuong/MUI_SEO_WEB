@@ -32,7 +32,7 @@ function FeederPage() {
   const handleClick = () => {
     setTimeout(() => {
       setTime(0);
-    }, 3000);
+    }, 10000);
     const link = currentTask && currentTask.related_data && currentTask.related_data.origin;
     window.open(link);
   };
