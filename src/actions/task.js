@@ -33,7 +33,7 @@ export const reqGetRandomTask = () => async (dispatch) => {
   }
 };
 
-export const reqPostTask = (taskId, keyVal) => async () => {
+export const reqPostTask = (taskId, keyVal) => async (dispatch) => {
   let response;
   try {
     response = await requestFinishTask(taskId, keyVal);
@@ -41,7 +41,9 @@ export const reqPostTask = (taskId, keyVal) => async () => {
     console.log(err);
   }
 
-  console.log(response);
+  if (response && /20[0-9]/.test(response.status)) {
+    dispatch(updateCurrentTask({}));
+  }
 };
 
 export const destroyTask = (id) => async (dispatch) => {

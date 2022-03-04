@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import get from "lodash/get";
 import { useSelector, useDispatch } from "react-redux";
 // import { useNavigate } from "react-router-dom";
 
@@ -8,7 +9,6 @@ import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
 
-import { reqPostTask } from "actions/task";
 import "./index.css";
 
 // white","primary","secondary","info","success","warning","error","light","dark
@@ -17,6 +17,9 @@ function FeederPage() {
   const [time, setTime] = useState(60);
   const [isUnlock, setIsUnlock] = useState(false);
   const currentTask = useSelector((state) => state.task.currentTask);
+  const relatedData = get(currentTask, "related_data")
+    ? JSON.parse(get(currentTask, "related_data"))
+    : {};
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -33,12 +36,13 @@ function FeederPage() {
     setTimeout(() => {
       setTime(0);
     }, 10000);
-    const link = currentTask && currentTask.related_data && currentTask.related_data.origin;
+
+    const link = relatedData.origin;
     window.open(link);
   };
 
-  const handleFinishTask = () => {
-    dispatch(reqPostTask(currentTask.id, ""));
+  const openLinkGetKey = () => {
+    window.open(currentTask.unlock_link, "_self");
   };
 
   const DisplayTime = () => {
@@ -101,7 +105,7 @@ function FeederPage() {
           <MDBox my={4.5}>
             <MDButton
               style={{ width: "250px" }}
-              onClick={handleFinishTask}
+              onClick={openLinkGetKey}
               size="large"
               color="primary"
               disabled={!isUnlock}
