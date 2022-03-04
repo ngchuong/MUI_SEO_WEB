@@ -47,6 +47,11 @@ const DisplayTaskDetail = ({ info, shadow }) => {
       value: info.list_posts,
     },
     {
+      key: "unlock_link",
+      label: "Link để lấy key hoàn thành",
+      value: info.unlock_link,
+    },
+    {
       key: "priority",
       label: "Độ ưu tiên",
       value: info.priority,
@@ -71,20 +76,22 @@ const DisplayTaskDetail = ({ info, shadow }) => {
           <MDTypography variant="button" fontWeight="bold" textTransform="capitalize">
             {item.label}: &nbsp;
           </MDTypography>
-          <MDBox sx={{ border: "1px solid #c1c1c1" }} p={1}>
-            <MDTypography variant="button" fontWeight="regular" color="text">
-              {item.value.map((el) => {
-                return (
-                  <div
-                    style={{ border: "1px solid #c1c1c1", marginBottom: 2, padding: 1 }}
-                    key={el}
-                  >
-                    {el}
-                  </div>
-                );
-              })}
-            </MDTypography>
-          </MDBox>
+          {item.value.length ? (
+            <MDBox sx={{ border: "1px solid #c1c1c1" }} p={1}>
+              <MDTypography variant="button" fontWeight="regular" color="text">
+                {item.value.map((el) => {
+                  return (
+                    <div
+                      style={{ border: "1px solid #c1c1c1", marginBottom: 2, padding: 1 }}
+                      key={el}
+                    >
+                      {el}
+                    </div>
+                  );
+                })}
+              </MDTypography>
+            </MDBox>
+          ) : null}
         </MDBox>
       );
     }

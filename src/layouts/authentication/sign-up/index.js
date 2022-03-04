@@ -26,7 +26,7 @@ function SignUpForm() {
     telephone: "",
     address: "",
     user_social_id: "",
-    account_number: "",
+    bank_number: "",
     bank_name: "",
     pwd: "",
   };
@@ -77,17 +77,17 @@ function SignUpForm() {
     if (!checkRule(ruleEmail, data.email)) return false;
     if (!checkRule(rulePhoneNumber, data.telephone)) return false;
     if (!checkRule(ruleSocialId, data.user_social_id)) return false;
-    if (!checkRule(ruleBankNumber, data.account_number)) return false;
+    if (!checkRule(ruleBankNumber, data.bank_number)) return false;
 
     return true;
   };
 
   const doSignUp = async () => {
     if (validateData(inputVal)) {
-      const { name, email, telephone, address, user_social_id, account_number, bank_name, pwd } =
+      const { name, email, telephone, address, user_social_id, bank_number, bank_name, pwd } =
         inputVal;
       const related_data = {
-        account_number,
+        bank_number,
         bank_name,
       };
 
@@ -193,9 +193,9 @@ function SignUpForm() {
             <MDBox mb={2}>
               <TextValidator
                 label="Số tài khoản ngân hàng*"
-                onChange={onChangeInput("account_number")}
-                name="account_number"
-                value={inputVal.account_number}
+                onChange={onChangeInput("bank_number")}
+                name="bank_number"
+                value={inputVal.bank_number}
                 validators={["required", "isBankNumber"]}
                 errorMessages={[
                   "Không được để trống",

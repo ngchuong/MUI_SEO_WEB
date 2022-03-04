@@ -111,7 +111,18 @@ export const FormTrafficWeb = ({ onChangeInput, onChangeImg, inputVal, isCreate,
           />
         </MDBox>
       )}
-
+      {typeForm === "LIKE_PAGE" && (
+        <MDBox mb={2}>
+          <TextField
+            id="filled-multiline-static"
+            label="Link để lấy key hoàn thành"
+            fullWidth
+            rows={4}
+            value={inputVal.unlock_link}
+            onChange={onChangeInput("unlock_link")}
+          />
+        </MDBox>
+      )}
       <MDBox mb={2}>
         <TextField
           id="filled-multiline-static"

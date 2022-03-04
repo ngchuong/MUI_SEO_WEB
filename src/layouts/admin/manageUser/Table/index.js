@@ -65,6 +65,7 @@ export default function TableMUI({ columns, rows }) {
 
   // const ClickEdit = () => {};
   const ClickDelete = (e, id) => {
+    console.log(id);
     e.stopPropagation();
     setModal(
       <ConfirmDialog

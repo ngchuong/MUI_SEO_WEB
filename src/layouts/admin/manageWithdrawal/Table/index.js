@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -14,12 +14,16 @@ import Icon from "@mui/material/Icon";
 import { useModal } from "components/Modal";
 import { SimpleDialog, ConfirmDialog } from "components/Modal/dialog";
 
-import { requestAcceptWithdraw } from "api/apiAdmin";
+import { requestAcceptWithdraw, requestGetUserDetail } from "api/apiAdmin";
 import { updateAllWithdrawal } from "store/reducers/admin";
 import { StyledTableCell, StyledTableRow, useStyles } from "./subComponent";
+import FormDetailUser from "../Dialog/DetailUser";
 
 export default function TableMUI({ columns, rows }) {
   const dispatch = useDispatch();
+  const [openDetailUser, setOpenDetailUser] = useState(false);
+  const [dataUserDetail, setDataUserDetail] = useState({});
+
   const allWithdrawal = useSelector((state) => state.admin.allWithdrawal);
 
   const classes = useStyles();
@@ -58,7 +62,8 @@ export default function TableMUI({ columns, rows }) {
     unSetModal();
   };
 
-  const ClickPayment = (id) => {
+  const ClickPayment = (e, id) => {
+    e.stopPropagation();
     setModal(
       <ConfirmDialog
         content={<div>Bạn muốn thanh toán cho user này không?</div>}
@@ -66,6 +71,26 @@ export default function TableMUI({ columns, rows }) {
         onCancel={doCancel}
       />
     );
+  };
+
+  // dialog get user detail;
+  const openDialogUserDetail = async (userId) => {
+    setOpenDetailUser(true);
+
+    // request api
+    let response;
+    try {
+      response = await requestGetUserDetail(userId);
+    } catch (err) {
+      console.log(err);
+    }
+
+    if (response && /20[0-9]/.test(response.status)) {
+      setDataUserDetail(response.data);
+    }
+  };
+  const handleClose = () => {
+    setOpenDetailUser(false);
   };
 
   return (
@@ -90,7 +115,13 @@ export default function TableMUI({ columns, rows }) {
           </TableHead>
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-              <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.withdraw_id}>
+              <StyledTableRow
+                hover
+                role="checkbox"
+                tabIndex={-1}
+                key={row.withdraw_id}
+                onClick={() => openDialogUserDetail(row.user_id)}
+              >
                 {columns.map((column) => {
                   const value = row[column.id];
                   return (
@@ -104,7 +135,7 @@ export default function TableMUI({ columns, rows }) {
                     size="small"
                     aria-label="close"
                     color="inherit"
-                    onClick={() => ClickPayment(row.withdraw_id)}
+                    onClick={(e) => ClickPayment(e, row.withdraw_id)}
                   >
                     <Icon fontSize="small">payment</Icon>
                   </IconButton>
@@ -123,6 +154,9 @@ export default function TableMUI({ columns, rows }) {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      {openDetailUser && (
+        <FormDetailUser handleClose={handleClose} open={openDetailUser} dataForm={dataUserDetail} />
+      )}
     </Paper>
   );
 }

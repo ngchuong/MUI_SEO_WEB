@@ -32,12 +32,22 @@ export function requestAllTask() {
 }
 
 export function requestCreateTask(data) {
-  const { name, list_posts, description, reward, related_data, priority, max_turn, type_task } =
-    data;
+  const {
+    name,
+    list_posts,
+    unlock_link,
+    description,
+    reward,
+    related_data,
+    priority,
+    max_turn,
+    type_task,
+  } = data;
   return axios
     .post(`${host}/api/tasks`, {
       name,
       list_posts,
+      unlock_link,
       description,
       reward,
       related_data,
@@ -81,5 +91,9 @@ export function requestAllWithdraw() {
 }
 
 export function requestAcceptWithdraw(id) {
-  return axios.patch(`${host}/api/withdraw/${id}/accept`).then((res) => res);
+  return axios.post(`${host}/api/withdraw/${id}/accept`).then((res) => res);
+}
+
+export function requestGetUserDetail(userId) {
+  return axios.get(`${host}/api/users/${userId}`).then((res) => res);
 }

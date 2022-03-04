@@ -24,6 +24,7 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
         origin: "",
         key_word: "",
         list_posts: [],
+        unlock_link: "",
         reward: "",
         max_turn: "",
         priority: "",
@@ -52,12 +53,22 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
 
   // do create task
   const handleSubmit = () => {
-    const { name, description, origin, key_word, list_posts, reward, max_turn, priority } =
-      inputVal;
+    const {
+      name,
+      description,
+      origin,
+      key_word,
+      list_posts,
+      unlock_link,
+      reward,
+      max_turn,
+      priority,
+    } = inputVal;
     const data = {
       name,
       description,
       list_posts,
+      unlock_link,
       reward,
       max_turn,
       priority,
