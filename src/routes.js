@@ -80,14 +80,6 @@ export const routeUser = [
     route: "/do-task",
     component: <DoTask />,
   },
-  // {
-  //   type: "collapse",
-  //   name: "Hướng dẫn làm nhiệm vụ",
-  //   key: "guideline",
-  //   icon: <Icon fontSize="small">table_view</Icon>,
-  //   route: "/guide",
-  //   component: <Guideline />,
-  // },
   {
     type: "collapse",
     name: "Rút tiền",

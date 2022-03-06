@@ -141,9 +141,8 @@ export default function App() {
     });
 
   const routeNeedFilter = ["sign-in", "sign-up", "home", "feeder-page"];
-  const displayRouter = checkRoutes(isVerify, isRoleAdmin).filter(
-    (el) => !routeNeedFilter.includes(el.key)
-  );
+  const displayRouter =
+    checkRoutes(isVerify, isRoleAdmin).filter((el) => !routeNeedFilter.includes(el.key)) || [];
 
   return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>

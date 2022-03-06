@@ -19,7 +19,7 @@ import { useEffect } from "react";
 import { useLocation, NavLink } from "react-router-dom";
 
 // prop-types is a library for typechecking of props.
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 // @mui material components
 import List from "@mui/material/List";
@@ -190,11 +190,11 @@ Sidenav.defaultProps = {
 };
 
 // Typechecking props for the Sidenav
-Sidenav.propTypes = {
-  color: PropTypes.oneOf(["primary", "secondary", "info", "success", "warning", "error", "dark"]),
-  brand: PropTypes.string,
-  brandName: PropTypes.string.isRequired,
-  routes: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
+// Sidenav.propTypes = {
+//   color: PropTypes.oneOf(["primary", "secondary", "info", "success", "warning", "error", "dark"]),
+//   brand: PropTypes.string,
+//   brandName: PropTypes.string.isRequired,
+//   routes: PropTypes.arrayOf(PropTypes.object).isRequired,
+// };
 
 export default Sidenav;
