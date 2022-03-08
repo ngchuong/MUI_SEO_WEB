@@ -102,7 +102,7 @@ export const reqDeleteTask = (id) => async (dispatch) => {
   } catch (err) {
     console.log(err);
   }
-  if (/20[0-9]/.test(response.status)) {
+  if (response && /20[0-9]/.test(response.status)) {
     dispatch(updateAllTask([response.data]));
   }
 };
@@ -115,7 +115,7 @@ export const reqAllWithdrawal = () => async (dispatch) => {
   } catch (err) {
     console.log(err);
   }
-  if (/20[0-9]/.test(response.status)) {
+  if (response && /20[0-9]/.test(response.status)) {
     dispatch(updateAllWithdrawal(response.data));
   }
 };
