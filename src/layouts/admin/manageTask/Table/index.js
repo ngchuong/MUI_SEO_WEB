@@ -19,7 +19,7 @@ import { updateAllTask } from "store/reducers/admin";
 import { reqEditTask } from "actions/admin";
 import { StyledTableCell, StyledTableRow, useStyles } from "./subComponent";
 import FormDialog from "../Dialog";
-import FormDetailTask from "../Dialog/Form/Detail Task";
+import FormDetailTask from "../Dialog/DetailTask";
 
 export default function TableMUI({ columns, rows }) {
   const allTask = useSelector((state) => state.admin.allTask);

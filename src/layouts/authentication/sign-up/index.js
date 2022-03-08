@@ -57,7 +57,8 @@ function SignUpForm() {
   });
 
   const onChangeInput = (key) => (e) => {
-    setInputVal({ ...inputVal, [key]: e.target.value });
+    const value = e.target.value;
+    setInputVal({ ...inputVal, [key]: value.trim() });
   };
 
   // validate

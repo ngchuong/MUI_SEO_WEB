@@ -2,8 +2,8 @@ import TableMUI from "./Table";
 
 export default function UserList({ data }) {
   const DefineStatus = {
-    0: "Đang chờ về",
-    1: "Đã rút thành công",
+    0: "Chưa thanh toán",
+    1: "Đã thanh toán",
   };
   const rows = data.map((el, index) => ({
     ...el,

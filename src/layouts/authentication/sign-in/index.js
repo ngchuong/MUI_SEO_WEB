@@ -40,7 +40,8 @@ function SignInForm() {
   }, [userCookie]);
 
   const onChangeInput = (key) => (e) => {
-    setInputVal({ ...inputVal, [key]: e.target.value });
+    const value = e.target.value;
+    setInputVal({ ...inputVal, [key]: value.trim() });
   };
 
   const validateData = (data) => {
@@ -64,7 +65,7 @@ function SignInForm() {
         return;
       }
 
-      if (resSignIn && resSignIn.status === 201) {
+      if (resSignIn && /20[0-9]/.test(resSignIn.status)) {
         const data = resSignIn.data.user;
         setCookie("user", data);
         if (data.is_admin) {

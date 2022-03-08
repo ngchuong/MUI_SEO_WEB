@@ -52,6 +52,11 @@ const DisplayTaskDetail = ({ info, shadow }) => {
       value: info.unlock_link,
     },
     {
+      key: "key",
+      label: "Key hoàn thành",
+      value: relatedData.key,
+    },
+    {
       key: "priority",
       label: "Độ ưu tiên",
       value: info.priority,

@@ -9,12 +9,15 @@ export default function UserList({ data }) {
       bank_number: relatedData.bank_number,
       bank_name: relatedData.bank_name,
       // img_social_id: relatedData.image,
+      is_admin: el.is_admin ? "Admin" : "User",
     };
   });
+
   const columns = [
     { id: "index", label: "STT", minWidth: 30 },
     { id: "name", label: "Tên", minWidth: 150 },
     { id: "email", label: "Email", minWidth: 70 },
+    { id: "is_admin", label: "Quyền", minWidth: 70 },
     {
       id: "telephone",
       label: "SĐT",

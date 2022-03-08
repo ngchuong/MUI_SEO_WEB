@@ -128,7 +128,8 @@ function DoTask() {
                     </div>
                   </div>
                 </div>
-                {currentTask.type_task === "LIKE_PAGE" && (
+                {(currentTask.type_task === "LIKE_PAGE" ||
+                  currentTask.type_task === "JOIN_GROUP") && (
                   <MDButton onClick={doTask} size="small" color="primary">
                     Làm nhiệm vụ ngay
                   </MDButton>

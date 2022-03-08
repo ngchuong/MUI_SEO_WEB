@@ -11,13 +11,83 @@ import FormControl from "@mui/material/FormControl";
 import { v4 as uuidv4 } from "uuid";
 
 import { FormTrafficWeb } from "./Form/FormTrafficWeb";
+import { FormLikePage } from "./Form/FormLikePage";
+import { FormReviewSocial } from "./Form/FormReviewSocial";
+import { FormSubYoutube } from "./Form/FormSubYoutube";
+
+const SwitchForm = ({ typeForm, onChangeInput, onChangeImg, inputVal, inputImg, dataForm }) => {
+  switch (typeForm) {
+    case "TRAFFIC": {
+      return (
+        <FormTrafficWeb
+          onChangeInput={onChangeInput}
+          onChangeImg={onChangeImg}
+          inputVal={inputVal}
+          inputImg={inputImg}
+          isCreate={!dataForm}
+        />
+      );
+    }
+    case "SUB_YOUTUBE": {
+      return (
+        <FormSubYoutube
+          onChangeInput={onChangeInput}
+          onChangeImg={onChangeImg}
+          inputVal={inputVal}
+          inputImg={inputImg}
+          isCreate={!dataForm}
+        />
+      );
+    }
+    case "LIKE_PAGE":
+    case "JOIN_GROUP": {
+      return (
+        <FormLikePage
+          onChangeInput={onChangeInput}
+          onChangeImg={onChangeImg}
+          inputVal={inputVal}
+          inputImg={inputImg}
+          isCreate={!dataForm}
+        />
+      );
+    }
+    case "REVIEW_SOCIAL": {
+      return (
+        <FormReviewSocial
+          onChangeInput={onChangeInput}
+          onChangeImg={onChangeImg}
+          inputVal={inputVal}
+          inputImg={inputImg}
+          isCreate={!dataForm}
+        />
+      );
+    }
+
+    default:
+      return (
+        <FormTrafficWeb
+          onChangeInput={onChangeInput}
+          onChangeImg={onChangeImg}
+          inputVal={inputVal}
+          inputImg={inputImg}
+          isCreate={!dataForm}
+          typeForm={typeForm}
+        />
+      );
+  }
+};
 
 export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
   const typeTaskDefault = dataForm ? dataForm.type_task : "TRAFFIC";
   const [typeForm, setTypeForm] = useState(typeTaskDefault);
   const relatedData = dataForm && dataForm.related_data ? JSON.parse(dataForm.related_data) : {};
   const defaultInput = dataForm
-    ? { ...dataForm, origin: relatedData.origin, key_word: relatedData.key_word }
+    ? {
+        ...dataForm,
+        origin: relatedData.origin,
+        key_word: relatedData.key_word,
+        key: relatedData.key,
+      }
     : {
         name: "",
         description: "",
@@ -28,6 +98,7 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
         reward: "",
         max_turn: "",
         priority: "",
+        key: "",
       };
 
   const [inputVal, setInputVal] = useState(defaultInput);
@@ -48,7 +119,7 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
   };
   const onChangeInput = (key) => (e) => {
     const value = key === "list_posts" ? e : e.target.value;
-    setInputVal({ ...inputVal, [key]: value });
+    setInputVal({ ...inputVal, [key]: value.trim() });
   };
 
   // do create task
@@ -63,6 +134,7 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
       reward,
       max_turn,
       priority,
+      key,
     } = inputVal;
     const data = {
       name,
@@ -77,7 +149,7 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
         image: dataForm ? relatedData.image : inputImg,
         origin,
         key_word,
-        key: uuidv4(),
+        key: key && key.length ? key : uuidv4(),
       },
     };
 
@@ -107,14 +179,13 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
               <MenuItem value="REVIEW_SOCIAL">Review Social</MenuItem>
             </Select>
           </FormControl>
-
-          <FormTrafficWeb
+          <SwitchForm
+            typeForm={typeForm}
             onChangeInput={onChangeInput}
             onChangeImg={onChangeImg}
             inputVal={inputVal}
             inputImg={inputImg}
             isCreate={!dataForm}
-            typeForm={typeForm}
           />
         </DialogContent>
         <DialogActions>

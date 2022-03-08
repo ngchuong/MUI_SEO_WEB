@@ -4,6 +4,21 @@ export const getDate = (value) => {
   return displayDate;
 };
 
+export const getValueInput = (e) => {
+  let value;
+  if (e && e.target) {
+    const checked = e.target.checked;
+    if (typeof checked === "boolean") {
+      value = checked;
+    } else {
+      value = e.target.value;
+    }
+  } else {
+    value = e;
+  }
+  return value;
+};
+
 export const isMobile = () => {
   if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     return true;

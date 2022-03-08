@@ -27,7 +27,7 @@ const DisplayImg = () => {
   return null;
 };
 
-export const FormTrafficWeb = ({ onChangeInput, onChangeImg, inputVal, isCreate }) => {
+export const FormSubYoutube = ({ onChangeInput, onChangeImg, inputVal, isCreate }) => {
   return (
     <div>
       <MDBox mb={2} mt={2}>
@@ -68,6 +68,16 @@ export const FormTrafficWeb = ({ onChangeInput, onChangeImg, inputVal, isCreate 
           rows={4}
           value={inputVal.key_word}
           onChange={onChangeInput("key_word")}
+        />
+      </MDBox>
+      <MDBox mb={2}>
+        <TextField
+          id="filled-multiline-static"
+          label="Key hoàn thành"
+          fullWidth
+          rows={4}
+          value={inputVal.key}
+          onChange={onChangeInput("key")}
         />
       </MDBox>
       <MDBox mb={2}>
