@@ -30,7 +30,10 @@ export function requestSignUp(
 }
 
 export function requesVerify() {
-  return axios.post(`${host}/verify`).then((res) => res);
+  return axios
+    .post(`${host}/verify`)
+    .then((res) => res)
+    .then((err) => err);
 }
 
 export function requestLogout() {

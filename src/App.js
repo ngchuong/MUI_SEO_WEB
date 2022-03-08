@@ -31,6 +31,7 @@ import { updateUserInfo } from "store/reducers/user";
 import { reqGetCurrentTask, reqGetRandomTask } from "actions/task";
 import { requesVerify } from "./api/index";
 import { setCookie, getCookie, eraseCookie } from "./utils/cookie";
+import { isMobile } from "./utils";
 
 export default function App() {
   const navigate = useNavigate();
@@ -82,42 +83,45 @@ export default function App() {
 
   // request data
   useEffect(() => {
-    if (userInfo && userInfo.id && !userInfo.is_admin) {
+    if (userInfo && userInfo.id && !userInfo.is_admin && isMobile()) {
       usedDispatch(reqGetRandomTask());
     }
   }, []);
 
   // request data
   useEffect(() => {
-    if (userInfo && userInfo.id && !userInfo.is_admin) {
+    if (userInfo && userInfo.id && !userInfo.is_admin && isMobile()) {
       usedDispatch(reqGetCurrentTask());
     }
   }, [pathname]);
 
   // verify every when redirect
   useEffect(async () => {
-    let responseVerify;
-    try {
-      responseVerify = await requesVerify();
-    } catch (err) {
-      eraseCookie("user");
-      return;
-    }
+    if (pathname !== "/home") {
+      let responseVerify;
+      try {
+        responseVerify = await requesVerify();
+      } catch (err) {
+        eraseCookie("user");
+        return;
+      }
 
-    if (responseVerify && /20[0-9]/.test(responseVerify.status)) {
-      eraseCookie("user");
-      setCookie("user", responseVerify.data);
-      usedDispatch(updateUserInfo(responseVerify.data));
-      setIsVerify(true);
-    } else {
-      eraseCookie("user");
-      navigate("/home");
+      if (responseVerify && /20[0-9]/.test(responseVerify.status)) {
+        eraseCookie("user");
+        setCookie("user", responseVerify.data);
+        usedDispatch(updateUserInfo(responseVerify.data));
+        setIsVerify(true);
+      } else {
+        eraseCookie("user");
+        navigate("/authentication/sign-in");
+      }
     }
   }, [pathname]);
 
   const isRoleAdmin = userInfo && userInfo.is_admin;
   const isPageHome = window.location.href.includes("home");
 
+  // routing
   const checkRoutes = (isSignIn, isAdmin) => {
     let routes = routeDefault;
     if (isSignIn) {

@@ -22,6 +22,7 @@ import { setCookie } from "utils/cookie";
 import { useModal } from "components/Modal";
 import { SimpleDialog, ConfirmDialog } from "components/Modal/dialog";
 import { updateUserInfo } from "store/reducers/user";
+import { isMobile } from "utils";
 
 function Billing() {
   const dispatch = useDispatch();
@@ -87,52 +88,56 @@ function Billing() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox mt={8}>
-        <MDBox mb={1}>
-          <MDTypography olor="text" fontWeight="bold" textTransform="capitalize">
-            Rút tiền
-          </MDTypography>
-        </MDBox>
-        <MDBox mb={3}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} lg={8}>
-              <Grid container spacing={3}>
-                {/* <Grid item xs={12} xl={6}>
+      {isMobile() ? (
+        <MDBox mt={8}>
+          <MDBox mb={1}>
+            <MDTypography olor="text" fontWeight="bold" textTransform="capitalize">
+              Rút tiền
+            </MDTypography>
+          </MDBox>
+          <MDBox mb={3}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} lg={8}>
+                <Grid container spacing={3}>
+                  {/* <Grid item xs={12} xl={6}>
                   <MasterCard number={4562112245947852} holder="jack peterson" expires="11/22" />
                 </Grid> */}
-                <Grid item xs={12} xl={6}>
-                  <MDBox my={2}>{`Số dư hiện tại: ${userInfo.balance} đồng`}</MDBox>
-                  <MDBox mb={2}>
-                    <MDTypography variant="button" fontWeight="regular" color="primary">
-                      * Số tiền tối thiểu được rút là 10.000 đồng
-                    </MDTypography>
-                  </MDBox>
-                  <MDBox>
-                    <MDInput
-                      type="number"
-                      fullWidth
-                      label="Nhập số tiền muốn rút"
-                      value={inputMoney}
-                      onChange={onChangeMoney}
-                    />
-                  </MDBox>
+                  <Grid item xs={12} xl={6}>
+                    <MDBox my={2}>{`Số dư hiện tại: ${userInfo.balance} đồng`}</MDBox>
+                    <MDBox mb={2}>
+                      <MDTypography variant="button" fontWeight="regular" color="primary">
+                        * Số tiền tối thiểu được rút là 10.000 đồng
+                      </MDTypography>
+                    </MDBox>
+                    <MDBox>
+                      <MDInput
+                        type="number"
+                        fullWidth
+                        label="Nhập số tiền muốn rút"
+                        value={inputMoney}
+                        onChange={onChangeMoney}
+                      />
+                    </MDBox>
 
-                  <MDButton onClick={doWithdraw} size="small" color="primary">
-                    Rút tiền
-                  </MDButton>
+                    <MDButton onClick={doWithdraw} size="small" color="primary">
+                      Rút tiền
+                    </MDButton>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </MDBox>
-        <MDBox mb={3}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={12}>
-              <BillingInformation bills={listWithdrawal} />
+          </MDBox>
+          <MDBox mb={3}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={12}>
+                <BillingInformation bills={listWithdrawal} />
+              </Grid>
             </Grid>
-          </Grid>
+          </MDBox>
         </MDBox>
-      </MDBox>
+      ) : (
+        <MDTypography sx={{ fontStyle: "italic" }}>Chỉ khả dụng trên điện thoại.</MDTypography>
+      )}
     </DashboardLayout>
   );
 }

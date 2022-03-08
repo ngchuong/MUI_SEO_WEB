@@ -8,7 +8,7 @@ import Icon from "@mui/material/Icon";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
-
+import { isMobile } from "utils";
 import "./index.css";
 
 // white","primary","secondary","info","success","warning","error","light","dark
@@ -20,6 +20,7 @@ function FeederPage() {
   const relatedData = get(currentTask, "related_data")
     ? JSON.parse(get(currentTask, "related_data"))
     : {};
+  console.log(11, isMobile());
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -38,11 +39,19 @@ function FeederPage() {
     }, 10000);
 
     const link = relatedData.origin;
-    window.open(link);
+    if (isMobile()) {
+      window.location.assign(link);
+    } else {
+      window.open(link);
+    }
   };
 
   const openLinkGetKey = () => {
-    window.open(currentTask.unlock_link, "_self");
+    if (isMobile()) {
+      window.location.assign(currentTask.unlock_link);
+    } else {
+      window.open(currentTask.unlock_link, "_self");
+    }
   };
 
   const DisplayTime = () => {
