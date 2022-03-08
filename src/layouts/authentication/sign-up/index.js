@@ -58,7 +58,7 @@ function SignUpForm() {
 
   const onChangeInput = (key) => (e) => {
     const value = e.target.value;
-    setInputVal({ ...inputVal, [key]: value.trim() });
+    setInputVal({ ...inputVal, [key]: value });
   };
 
   // validate
@@ -88,20 +88,20 @@ function SignUpForm() {
       const { name, email, telephone, address, user_social_id, bank_number, bank_name, pwd } =
         inputVal;
       const related_data = {
-        bank_number,
-        bank_name,
+        bank_number: bank_number.trim(),
+        bank_name: bank_name.trim(),
       };
 
       // request
       let resSignUp;
       try {
         resSignUp = await requestSignUp(
-          name,
-          telephone,
-          address,
-          email,
-          pwd,
-          user_social_id,
+          name.trim(),
+          telephone.trim(),
+          address.trim(),
+          email.trim(),
+          pwd.trim(),
+          user_social_id.trim(),
           related_data
         );
       } catch (err) {

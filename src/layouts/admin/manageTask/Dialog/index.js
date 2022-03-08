@@ -119,7 +119,7 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
   };
   const onChangeInput = (key) => (e) => {
     const value = key === "list_posts" ? e : e.target.value;
-    setInputVal({ ...inputVal, [key]: value.trim() });
+    setInputVal({ ...inputVal, [key]: value });
   };
 
   // do create task

@@ -41,7 +41,7 @@ function SignInForm() {
 
   const onChangeInput = (key) => (e) => {
     const value = e.target.value;
-    setInputVal({ ...inputVal, [key]: value.trim() });
+    setInputVal({ ...inputVal, [key]: value });
   };
 
   const validateData = (data) => {
@@ -59,7 +59,7 @@ function SignInForm() {
     if (validateData(inputVal)) {
       let resSignIn;
       try {
-        resSignIn = await requestSignIn(inputVal.email, inputVal.pwd);
+        resSignIn = await requestSignIn(inputVal.email.trim(), inputVal.pwd.trim());
       } catch (err) {
         setModal(<SimpleDialog content={<div>Tài khoản hoặc mật khẩu không chính xác!</div>} />);
         return;
