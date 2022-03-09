@@ -5,7 +5,7 @@ axios.defaults.withCredentials = true;
 
 // authentication
 export function requestSignIn(email, password) {
-  return axios.post(`${host}/api/sessions`, { email, password }).then((res) => res);
+  return axios.post(`${host}/sessions`, { email, password }).then((res) => res);
 }
 export function requestSignUp(
   name,
@@ -17,7 +17,7 @@ export function requestSignUp(
   related_data
 ) {
   return axios
-    .post(`${host}/api/users`, {
+    .post(`${host}/users`, {
       name,
       email,
       telephone,
@@ -37,5 +37,5 @@ export function requesVerify() {
 }
 
 export function requestLogout() {
-  return axios.delete(`${host}/api/sessions`).then((res) => res);
+  return axios.delete(`${host}/sessions`).then((res) => res);
 }
