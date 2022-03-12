@@ -15,7 +15,7 @@ import { FormLikePage } from "./Form/FormLikePage";
 import { FormReviewSocial } from "./Form/FormReviewSocial";
 import { FormSubYoutube } from "./Form/FormSubYoutube";
 
-const SwitchForm = ({ typeForm, onChangeInput, onChangeImg, inputVal, inputImg, dataForm }) => {
+const SwitchForm = ({ typeForm, onChangeInput, onChangeImg, inputVal, inputImg, isCreate }) => {
   switch (typeForm) {
     case "TRAFFIC": {
       return (
@@ -24,7 +24,7 @@ const SwitchForm = ({ typeForm, onChangeInput, onChangeImg, inputVal, inputImg, 
           onChangeImg={onChangeImg}
           inputVal={inputVal}
           inputImg={inputImg}
-          isCreate={!dataForm}
+          isCreate={isCreate}
         />
       );
     }
@@ -35,7 +35,7 @@ const SwitchForm = ({ typeForm, onChangeInput, onChangeImg, inputVal, inputImg, 
           onChangeImg={onChangeImg}
           inputVal={inputVal}
           inputImg={inputImg}
-          isCreate={!dataForm}
+          isCreate={isCreate}
         />
       );
     }
@@ -47,7 +47,7 @@ const SwitchForm = ({ typeForm, onChangeInput, onChangeImg, inputVal, inputImg, 
           onChangeImg={onChangeImg}
           inputVal={inputVal}
           inputImg={inputImg}
-          isCreate={!dataForm}
+          isCreate={isCreate}
         />
       );
     }
@@ -58,7 +58,7 @@ const SwitchForm = ({ typeForm, onChangeInput, onChangeImg, inputVal, inputImg, 
           onChangeImg={onChangeImg}
           inputVal={inputVal}
           inputImg={inputImg}
-          isCreate={!dataForm}
+          isCreate={isCreate}
         />
       );
     }
@@ -70,7 +70,7 @@ const SwitchForm = ({ typeForm, onChangeInput, onChangeImg, inputVal, inputImg, 
           onChangeImg={onChangeImg}
           inputVal={inputVal}
           inputImg={inputImg}
-          isCreate={!dataForm}
+          isCreate={isCreate}
           typeForm={typeForm}
         />
       );
@@ -157,10 +157,12 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
     handleClose();
   };
 
+  const isCreate = !dataForm;
+
   return (
     <div>
       <Dialog open={open} onClose={handleClose} fullScreen>
-        <DialogTitle>Tạo nhiệm vụ</DialogTitle>
+        <DialogTitle>{isCreate ? "Tạo nhiệm vụ" : "Cập nhật nhiệm vụ"}</DialogTitle>
         <DialogContent style={{ display: "flex", flexDirection: "column" }}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Loại nhiệm vụ</InputLabel>
@@ -185,7 +187,7 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
             onChangeImg={onChangeImg}
             inputVal={inputVal}
             inputImg={inputImg}
-            isCreate={!dataForm}
+            isCreate={isCreate}
           />
         </DialogContent>
         <DialogActions>
