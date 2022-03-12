@@ -5,14 +5,14 @@ axios.defaults.withCredentials = true;
 
 // user
 export function requestAllUser() {
-  return axios.get(`${host}/api/users`).then((res) => res);
+  return axios.get(`${host}/users`).then((res) => res);
 }
 
 export function requestUpdateUser(userId, body) {
   const { name, telephone, address, user_social_id, related_data } = body;
 
   return axios
-    .post(`${host}/api/users/${userId}`, {
+    .post(`${host}/users/${userId}`, {
       name,
       telephone,
       address,
@@ -23,12 +23,12 @@ export function requestUpdateUser(userId, body) {
 }
 
 export function requestDeleteUser(id) {
-  return axios.delete(`${host}/api/users/${id}`).then((res) => res);
+  return axios.delete(`${host}/users/${id}`).then((res) => res);
 }
 
 // task
 export function requestAllTask() {
-  return axios.get(`${host}/api/tasks`).then((res) => res);
+  return axios.get(`${host}/tasks`).then((res) => res);
 }
 
 export function requestCreateTask(data) {
@@ -44,7 +44,7 @@ export function requestCreateTask(data) {
     type_task,
   } = data;
   return axios
-    .post(`${host}/api/tasks`, {
+    .post(`${host}/tasks`, {
       name,
       list_posts,
       unlock_link,
@@ -59,11 +59,11 @@ export function requestCreateTask(data) {
 }
 
 export function requestEditTask(taskId, body) {
-  return axios.post(`${host}/api/tasks/${taskId}`, { ...body }).then((res) => res);
+  return axios.post(`${host}/tasks/${taskId}`, { ...body }).then((res) => res);
 }
 
 export function requestDeleteTask(id) {
-  return axios.delete(`${host}/api/tasks/${id}`).then((res) => res);
+  return axios.delete(`${host}/tasks/${id}`).then((res) => res);
 }
 
 // task file
@@ -73,7 +73,7 @@ export function requestPostFile(files) {
 
   return axios({
     method: "post",
-    url: `${host}/api/files`,
+    url: `${host}/files`,
     data: body,
     headers: {
       "Content-Type": "multipart/form-data",
@@ -82,18 +82,18 @@ export function requestPostFile(files) {
 }
 
 export function requestDeleteFile(fileId) {
-  return axios.delete(`${host}/api/files/${fileId}`).then((res) => res);
+  return axios.delete(`${host}/files/${fileId}`).then((res) => res);
 }
 
 // withdraw
 export function requestAllWithdraw() {
-  return axios.get(`${host}/api/withdraw`).then((res) => res);
+  return axios.get(`${host}/withdraw`).then((res) => res);
 }
 
 export function requestAcceptWithdraw(id) {
-  return axios.post(`${host}/api/withdraw/${id}/accept`).then((res) => res);
+  return axios.post(`${host}/withdraw/${id}/accept`).then((res) => res);
 }
 
 export function requestGetUserDetail(userId) {
-  return axios.get(`${host}/api/users/${userId}`).then((res) => res);
+  return axios.get(`${host}/users/${userId}`).then((res) => res);
 }
