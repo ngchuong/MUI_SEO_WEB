@@ -121,7 +121,7 @@ function SignInForm() {
               />
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton onClick={doSignIn} type="submit" variant="gradient" color="info" fullWidth>
+              <MDButton type="submit" variant="gradient" color="info" fullWidth>
                 Đăng nhập
               </MDButton>
             </MDBox>
