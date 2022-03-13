@@ -25,3 +25,17 @@ export const isMobile = () => {
   }
   return false;
 };
+
+export const coppyToClipBoard = (id) => {
+  if (document.selection) {
+    const range = document.body.createTextRange();
+    range.moveToElementText(document.getElementById(id));
+    range.select().createTextRange();
+    document.execCommand("copy");
+  } else if (window.getSelection) {
+    const range = document.createRange();
+    range.selectNode(document.getElementById(id));
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+  }
+};

@@ -14,13 +14,13 @@ import "./index.css";
 // white","primary","secondary","info","success","warning","error","light","dark
 function FeederPage() {
   const dispatch = useDispatch();
-  const [time, setTime] = useState(60);
+  const [time, setTime] = useState(120);
   const [isUnlock, setIsUnlock] = useState(false);
+  const [checkReq, setCheckReq] = useState(false);
   const currentTask = useSelector((state) => state.task.currentTask);
   const relatedData = get(currentTask, "related_data")
     ? JSON.parse(get(currentTask, "related_data"))
     : {};
-  console.log(11, isMobile());
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -36,22 +36,16 @@ function FeederPage() {
   const handleClick = () => {
     setTimeout(() => {
       setTime(0);
-    }, 10000);
+      setCheckReq(false);
+    }, 60000);
 
     const link = relatedData.origin;
-    if (isMobile()) {
-      window.location.assign(link);
-    } else {
-      window.open(link);
-    }
+    window.open(link, "_blank", "location=yes,scrollbars=yes,status=yes");
+    setCheckReq(true);
   };
 
   const openLinkGetKey = () => {
-    if (isMobile()) {
-      window.location.assign(currentTask.unlock_link);
-    } else {
-      window.open(currentTask.unlock_link, "_self");
-    }
+    window.open(currentTask.unlock_link, "_blank", "location=yes,scrollbars=yes,status=yes");
   };
 
   const DisplayTime = () => {
@@ -100,7 +94,25 @@ function FeederPage() {
           <MDBox mt={4.5}>
             <DisplayTime />
           </MDBox>
-          <MDBox mt={4.5}>
+          <MDBox mt={2}>
+            {checkReq ? (
+              <MDTypography
+                component="span"
+                variant="header"
+                fontSize="12px"
+                // color="info"
+                fontStyle="italic"
+                fontWeight="bold"
+                opacity={0.8}
+                sx={{ lineHeight: 0 }}
+              >
+                Hệ thống đang kiểm tra
+              </MDTypography>
+            ) : (
+              ""
+            )}
+          </MDBox>
+          <MDBox mt={3}>
             <MDButton
               width={200}
               style={{ width: "250px" }}

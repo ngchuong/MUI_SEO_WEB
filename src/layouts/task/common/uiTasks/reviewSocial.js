@@ -8,6 +8,10 @@ import { DisplayImg } from "../displayImg";
 
 export const ReviewSocial = ({ data }) => {
   if (!data) return null;
+  const relatedData = data.related_data ? JSON.parse(data.related_data) : {};
+  const openOriginLink = () => {
+    window.open(relatedData.origin, "_blank", "location=yes,scrollbars=yes,status=yes");
+  };
   return (
     <MDBox my={1}>
       <div>
@@ -46,6 +50,11 @@ export const ReviewSocial = ({ data }) => {
           </div>
         </div>
       </div>
+      <MDBox>
+        <MDButton size="small" color="primary" onClick={openOriginLink}>
+          Làm nhiệm vụ ngay
+        </MDButton>
+      </MDBox>
     </MDBox>
   );
 };

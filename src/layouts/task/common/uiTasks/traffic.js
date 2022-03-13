@@ -3,11 +3,12 @@ import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 import MDInput from "components/MDInput";
 
-import { ListPost } from "../listPosts";
 import { DisplayImg } from "../displayImg";
+import { KeyWord } from "../keyword";
 
 export const Traffic = ({ data }) => {
   if (!data) return null;
+  const relatedData = data.related_data ? JSON.parse(data.related_data) : {};
   return (
     <MDBox my={1}>
       <div>
@@ -21,6 +22,12 @@ export const Traffic = ({ data }) => {
           Mô tả:
         </MDTypography>
         &nbsp;{data.description}
+      </div>
+      <div>
+        <MDTypography fontWeight="medium" color="dark" variant="xx">
+          Từ khóa:
+        </MDTypography>
+        &nbsp; <KeyWord data={relatedData.key_word} />
       </div>
       <div>
         <MDTypography fontWeight="medium" color="dark" variant="xx">

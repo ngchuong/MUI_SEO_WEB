@@ -88,7 +88,6 @@ function DoOnlyTask() {
 
   const currentTask = useSelector((state) => state.task.currentTask);
   // const randomTask = useSelector((state) => state.task.randomTask);
-
   // request get random task
   useEffect(() => {
     if (!currentTask.id) {

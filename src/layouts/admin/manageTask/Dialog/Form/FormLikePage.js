@@ -81,6 +81,16 @@ export const FormLikePage = ({ onChangeInput, onChangeImg, inputVal, isCreate })
         />
       </MDBox>
       <MDBox mb={2}>
+        <TextField
+          id="filled-multiline-static"
+          label="Key hoàn thành"
+          fullWidth
+          rows={4}
+          value={inputVal.key}
+          onChange={onChangeInput("key")}
+        />
+      </MDBox>
+      <MDBox mb={2}>
         <MDInput
           type="number"
           label="Tiền thưởng"

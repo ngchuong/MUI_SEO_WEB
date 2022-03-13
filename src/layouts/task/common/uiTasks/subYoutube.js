@@ -1,13 +1,17 @@
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
-import MDInput from "components/MDInput";
 
 import { ListPost } from "../listPosts";
 import { DisplayImg } from "../displayImg";
+import { KeyWord } from "../keyword";
 
 export const SubYoutube = ({ data }) => {
   if (!data) return null;
+  const relatedData = data.related_data ? JSON.parse(data.related_data) : {};
+  const openOriginLink = () => {
+    window.open(relatedData.origin, "_blank", "location=yes,scrollbars=yes,status=yes");
+  };
   return (
     <MDBox my={1}>
       <div>
@@ -21,6 +25,12 @@ export const SubYoutube = ({ data }) => {
           Mô tả:
         </MDTypography>
         &nbsp;{data.description}
+      </div>
+      <div>
+        <MDTypography fontWeight="medium" color="dark" variant="xx">
+          Từ khóa:
+        </MDTypography>
+        &nbsp; <KeyWord data={relatedData.key_word} />
       </div>
       <div>
         <MDTypography fontWeight="medium" color="dark" variant="xx">
@@ -45,6 +55,11 @@ export const SubYoutube = ({ data }) => {
           </div>
         </div>
       </div>
+      <MDBox>
+        <MDButton size="small" color="primary" onClick={openOriginLink}>
+          Làm nhiệm vụ ngay
+        </MDButton>
+      </MDBox>
     </MDBox>
   );
 };
