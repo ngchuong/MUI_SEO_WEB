@@ -4,29 +4,7 @@ import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
 import TextField from "@mui/material/TextField";
-
-const DisplayImg = () => {
-  const img = document.getElementById("idImg");
-  if (img) {
-    const files = img.files;
-
-    const srcImg = [];
-    for (let i = 0; i < files.length; i += 1) {
-      const src = files[i] ? URL.createObjectURL(files[i]) : "";
-      srcImg.push(src);
-    }
-
-    return srcImg.map((src) => {
-      return (
-        <div key={src} style={{ margin: "2px 10px" }}>
-          <img width={150} height={100} src={src} alt="#" />
-        </div>
-      );
-    });
-  }
-
-  return null;
-};
+import { DisplayImg } from "./image";
 
 const InputFormContent = ({ inputVal, onChangeInput }) => {
   const [inputItem, setInputItem] = useState("");

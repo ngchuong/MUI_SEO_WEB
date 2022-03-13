@@ -10,7 +10,7 @@ export const DisplayImg = ({ data }) => {
     return listFileId.map((fileId) => {
       return (
         <div key={fileId}>
-          <img height={300} width={380} src={`${urlGetFile}${fileId}`} alt="#" />
+          <img width={960} height={1707} src={`${urlGetFile}${fileId}`} alt="#" />
         </div>
       );
     });
