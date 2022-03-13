@@ -12,7 +12,7 @@ export const DisplayImg = () => {
     return srcImg.map((src) => {
       return (
         <div key={src} style={{ margin: "2px 10px" }}>
-          <img width={200} height={300} src={src} alt="#" />
+          <img width={200} height={400} src={src} alt="#" />
         </div>
       );
     });
