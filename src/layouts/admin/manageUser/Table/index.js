@@ -129,7 +129,7 @@ export default function TableMUI({ columns, rows }) {
                         <img
                           height={100}
                           width={150}
-                          src={`${host}/api/files/${value || ""}`}
+                          src={`${host}/files/${value || ""}`}
                           alt="#"
                         />
                       </StyledTableCell>

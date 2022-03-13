@@ -15,6 +15,7 @@ import { SimpleDialog } from "components/Modal/dialog";
 import { host } from "configs.js";
 import { isMobile } from "utils";
 import { ListPost } from "./common/listPosts";
+import { DisplayImg } from "./common/displayImg";
 
 function ReceiveTask() {
   const dispatch = useDispatch();
@@ -39,25 +40,6 @@ function ReceiveTask() {
         />
       );
     }
-  };
-
-  const DisplayImg = ({ data }) => {
-    // get link file;
-    const relatedData = data ? JSON.parse(data) : {};
-    const listFileId = relatedData.image;
-
-    const urlGetFile = `${host}/api/files/`;
-    if (listFileId && Array.isArray(listFileId) && listFileId.length) {
-      return listFileId.map((fileId) => {
-        return (
-          <div key={fileId}>
-            <img height={300} width={450} src={`${urlGetFile}${fileId}`} alt="#" />
-          </div>
-        );
-      });
-    }
-
-    return null;
   };
 
   return (

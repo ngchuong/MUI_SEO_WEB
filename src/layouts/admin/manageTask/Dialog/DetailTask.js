@@ -120,7 +120,7 @@ const DisplayTaskDetail = ({ info, shadow }) => {
         if (fileId) {
           return (
             <div key={fileId} style={{ margin: 1 }}>
-              <img height={300} width={450} src={`${host}/api/files/${fileId}`} alt="#" />
+              <img height={300} width={450} src={`${host}/files/${fileId}`} alt="#" />
             </div>
           );
         }

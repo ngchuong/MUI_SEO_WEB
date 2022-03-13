@@ -74,7 +74,7 @@ function ProfileInfoCard({ title, info, shadow, openDialog, isEdit }) {
     if (fileId) {
       return (
         <div>
-          <img height={200} width={250} src={`${host}/api/files/${fileId}`} alt="#" />;
+          <img height={200} width={250} src={`${host}/files/${fileId}`} alt="#" />;
         </div>
       );
     }

@@ -27,9 +27,10 @@ import Billing from "./layouts/billing";
 import Profile from "./layouts/profile";
 import SignIn from "./layouts/authentication/sign-in";
 import SignUp from "./layouts/authentication/sign-up";
-import ReceiveTask from "./layouts/task/receiveTask";
-import DoTask from "./layouts/task/doTask";
-import Guideline from "./layouts/guideline";
+// import ReceiveTask from "./layouts/task/receiveTask";
+// import DoTask from "./layouts/task/doTask";
+import DoOnlyTask from "./layouts/task";
+// import Guideline from "./layouts/guideline";
 import Home from "./layouts/home";
 import FeederPage from "./layouts/feeder_page";
 
@@ -64,21 +65,29 @@ export const routeDefault = [
   },
 ];
 export const routeUser = [
-  {
-    type: "collapse",
-    name: "Nhận nhiệm vụ",
-    key: "receive-task",
-    icon: <Icon fontSize="small">task_alt</Icon>,
-    route: "/receive-task",
-    component: <ReceiveTask />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Nhận nhiệm vụ",
+  //   key: "receive-task",
+  //   icon: <Icon fontSize="small">task_alt</Icon>,
+  //   route: "/receive-task",
+  //   component: <ReceiveTask />,
+  // },
+  // {
+  //   type: "collapse",
+  //   name: "Làm nhiệm vụ kiếm tiền",
+  //   key: "do-task",
+  //   icon: <Icon fontSize="small">task</Icon>,
+  //   route: "/do-task",
+  //   component: <DoTask />,
+  // },
   {
     type: "collapse",
     name: "Làm nhiệm vụ kiếm tiền",
     key: "do-task",
     icon: <Icon fontSize="small">task</Icon>,
     route: "/do-task",
-    component: <DoTask />,
+    component: <DoOnlyTask />,
   },
   {
     type: "collapse",
