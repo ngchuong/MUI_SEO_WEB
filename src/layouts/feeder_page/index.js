@@ -40,12 +40,12 @@ function FeederPage() {
     }, 60000);
 
     const link = relatedData.origin;
-    window.open(link, "_blank", "location=yes,scrollbars=yes,status=yes");
+    window.open(link);
     setCheckReq(true);
   };
 
   const openLinkGetKey = () => {
-    window.open(currentTask.unlock_link, "_blank", "location=yes,scrollbars=yes,status=yes");
+    window.open(currentTask.unlock_link);
   };
 
   const DisplayTime = () => {
