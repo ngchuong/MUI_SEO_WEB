@@ -116,7 +116,10 @@ function DoOnlyTask() {
 
   const doneTask = async () => {
     const updateTask = () => {
-      dispatch(reqReceiveTask());
+      setTimeout(() => {
+        dispatch(reqReceiveTask());
+      }, 2000);
+
       unSetModal();
     };
     // request api send key to server, receive task
