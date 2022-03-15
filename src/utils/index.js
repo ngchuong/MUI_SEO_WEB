@@ -26,7 +26,9 @@ export const isMobile = () => {
   return false;
 };
 
-export const coppyToClipBoard = (id) => {
+export const copyToClipBoard = (text) => navigator.clipboard.writeText(text);
+
+export const copyToClipBoardOld = (id) => {
   if (document.selection) {
     const range = document.body.createTextRange();
     range.moveToElementText(document.getElementById(id));

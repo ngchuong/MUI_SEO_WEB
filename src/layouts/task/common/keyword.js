@@ -2,7 +2,7 @@ import MDTypography from "components/MDTypography";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 
-import { coppyToClipBoard } from "utils";
+import { copyToClipBoard } from "utils";
 
 export const KeyWord = ({ data }) => {
   if (!data) return "";
@@ -13,7 +13,7 @@ export const KeyWord = ({ data }) => {
         {data}
       </MDBox>
       <MDBox>
-        <MDButton size="small" onClick={() => coppyToClipBoard(id)}>
+        <MDButton size="small" onClick={() => copyToClipBoard(data)}>
           Coppy
         </MDButton>
       </MDBox>

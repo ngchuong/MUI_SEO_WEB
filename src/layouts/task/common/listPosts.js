@@ -2,19 +2,7 @@ import MDTypography from "components/MDTypography";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 
-const coppyToClipBoard = (id) => {
-  if (document.selection) {
-    const range = document.body.createTextRange();
-    range.moveToElementText(document.getElementById(id));
-    range.select().createTextRange();
-    document.execCommand("copy");
-  } else if (window.getSelection) {
-    const range = document.createRange();
-    range.selectNode(document.getElementById(id));
-    window.getSelection().addRange(range);
-    document.execCommand("copy");
-  }
-};
+const copyToClipBoard = (text) => navigator.clipboard.writeText(text);
 
 export const ListPost = ({ data }) => {
   const content =
@@ -31,7 +19,7 @@ export const ListPost = ({ data }) => {
             {el}
           </MDBox>
           <MDBox>
-            <MDButton size="small" onClick={() => coppyToClipBoard(id)}>
+            <MDButton size="small" onClick={() => copyToClipBoard(el)}>
               Coppy
             </MDButton>
           </MDBox>
