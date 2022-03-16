@@ -90,6 +90,16 @@ export const FormReviewSocial = ({ onChangeInput, onChangeImg, inputVal, isCreat
       <MDBox mb={2}>
         <TextField
           id="filled-multiline-static"
+          label="Link to page social"
+          fullWidth
+          rows={4}
+          value={inputVal.linkSocial}
+          onChange={onChangeInput("linkSocial")}
+        />
+      </MDBox>
+      <MDBox mb={2}>
+        <TextField
+          id="filled-multiline-static"
           label="Trang web đích"
           fullWidth
           rows={4}

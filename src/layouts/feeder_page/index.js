@@ -39,7 +39,10 @@ function FeederPage() {
       setCheckReq(false);
     }, 60000);
 
-    const link = relatedData.origin;
+    let link = relatedData.origin;
+    if (currentTask.type_task === "REVIEW_SOCIAL") {
+      link = relatedData.linkSocial;
+    }
     window.open(link);
     setCheckReq(true);
   };

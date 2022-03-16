@@ -10,7 +10,7 @@ export const ReviewSocial = ({ data }) => {
   if (!data) return null;
   const relatedData = data.related_data ? JSON.parse(data.related_data) : {};
   const openOriginLink = () => {
-    window.open(relatedData.origin);
+    window.open(relatedData.linkSocial);
   };
   return (
     <MDBox my={1}>

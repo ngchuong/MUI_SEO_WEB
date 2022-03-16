@@ -52,6 +52,11 @@ const DisplayTaskDetail = ({ info, shadow }) => {
       value: info.unlock_link,
     },
     {
+      key: "link_social",
+      label: "Link to page social",
+      value: relatedData.linkSocial,
+    },
+    {
       key: "key",
       label: "Key hoàn thành",
       value: relatedData.key,

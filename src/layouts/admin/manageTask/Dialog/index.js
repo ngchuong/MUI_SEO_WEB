@@ -71,7 +71,6 @@ const SwitchForm = ({ typeForm, onChangeInput, onChangeImg, inputVal, inputImg, 
           inputVal={inputVal}
           inputImg={inputImg}
           isCreate={isCreate}
-          typeForm={typeForm}
         />
       );
   }
@@ -87,6 +86,7 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
         origin: relatedData.origin,
         key_word: relatedData.key_word,
         key: relatedData.key,
+        linkSocial: relatedData.linkSocial,
       }
     : {
         name: "",
@@ -95,6 +95,7 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
         key_word: "",
         list_posts: [],
         unlock_link: "",
+        linkSocial: "",
         reward: "",
         max_turn: "",
         priority: "",
@@ -129,6 +130,7 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
       description,
       origin,
       key_word,
+      linkSocial,
       list_posts,
       unlock_link,
       reward,
@@ -149,6 +151,7 @@ export default function FormDialog({ handleClose, open, onSubmit, dataForm }) {
         image: dataForm ? relatedData.image : inputImg,
         origin,
         key_word,
+        linkSocial,
         key: key && key.length ? key : uuidv4(),
       },
     };
