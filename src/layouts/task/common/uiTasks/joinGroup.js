@@ -1,20 +1,16 @@
-import { useNavigate } from "react-router-dom";
-
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
-
 import { DisplayImg } from "../displayImg";
+
 import "./css.css";
 
-export const LikePage = ({ data }) => {
-  const navigate = useNavigate();
-
+export const JoinGroup = ({ data }) => {
   if (!data) return null;
-  const doTask = () => {
-    navigate("/feeder-page");
+  const relatedData = data.related_data ? JSON.parse(data.related_data) : {};
+  const openOriginLink = () => {
+    window.open(relatedData.origin);
   };
-
   return (
     <MDBox my={1}>
       <div>
@@ -60,7 +56,7 @@ export const LikePage = ({ data }) => {
         </div>
       </div>
       <MDBox>
-        <MDButton onClick={doTask} size="small" color="primary">
+        <MDButton size="small" color="primary" onClick={openOriginLink}>
           Làm nhiệm vụ ngay
         </MDButton>
       </MDBox>

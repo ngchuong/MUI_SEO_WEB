@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 // import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Icon from "@mui/material/Icon";
 
@@ -16,6 +17,7 @@ import "./index.css";
 // white","primary","secondary","info","success","warning","error","light","dark
 function FeederPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [time, setTime] = useState(120);
   const [isUnlock, setIsUnlock] = useState(false);
   const [checkReq, setCheckReq] = useState(false);
@@ -41,10 +43,7 @@ function FeederPage() {
       setCheckReq(false);
     }, 60000);
 
-    let link = relatedData.origin;
-    if (currentTask.type_task === "REVIEW_SOCIAL") {
-      link = relatedData.linkSocial;
-    }
+    const link = relatedData.origin;
     window.open(link);
     setCheckReq(true);
   };
@@ -58,6 +57,10 @@ function FeederPage() {
       return <div className="timer">Time up!</div>;
     }
     return <div className="timer">{time}&nbsp;seconds</div>;
+  };
+
+  const clickBack = () => {
+    navigate("/do-task");
   };
 
   return (
@@ -76,7 +79,7 @@ function FeederPage() {
           <MDTypography
             component="span"
             variant="header"
-            fontSize="30px"
+            fontSize="22px"
             textTransform="uppercase"
             color="dark"
             fontWeight="bold"
@@ -97,7 +100,7 @@ function FeederPage() {
             borderBottom: "1px solid #c1c1c1",
           }}
         >
-          <MDBox mt={4.5}>
+          <MDBox mt={3}>
             <DisplayTime />
           </MDBox>
           <MDBox mt={2}>
@@ -126,7 +129,7 @@ function FeederPage() {
               color="info"
               onClick={handleClick}
             >
-              <Icon fontSize="small">facebook</Icon>&nbsp;LIKE
+              LIKE
             </MDButton>
           </MDBox>
           <MDBox my={4.5}>
@@ -138,13 +141,18 @@ function FeederPage() {
               disabled={!isUnlock}
             >
               <Icon fontSize="small">{isUnlock ? "lock_open" : "lock"}</Icon>&nbsp;
-              {isUnlock ? "Unlocked" : "Locked"}
+              {isUnlock ? "Mở khóa" : "Khóa"}
+            </MDButton>
+          </MDBox>
+          <MDBox>
+            <MDButton style={{ width: "100px" }} onClick={clickBack} size="small" color="secondary">
+              Quay lại
             </MDButton>
           </MDBox>
         </MDBox>
-        <MDBox px={4} mt={1}>
-          Bạn hãy bấm vào Nút LIKE để thực hiện nhiệm vụ theo yêu cầu. Nếu làm đúng Nút LOCKED bên
-          dưới sẽ được mở khóa thành Nút UNLOCKED, Bấm vào sẽ lấy được Mã hoàn thành Nhiệm vụ. Hệ
+        <MDBox sx={{ fontSize: 16 }} px={4} mt={1}>
+          Bạn hãy bấm vào Nút LIKE để thực hiện nhiệm vụ theo yêu cầu. Nếu làm đúng Nút Khoá bên
+          dưới sẽ được mở khóa thành Nút Mở khóa, Bấm vào sẽ lấy được Mã hoàn thành Nhiệm vụ. Hệ
           thống sẽ mất một khoản thời gian ngắn để kiểm tra bạn đã thành đúng như yêu cầu hay chưa.
           Lưu ý: Hãy làm đúng theo yêu cầu nhiệm vụ, nếu hệ thống phát hiện yếu tố gian lận hoặc
           không làm đúng các bước bạn sẽ bị khóa tài khoản và hoàn toàn mất số tiền đã làm được

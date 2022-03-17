@@ -22,6 +22,7 @@ import { LikePage } from "./common/uiTasks/likePage";
 import { ReviewSocial } from "./common/uiTasks/reviewSocial";
 import { SubYoutube } from "./common/uiTasks/subYoutube";
 import { Traffic } from "./common/uiTasks/traffic";
+import { JoinGroup } from "./common/uiTasks/joinGroup";
 
 const SwitchUiTask = ({ data }) => {
   const type = data.type_task;
@@ -31,8 +32,9 @@ const SwitchUiTask = ({ data }) => {
     case "SUB_YOUTUBE":
       return <SubYoutube data={data} />;
     case "LIKE_PAGE":
-    case "JOIN_GROUP":
       return <LikePage data={data} />;
+    case "JOIN_GROUP":
+      return <JoinGroup data={data} />;
     case "REVIEW_SOCIAL":
       return <ReviewSocial data={data} />;
     default:
@@ -46,17 +48,12 @@ const UI = ({ data }) => {
   return <SwitchUiTask data={data} />;
 };
 
-const ControllerButton = ({ currentTask, onChangeKey, inputKey, doTask, doneTask, cancelTask }) => {
+const ControllerButton = ({ currentTask, onChangeKey, inputKey, doneTask, cancelTask }) => {
   if (!currentTask.id) {
     return <div>Không có nhiệm vụ</div>;
   }
   return (
     <MDBox>
-      {(currentTask.type_task === "LIKE_PAGE" || currentTask.type_task === "JOIN_GROUP") && (
-        <MDButton onClick={doTask} size="small" color="primary">
-          Làm nhiệm vụ ngay
-        </MDButton>
-      )}
       <MDBox my={1} component="form" role="form">
         <MDInput
           type="text"
@@ -136,11 +133,10 @@ function DoOnlyTask() {
     }
   };
 
-  const doTask = () => {
-    navigate("/feeder-page");
-  };
+  // const doTask = () => {
+  //   navigate("/feeder-page");
+  // };
 
-  // TODO: remember remove hardcode isMobile
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -155,7 +151,7 @@ function DoOnlyTask() {
               currentTask={currentTask}
               onChangeKey={onChangeKey}
               inputKey={inputKey}
-              doTask={doTask}
+              // doTask={doTask}
               doneTask={doneTask}
               cancelTask={cancelTask}
             />

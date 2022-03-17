@@ -1,0 +1,6 @@
+textarea:disabled {
+  color: rgb(52, 71, 103) !important;
+  padding: 4;
+  font-size: 18;
+  width: 100%;
+}

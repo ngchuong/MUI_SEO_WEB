@@ -2,9 +2,9 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 
-import { ListPost } from "../listPosts";
 import { DisplayImg } from "../displayImg";
 import { KeyWord } from "../keyword";
+import "./css.css";
 
 export const SubYoutube = ({ data }) => {
   if (!data) return null;
@@ -24,7 +24,14 @@ export const SubYoutube = ({ data }) => {
         <MDTypography fontWeight="medium" color="dark" variant="xx">
           Mô tả:
         </MDTypography>
-        &nbsp;{data.description}
+        <MDBox>
+          <textarea
+            style={{ fontSize: 16, fontWeight: 500 }}
+            rows="12"
+            disabled
+            defaultValue={data.description}
+          />
+        </MDBox>
       </div>
       <div>
         <MDTypography fontWeight="medium" color="dark" variant="xx">

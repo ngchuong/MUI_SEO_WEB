@@ -5,6 +5,7 @@ import MDInput from "components/MDInput";
 
 import { DisplayImg } from "../displayImg";
 import { KeyWord } from "../keyword";
+import "./css.css";
 
 export const Traffic = ({ data }) => {
   if (!data) return null;
@@ -21,7 +22,14 @@ export const Traffic = ({ data }) => {
         <MDTypography fontWeight="medium" color="dark" variant="xx">
           Mô tả:
         </MDTypography>
-        &nbsp;{data.description}
+        <MDBox>
+          <textarea
+            style={{ fontSize: 16, fontWeight: 500 }}
+            rows="12"
+            disabled
+            defaultValue={data.description}
+          />
+        </MDBox>
       </div>
       <div>
         <MDTypography fontWeight="medium" color="dark" variant="xx">

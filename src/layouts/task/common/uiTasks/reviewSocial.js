@@ -6,6 +6,8 @@ import MDInput from "components/MDInput";
 import { ListPost } from "../listPosts";
 import { DisplayImg } from "../displayImg";
 
+import "./css.css";
+
 export const ReviewSocial = ({ data }) => {
   if (!data) return null;
   const relatedData = data.related_data ? JSON.parse(data.related_data) : {};
@@ -24,7 +26,14 @@ export const ReviewSocial = ({ data }) => {
         <MDTypography fontWeight="medium" color="dark" variant="xx">
           Mô tả:
         </MDTypography>
-        &nbsp;{data.description}
+        <MDBox>
+          <textarea
+            style={{ fontSize: 16, fontWeight: 500 }}
+            rows="12"
+            disabled
+            defaultValue={data.description}
+          />
+        </MDBox>
       </div>
       <ListPost data={data.list_posts} />
       <div>
