@@ -140,10 +140,12 @@ function FeederPage() {
           </MDBox>
         </MDBox>
         <MDBox px={4} mt={1}>
-          Follow the actions set by the creator to unlock this link. when you have done what the
-          creator has asked you to do click on the now green unlock button. Do you like Sub1s? Would
-          you like to create your own Sub1s link? Its never been easier to do so. Sign Up by
-          clicking here and watch this in depth tutorial on how to use all features of Sub1s.
+          Bạn hãy bấm vào Nút LIKE để thực hiện nhiệm vụ theo yêu cầu. Nếu làm đúng Nút LOCKED bên
+          dưới sẽ được mở khóa thành Nút UNLOCKED, Bấm vào sẽ lấy được Mã hoàn thành Nhiệm vụ. Hệ
+          thống sẽ mất một khoản thời gian ngắn để kiểm tra bạn đã thành đúng như yêu cầu hay chưa.
+          Lưu ý: Hãy làm đúng theo yêu cầu nhiệm vụ, nếu hệ thống phát hiện yếu tố gian lận hoặc
+          không làm đúng các bước bạn sẽ bị khóa tài khoản và hoàn toàn mất số tiền đã làm được
+          trước đó.
         </MDBox>
       </MDBox>
     </div>
