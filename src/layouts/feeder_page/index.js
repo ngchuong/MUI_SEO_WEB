@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import get from "lodash/get";
 import { useSelector, useDispatch } from "react-redux";
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 // import { useNavigate } from "react-router-dom";
 
 import Icon from "@mui/material/Icon";
@@ -59,7 +61,8 @@ function FeederPage() {
   };
 
   return (
-    <div>
+    <DashboardLayout>
+      <DashboardNavbar />
       <MDBox
         style={{
           display: "flex",
@@ -80,7 +83,7 @@ function FeederPage() {
             opacity={0.8}
             sx={{ lineHeight: 0 }}
           >
-            Sub or like page to unlock
+            Bấm LIKE để làm nhiệm vụ
           </MDTypography>
         </MDBox>
         <MDBox
@@ -148,7 +151,7 @@ function FeederPage() {
           trước đó.
         </MDBox>
       </MDBox>
-    </div>
+    </DashboardLayout>
   );
 }
 

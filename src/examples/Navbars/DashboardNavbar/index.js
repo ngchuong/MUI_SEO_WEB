@@ -101,18 +101,13 @@ function DashboardNavbar({ absolute, light, isMini }) {
       sx={(theme) => navbar(theme, { transparentNavbar, absolute, light, darkMode })}
     >
       <Toolbar sx={(theme) => navbarContainer(theme)}>
-        <MDBox color="inherit" mb={{ xs: 1, md: 0 }} sx={(theme) => navbarRow(theme, { isMini })}>
+        <MDBox color="inherit" mb={{ md: 0 }} sx={(theme) => navbarRow(theme, { isMini })}>
           <Breadcrumbs icon="home" title={route[route.length - 1]} route={route} light={light} />
         </MDBox>
         {isMini ? null : (
           <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
-            <MDBox pr={1}>
-              <IconButton sx={navbarIconButton} size="small" disableRipple onClick={handleLogout}>
-                <Icon sx={iconsStyle}>logout</Icon> Đăng xuất
-              </IconButton>
-              {/* <MDButton onClick={handleLogout} size="small" color="primary">
-                <Icon fontSize="small">logout</Icon>,
-              </MDButton> */}
+            <MDBox sx={{ fontSize: 16 }} onClick={handleLogout}>
+              Đăng xuất
             </MDBox>
             <MDBox color={light ? "white" : "inherit"}>
               <IconButton
@@ -122,7 +117,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 sx={navbarMobileMenu}
                 onClick={handleMiniSidenav}
               >
-                <Icon sx={iconsStyle} fontSize="medium">
+                <Icon sx={iconsStyle} fontSize="large">
                   {miniSidenav ? "menu_open" : "menu"}
                 </Icon>
               </IconButton>
