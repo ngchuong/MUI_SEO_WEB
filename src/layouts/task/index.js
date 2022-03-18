@@ -127,6 +127,7 @@ function DoOnlyTask() {
       setModal(<SimpleDialog content={<div>Key không đúng</div>} />);
     }
     if (response && /20[0-9]/.test(response.status)) {
+      setInputKey("");
       setModal(<AlertDialog content={<div>Làm nhiệm vụ thành công</div>} onSubmit={updateTask} />);
     } else {
       setModal(<SimpleDialog content={<div>Key không đúng</div>} />);

@@ -159,7 +159,13 @@ export default function App() {
       )}
       <Routes>
         {getRoutes(checkRoutes(userInfo.email, isRoleAdmin))}
-        <Route path="*" element={<Navigate to="/home" />} />
+        <Route
+          path="*"
+          render={() => {
+            window.location.href = "https://home.job24h.edu.vn";
+            return null;
+          }}
+        />
       </Routes>
     </ThemeProvider>
   );
