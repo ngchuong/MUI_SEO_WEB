@@ -1,5 +1,7 @@
 textarea:disabled {
   color: rgb(34, 46, 66) !important;
+  -webkit-text-fill-color: rgb(34, 46, 66) !important;
+  opacity: 1;
   padding: 4;
   font-size: 18;
   width: 100%;
